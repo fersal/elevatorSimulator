@@ -5,39 +5,538 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3260_Simulator_Team6"
         mc:Ignorable="d"
-        Title="UVUFac Elevator Simulator" Height="350" Width="525" ResizeMode="NoResize">
-    <Grid Background="#FFB0AEAE">
-        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="173,281,0,0" VerticalAlignment="Top" Width="75" Click="StartButton_Click"/>
-        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="283,281,0,0" VerticalAlignment="Top" Width="75"/>
-        <Image HorizontalAlignment="Left" Height="224" Margin="10,10,0,0" VerticalAlignment="Top" Width="193" Source="resources/elevatorImage.jpg"/>
-        <Label Content="Passenger for Simulation" HorizontalAlignment="Left" Margin="208,87,0,0" VerticalAlignment="Top" Background="#FFB0AEAE"/>
-        <ComboBox x:Name="PassangerTypeComboBox" HorizontalAlignment="Left" Margin="361,116,0,0" VerticalAlignment="Top" Width="97">
-            <ComboBoxItem Content="Adult" IsSelected="True"/>
-            <ComboBoxItem Content="Child"/>
-        </ComboBox>
-        <Label Content="Passanger Type" HorizontalAlignment="Left" Margin="262,114,0,0" VerticalAlignment="Top"/>
-        <Label Content="Destination Floor" HorizontalAlignment="Left" Margin="254,146,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="DestinationFloorComboBox" HorizontalAlignment="Left" Margin="361,149,0,0" VerticalAlignment="Top" Width="45">
-            <ComboBoxItem Content="1" IsSelected="True"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-        </ComboBox>
-        <Label Content="Entry Floor" HorizontalAlignment="Left" Margin="286,178,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="EntryFloorComboBox" HorizontalAlignment="Left" Margin="362,181,0,0" VerticalAlignment="Top" Width="44">
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2" IsSelected="True"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-        </ComboBox>
-        <!--<Button x:Name="AddPassangerButton" Content="Add Passenger" HorizontalAlignment="Left" Margin="362,218,0,0" VerticalAlignment="Top" Width="96" Click="AddPassangerButton_Click"/>-->
+        Title="UVUFac Elevator Simulator" Height="600" Width="800" ResizeMode="NoResize">
+    <Grid Background="#FF1E5C37">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="411*"/>
+            <ColumnDefinition Width="383*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Width="400" HorizontalAlignment="Left" Margin="5,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--<Button x:Name="AddPassangerButton" Content="Add Passenger" HorizontalAlignment="Left" Margin="362,218,0,0" VerticalAlignment="Top" Width="96" Click="AddPassangerButton_Click"/>-->
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Utah Valley University Elevators" Foreground="White" FontFamily="Verdana" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            <Image Grid.Row="1" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <Image Grid.Row="2" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <Image Grid.Row="3" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <Image Grid.Row="4" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <Image Grid.Row="1" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
+            <Image Grid.Row="2" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
+            <Image Grid.Row="3" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
+            <Image Grid.Row="4" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
+            <Image Grid.Row="1" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
+            <Image Grid.Row="1" Grid.Column="0" Source="resources/mascot_combo.png" Margin="20"/>
+            <Image Grid.Row="2" Grid.Column="0" Source="resources/uvu_small.png" Margin="20"/>
+            <Image Grid.Row="3" Grid.Column="0" Source="resources/seal.png" Margin="20"/>
+            <Image Grid.Row="4" Grid.Column="0" Source="resources/logo.png" Margin="20"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Fourth Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Third Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Second Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="First Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+
+            <Rectangle x:Name="fourthFloorDoorRight" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                        <GradientStop Color="#FFD7E6E6"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="fourthFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="fourthFloorButtonPanel" Grid.Row="1" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15"  StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Button x:Name="btnFourthFloorDown" Grid.Row="1" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="resources/Arrow_Down.png" Stretch="Uniform">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Image Grid.Row="2" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
+            <Rectangle x:Name="thirdFloorDoorRight" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="thirdFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="thirdFloorButtonPanel" Grid.Row="2" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15"  StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button x:Name="btnThirdFloorUp" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnThirdFloorDown" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Image Grid.Row="3" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
+            <Rectangle x:Name="secondFloorDoorRight" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="secondFloorDoorLeft" Grid.Row="3" HorizontalAlignment="Left" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="secondFloorButtonPanel" Grid.Row="3" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button x:Name="btnSecondFloorUp" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnSecondFloorDown" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Image Grid.Row="4" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
+            <Rectangle x:Name="firstFloorDoorRight" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="firstFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="firstFloorButtonPanel" Grid.Row="4" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15" StrokeThickness="1">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button x:Name="btnFirstFloorUp" Grid.Row="4" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="btnFourthFloorDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="fourthFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="fourthFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="fourthFloorDoorRight"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"/>
+                            <DoubleAnimation 
+                                Storyboard.TargetName="fourthFloorDoorRight" 
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="btnThirdFloorDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="thirdFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="thirdFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="thirdFloorDoorRight"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"/>
+                            <DoubleAnimation 
+                                Storyboard.TargetName="thirdFloorDoorRight" 
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="btnSecondFloorDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="secondFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="secondFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="secondFloorDoorRight"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"/>
+                            <DoubleAnimation 
+                                Storyboard.TargetName="secondFloorDoorRight" 
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="btnFirstFloorUp">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="firstFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="firstFloorDoorLeft"
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"
+                                AutoReverse="False"/>
+                            <DoubleAnimation
+                                Storyboard.TargetName="firstFloorDoorRight"
+                                Storyboard.TargetProperty="Width"
+                                From="35" To="2"
+                                Duration="0:0:2"/>
+                            <DoubleAnimation 
+                                Storyboard.TargetName="firstFloorDoorRight" 
+                                Storyboard.TargetProperty="Width"
+                                From="2" To="35"
+                                BeginTime="0:0:8"
+                                Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="167*"/>
+                <RowDefinition Height="261*"/>
+                <RowDefinition Height="144*"/>
+            </Grid.RowDefinitions>
+            <Label FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" Width="311" Height="25" VerticalAlignment="Top" Margin="31,24,41,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12" Content="Elevator Request Pool" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="listBoxRequestPool" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top" Width="311" Margin="31,50,41,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
+            <Rectangle x:Name="elevatorButtonPanel" Grid.Row="1" Height="250" Width="125" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="31,5,0,0" StrokeThickness="2">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="0"/>
+                        <GradientStop Color="#FF798384" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD9E8E8"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button x:Name="btnOpenDoor" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/open-doors.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnCloseDoor" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/close-doors.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnFourthFloor" Content="4" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnThirdFloor" Content="3" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnSecondFloor" Content="2" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnFirstFloor" Content="*1" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
+                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Emergency" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,199,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Bell.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.7" ScaleY="0.7"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
+            <Slider Grid.Row="1" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="178,5,0,0" Width="74" Height="27"/>
+            <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="161,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="49"/>
+            <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="229,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="36"/>
+            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="127,90,0,0" VerticalAlignment="Top" Width="125" Click="StartButton_Click" Height="32" Grid.Row="2"/>
+            <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="100,513,0,0" VerticalAlignment="Top" Width="75"/>
+            <Label Content="Passenger for Simulation" HorizontalAlignment="Left" Margin="168,49,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="28" Grid.Row="1"/>
+            <ComboBox x:Name="PassangerTypeComboBox" HorizontalAlignment="Left" Margin="284,88,0,0" VerticalAlignment="Top" Width="74" Height="25" Grid.Row="1">
+                <ComboBoxItem Content="Adult" IsSelected="True"/>
+                <ComboBoxItem Content="Child"/>
+            </ComboBox>
+            <Label Content="Passanger Type" HorizontalAlignment="Left" Margin="178,88,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
+            <Label Content="Destination Floor" HorizontalAlignment="Left" Margin="168,127,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
+            <ComboBox x:Name="DestinationFloorComboBox" HorizontalAlignment="Left" Margin="284,127,0,0" VerticalAlignment="Top" Width="45" Height="25" Grid.Row="1">
+                <ComboBoxItem Content="1" IsSelected="True"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+            </ComboBox>
+            <Label Content="Entry Floor" HorizontalAlignment="Left" Margin="202,165,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
+            <ComboBox x:Name="EntryFloorComboBox" HorizontalAlignment="Left" Margin="284,166,0,0" VerticalAlignment="Top" Width="44" Height="25" Grid.Row="1">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2" IsSelected="True"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+            </ComboBox>
+        </Grid>
     </Grid>
 </Window>

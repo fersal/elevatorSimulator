@@ -106,5 +106,21 @@
   <ItemGroup>
     <Resource Include="resources\elevatorImage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\Arrow_Down.png" />
+    <Resource Include="resources\Arrow_Up.png" />
+    <Resource Include="resources\Bell.png" />
+    <Resource Include="resources\brick-wall.jpg" />
+    <Resource Include="resources\close-doors.png" />
+    <Resource Include="resources\floor5.jpg" />
+    <Resource Include="resources\logo.png" />
+    <Resource Include="resources\mascot_combo.png" />
+    <Resource Include="resources\open-doors.png" />
+    <Resource Include="resources\open-silver-elevator.jpg" />
+    <Resource Include="resources\seal.png" />
+    <Resource Include="resources\UVU-4.png" />
+    <Resource Include="resources\UVU-Institutional-Square-Mark-2016.svg.png" />
+    <Resource Include="resources\uvu_small.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
