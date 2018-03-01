@@ -10,18 +10,7 @@
         <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="173,281,0,0" VerticalAlignment="Top" Width="75" Click="StartButton_Click"/>
         <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="283,281,0,0" VerticalAlignment="Top" Width="75"/>
         <Image HorizontalAlignment="Left" Height="224" Margin="10,10,0,0" VerticalAlignment="Top" Width="193" Source="resources/elevatorImage.jpg"/>
-        <Label Content="Number of Floors" HorizontalAlignment="Left" Margin="208,10,0,0" VerticalAlignment="Top" Background="#FFB0AEAE"/>
-        <Label Content="Passengers" HorizontalAlignment="Left" Margin="208,87,0,0" VerticalAlignment="Top" Background="#FFB0AEAE"/>
-        <Label Content="Number of Elavators" HorizontalAlignment="Left" Margin="208,50,0,0" VerticalAlignment="Top" Background="#FFB0AEAE"/>
-        <ComboBox x:Name="FloorComboBox" HorizontalAlignment="Left" Margin="361,14,0,0" VerticalAlignment="Top" Width="45">
-            <ComboBoxItem Content="4" IsSelected="True"/>
-            <ComboBoxItem Content="8"/>
-        </ComboBox>
-        <ComboBox x:Name="ElevatorComboBox" HorizontalAlignment="Left" Margin="361,50,0,0" VerticalAlignment="Top" Width="45">
-            <ComboBoxItem Content="1" IsSelected="True"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="3"/>
-        </ComboBox>
+        <Label Content="Passenger for Simulation" HorizontalAlignment="Left" Margin="208,87,0,0" VerticalAlignment="Top" Background="#FFB0AEAE"/>
         <ComboBox x:Name="PassangerTypeComboBox" HorizontalAlignment="Left" Margin="361,116,0,0" VerticalAlignment="Top" Width="97">
             <ComboBoxItem Content="Adult" IsSelected="True"/>
             <ComboBoxItem Content="Child"/>
@@ -49,6 +38,6 @@
             <ComboBoxItem Content="7"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
-        <Button x:Name="AddPassangerButton" Content="Add Passenger" HorizontalAlignment="Left" Margin="362,218,0,0" VerticalAlignment="Top" Width="96" Click="AddPassangerButton_Click"/>
+        <!--<Button x:Name="AddPassangerButton" Content="Add Passenger" HorizontalAlignment="Left" Margin="362,218,0,0" VerticalAlignment="Top" Width="96" Click="AddPassangerButton_Click"/>-->
     </Grid>
 </Window>

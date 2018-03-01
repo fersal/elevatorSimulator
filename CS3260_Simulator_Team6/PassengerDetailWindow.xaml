@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3260_Simulator_Team6"
         mc:Ignorable="d"
-        Title="UVUFac Elevator Simulator - Passanger Detail" Height="350" Width="605.958" ResizeMode="NoResize">
+        Title="UVUFac Elevator Simulator - Passanger Travel Detail" Height="350" Width="605.958" ResizeMode="NoResize">
     <Grid Background="#FFB0AEAE">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="461*"/>

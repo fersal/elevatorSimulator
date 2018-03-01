@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CS3260_Simulator_Team6
 {
-	interface IPeople
+	public interface IPeople
 	{
+		long UseElevator(Elevator elevator);
 	}
 }
