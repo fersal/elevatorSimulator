@@ -89,7 +89,7 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Button x:Name="btnFourthFloorDown" Grid.Row="1" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+            <Button x:Name="btnFourthFloorDown" Click="btnFourthFloorDown_Click" Grid.Row="1" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="resources/Arrow_Down.png" Stretch="Uniform">
                         <ImageBrush.RelativeTransform>
@@ -146,7 +146,7 @@
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="btnThirdFloorUp" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+            <Button x:Name="btnThirdFloorUp" Click="btnThirdFloorUp_Click" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -160,7 +160,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnThirdFloorDown" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+            <Button x:Name="btnThirdFloorDown" Click="btnThirdFloorDown_Click" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -217,7 +217,7 @@
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="btnSecondFloorUp" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+            <Button x:Name="btnSecondFloorUp" Click="btnSecondFloorUp_Click" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -231,7 +231,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnSecondFloorDown" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF990B0B" Foreground="{x:Null}">
+            <Button x:Name="btnSecondFloorDown" Click="btnSecondFloorDown_Click" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -288,7 +288,7 @@
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="btnFirstFloorUp" Grid.Row="4" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF218926" Foreground="{x:Null}">
+            <Button x:Name="btnFirstFloorUp" Click="btnFirstFloorUp_Click" Grid.Row="4" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -448,17 +448,17 @@
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="btnOpenDoor" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnOpenDoor" Click="btnOpenDoor_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/open-doors.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnCloseDoor" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnCloseDoor" Click="btnCloseDoor_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/close-doors.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnFourthFloor" Content="4" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnFourthFloor" Click="btnFourthFloor_Click" Content="4" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD7E6E6" Offset="0"/>
@@ -466,7 +466,7 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnThirdFloor" Content="3" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnThirdFloor" Click="btnThirdFloor_Click" Content="3" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD7E6E6" Offset="0"/>
@@ -474,7 +474,7 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnSecondFloor" Content="2" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnSecondFloor" Click="btnSecondFloor_Click" Content="2" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD7E6E6" Offset="0"/>
@@ -482,7 +482,7 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnFirstFloor" Content="*1" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="btnFirstFloor" Click="btnFirstFloor_Click" Content="*1" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD7E6E6" Offset="0"/>
@@ -490,7 +490,7 @@
                     </RadialGradientBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="Emergency" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,199,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="#FF8B1919" FontFamily="Nirmala UI">
+            <Button x:Name="Emergency" Click="Emergency_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,199,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Bell.png">
                         <ImageBrush.RelativeTransform>
@@ -516,7 +516,7 @@
             </ComboBox>
             <Label Content="Passanger Type" HorizontalAlignment="Left" Margin="178,88,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
             <Label Content="Destination Floor" HorizontalAlignment="Left" Margin="168,127,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
-            <ComboBox x:Name="DestinationFloorComboBox" HorizontalAlignment="Left" Margin="284,127,0,0" VerticalAlignment="Top" Width="45" Height="25" Grid.Row="1">
+            <ComboBox x:Name="DestinationFloorComboBox" HorizontalAlignment="Left" Margin="284,167,0,0" VerticalAlignment="Top" Width="45" Height="25" Grid.Row="1">
                 <ComboBoxItem Content="1" IsSelected="True"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>
@@ -527,7 +527,7 @@
                 <ComboBoxItem Content="8"/>
             </ComboBox>
             <Label Content="Entry Floor" HorizontalAlignment="Left" Margin="202,165,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
-            <ComboBox x:Name="EntryFloorComboBox" HorizontalAlignment="Left" Margin="284,166,0,0" VerticalAlignment="Top" Width="44" Height="25" Grid.Row="1">
+            <ComboBox x:Name="EntryFloorComboBox" HorizontalAlignment="Left" Margin="284,129,0,0" VerticalAlignment="Top" Width="44" Height="25" Grid.Row="1">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="2" IsSelected="True"/>
                 <ComboBoxItem Content="3"/>
