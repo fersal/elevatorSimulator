@@ -761,13 +761,26 @@ namespace CS3260_Simulator_Team6
 
         private void doorAni_Complete(Storyboard sb, Button button)
         {
-            string removelistitem = request_.GetCurrentRequest();
+            string request = button.Name;
+            string removelistitem;
+            if (request == "btnCloseDoor")
+            {
+                removelistitem = "Close Elevator Doors Request";
+            }
+            else if(request == "btnOpenDoor")
+            {
+                removelistitem = "Open Elevator Doors Request";
+            }
+            else
+            {
+                removelistitem = request_.GetCurrentRequest();
+            }
             for (int i = 0; i < list_.Items.Count; i++)
             {
                 if (list_.Items[i].ToString().Contains(removelistitem))
                 {
                     list_.Items.RemoveAt(i);
-                    request_.CompleteRequest(request_.GetCurrentRequest());
+                    request_.CompleteRequest(removelistitem);
                     button.BorderBrush = null;
                     if (isDoorsOpen)
                     {
