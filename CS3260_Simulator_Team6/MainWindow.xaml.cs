@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,6 +25,8 @@ namespace CS3260_Simulator_Team6
 		private const string ADULT = "Adult";
 		private const string CHILD = "Child";
 		private const string PLEASE_WAIT = "It could be up to 40 seconds to get to the 8th floor\n		PLEASE WAIT....";
+        private const int CLOSED_DOOR_WIDTH = 35;
+        private const int OPEN_DOOR_WIDTH = 2;
 
 		private Elevator elevator;
 		private long travelTime;
@@ -45,11 +48,13 @@ namespace CS3260_Simulator_Team6
         private InternalFourthFloorCommand fourthCmd = null;
         private InternalEmergencyCommand emergencyCmd = null;
         private BrushConverter bc = new BrushConverter();
+        private Doors doorCmd = null;
 
         public MainWindow()
 		{
 			InitializeComponent();
-            click = new ButtonClick(request);
+            doorCmd = new Doors(request, listBoxRequestPool);
+            click = new ButtonClick(request, doorCmd);
             firstUpCmd = new FloorFirstUpCommand(click);
             fourDownCmd = new FloorFourDownCommand(click);
             fourDownCmd = new FloorFourDownCommand(click);
@@ -65,6 +70,7 @@ namespace CS3260_Simulator_Team6
             fourthCmd = new InternalFourthFloorCommand(click);
             emergencyCmd = new InternalEmergencyCommand(click);
         }
+
 
 		private void StartButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -188,22 +194,26 @@ namespace CS3260_Simulator_Team6
         {
             command = opendDoorCmd;
             bool clicked = command.Execute();
-            if (!clicked)
+            if (!doorCmd.GetIsDoorsOpen())
             {
                 listBoxRequestPool.Items.Add(request.GetLastRequest());
                 btnOpenDoor.BorderBrush = Brushes.LightSeaGreen;
+                //Only for test case
+                doorCmd.OpenCloseDoors(btnOpenDoor, fourthFloorDoorLeft, fourthFloorDoorRight, "fourthFloorDoorLeft", "fourthFloorDoorRight", OPEN_DOOR_WIDTH);
             }
-            StartButton.Focus();
+        StartButton.Focus();
         }
 
         private void btnCloseDoor_Click(object sender, RoutedEventArgs e)
         {
             command = closeDoorCmd;
             bool clicked = command.Execute();
-            if (!clicked)
+            if (doorCmd.GetIsDoorsOpen())
             {
                 listBoxRequestPool.Items.Add(request.GetLastRequest());
                 btnCloseDoor.BorderBrush = Brushes.LightSeaGreen;
+                //Only for test case
+                doorCmd.OpenCloseDoors(btnCloseDoor, fourthFloorDoorLeft, fourthFloorDoorRight, "fourthFloorDoorLeft", "fourthFloorDoorRight", CLOSED_DOOR_WIDTH);
             }
             StartButton.Focus();
         }
@@ -434,28 +444,33 @@ namespace CS3260_Simulator_Team6
     public class ButtonClick : IReciever
     {
         RequestPool request_;
+        Doors doors_;
         bool floorOneUp_, floorTwoUp_, floorTwoDown_, floorThreeUp_,
-            floorThreeDown_, floorFourDown_, intOpenDoor_, intCloseDoor_,
+            floorThreeDown_, floorFourDown_,
             intFloorFour_, intFloorThree_, intFloorTwo_, intFloorOne_,
             intEmerg_;
         ACTION_LIST currentAction;
 
-        public ButtonClick(RequestPool request)
+        public ButtonClick(RequestPool request, Doors doors)
         {
             floorOneUp_ = false; floorTwoUp_ = false; floorTwoDown_ = false; floorThreeUp_ = false;
-            floorThreeDown_ = false; floorFourDown_ = false; intOpenDoor_ = false; intCloseDoor_ = false;
+            floorThreeDown_ = false; floorFourDown_ = false;
             intFloorFour_ = false; intFloorThree_ = false; intFloorTwo_ = false; intFloorOne_ = false;
             intEmerg_ = false;
             request_ = request;
+            doors_ = doors;
         }
+
         public bool GetResult()
         {
             bool result = false;
+
             if (currentAction == ACTION_LIST.floorFourDown)
             {
                 if (floorFourDown_)
                 {
                     result = true;
+                    floorFourDown_ = false;
                 }
                 else
                 {
@@ -469,6 +484,7 @@ namespace CS3260_Simulator_Team6
                 if (floorThreeUp_)
                 {
                     result = true;
+                    floorThreeUp_ = false;
                 }
                 else
                 {
@@ -482,6 +498,7 @@ namespace CS3260_Simulator_Team6
                 if (floorThreeDown_)
                 {
                     result = true;
+                    floorThreeDown_ = false;
                 }
                 else
                 {
@@ -495,6 +512,7 @@ namespace CS3260_Simulator_Team6
                 if (floorTwoUp_)
                 {
                     result = true;
+                    floorTwoUp_ = false;
                 }
                 else
                 {
@@ -508,6 +526,7 @@ namespace CS3260_Simulator_Team6
                 if (floorTwoDown_)
                 {
                     result = true;
+                    floorTwoDown_ = false;
                 }
                 else
                 {
@@ -521,6 +540,7 @@ namespace CS3260_Simulator_Team6
                 if (floorOneUp_)
                 {
                     result = true;
+                    floorOneUp_ = false;
                 }
                 else
                 {
@@ -531,28 +551,26 @@ namespace CS3260_Simulator_Team6
             }
             else if (currentAction == ACTION_LIST.intCloseDoor)
             {
-                if (intCloseDoor_)
+                if (doors_.GetIsDoorsOpen())
                 {
-                    result = true;
+                    request_.AddRequest("Close Elevator Doors Request");
+                    result = false;
                 }
                 else
                 {
-                    intCloseDoor_ = true;
-                    request_.AddRequest("Close Elevator Doors Request");
-                    result = false;
+                    result = true;
                 }
             }
             else if (currentAction == ACTION_LIST.intOpenDoor)
             {
-                if (intOpenDoor_)
+                if (!doors_.GetIsDoorsOpen())
                 {
-                    result = true;
+                    request_.AddRequest("Open Elevator Doors Request");
+                    result = false;
                 }
                 else
                 {
-                    intOpenDoor_ = true;
-                    request_.AddRequest("Open Elevator Doors Request");
-                    result = false;
+                    result = true;
                 }
             }
             else if (currentAction == ACTION_LIST.intEmerg)
@@ -560,6 +578,7 @@ namespace CS3260_Simulator_Team6
                 if (intEmerg_)
                 {
                     result = true;
+                    intEmerg_ = false;
                 }
                 else
                 {
@@ -573,6 +592,7 @@ namespace CS3260_Simulator_Team6
                 if (intFloorFour_)
                 {
                     result = true;
+                    intFloorFour_ = false;
                 }
                 else
                 {
@@ -586,6 +606,7 @@ namespace CS3260_Simulator_Team6
                 if (intFloorThree_)
                 {
                     result = true;
+                    intFloorThree_ = false;
                 }
                 else
                 {
@@ -599,6 +620,7 @@ namespace CS3260_Simulator_Team6
                 if (intFloorTwo_)
                 {
                     result = true;
+                    intFloorTwo_ = false;
                 }
                 else
                 {
@@ -612,6 +634,7 @@ namespace CS3260_Simulator_Team6
                 if (intFloorOne_)
                 {
                     result = true;
+                    intFloorOne_ = false;
                 }
                 else
                 {
@@ -632,15 +655,18 @@ namespace CS3260_Simulator_Team6
     public class RequestPool
     {
         private List<string> requestPool;
+        private string currentRequest;
 
         public RequestPool()
         {
             requestPool = new List<string>();
+            currentRequest = "";
         }
 
         public void AddRequest(string request)
         {
             requestPool.Add(request);
+            currentRequest = request;
         }
 
         public void CompleteRequest(string request)
@@ -651,6 +677,109 @@ namespace CS3260_Simulator_Team6
         public string GetLastRequest()
         {
             return requestPool.Last();
+        }
+
+        public string GetCurrentRequest()
+        {
+            return currentRequest;
+        }
+    }
+
+    public class Doors
+    {
+        RequestPool request_;
+        private bool isDoorsOpen;
+        private bool doorsInOperation;
+        private ListBox list_;
+        private Storyboard doorOperation;
+        private string lastOperation;
+
+        public Doors(RequestPool request, ListBox list)
+        {
+            isDoorsOpen = false;
+            doorsInOperation = false;
+            request_ = request;
+            list_ = list;
+        }
+
+        public void OpenCloseDoors(Button button, Rectangle leftDoor, Rectangle rightDoor, string leftDoorName, string rightDoorName, int toSize)
+        {
+            if(doorsInOperation == true)
+            {
+                doorOperation.Stop();
+                string removelistitem = lastOperation;
+                for (int i = 0; i < list_.Items.Count; i++)
+                {
+                    if (list_.Items[i].ToString().Contains(removelistitem))
+                    {
+                        list_.Items.RemoveAt(i);
+                        request_.CompleteRequest(lastOperation);
+                        button.BorderBrush = null;
+                        if (isDoorsOpen)
+                        {
+                            isDoorsOpen = false;
+                        }
+                        else
+                        {
+                            isDoorsOpen = true;
+                        }
+                        doorsInOperation = false;
+                    }
+                }
+            }
+            doorsInOperation = true;
+            lastOperation = request_.GetCurrentRequest();
+            DoubleAnimation leftDoorAnimation = new DoubleAnimation();
+            leftDoorAnimation.From = leftDoor.ActualWidth;
+            leftDoorAnimation.To = toSize;
+            leftDoorAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+            DoubleAnimation rightDoorAnimation = new DoubleAnimation();
+            rightDoorAnimation.From = rightDoor.ActualWidth;
+            rightDoorAnimation.To = toSize;
+            rightDoorAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+            Storyboard.SetTargetName(leftDoorAnimation, leftDoorName);
+            Storyboard.SetTargetProperty(leftDoorAnimation, new PropertyPath(Rectangle.WidthProperty));
+            doorOperation = new Storyboard();
+            doorOperation.Children.Add(leftDoorAnimation);
+            Storyboard.SetTargetName(rightDoorAnimation, rightDoorName);
+            Storyboard.SetTargetProperty(rightDoorAnimation, new PropertyPath(Rectangle.WidthProperty));
+            doorOperation.Children.Add(rightDoorAnimation);
+            doorOperation.Completed += (s, eA) => doorAni_Complete(doorOperation, button);
+            doorOperation.Begin(leftDoor);
+            doorOperation.Begin(rightDoor);
+        }
+
+        public bool GetIsDoorsOpen()
+        {
+            return isDoorsOpen;
+        }
+
+        public bool GetIsDoorsInOperation()
+        {
+            return doorsInOperation;
+        }
+
+        private void doorAni_Complete(Storyboard sb, Button button)
+        {
+            string removelistitem = request_.GetCurrentRequest();
+            for (int i = 0; i < list_.Items.Count; i++)
+            {
+                if (list_.Items[i].ToString().Contains(removelistitem))
+                {
+                    list_.Items.RemoveAt(i);
+                    request_.CompleteRequest(request_.GetCurrentRequest());
+                    button.BorderBrush = null;
+                    if (isDoorsOpen)
+                    {
+                        isDoorsOpen = false;
+                    }
+                    else
+                    {
+                        isDoorsOpen = true;
+                    }
+                    doorsInOperation = false;
+                }
+            }
         }
     }
 }
