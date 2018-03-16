@@ -7,9 +7,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 namespace CS3260_Simulator_Team6.Properties
 {
+    
 
 
 	/// <summary>
@@ -67,5 +67,5 @@ namespace CS3260_Simulator_Team6.Properties
 				resourceCulture = value;
 			}
 		}
-	}
+    }
 }

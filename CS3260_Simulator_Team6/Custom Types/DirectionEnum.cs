@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CS3260_Simulator_Team6
 {
-	public interface IPeople
-	{
-		long UseElevator(Elevator elevator);
-	}
+    public enum Direction
+    {
+        Up,
+        Down,
+        None
+    }
 }

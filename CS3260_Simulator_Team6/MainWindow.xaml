@@ -4,18 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS3260_Simulator_Team6"
+        xmlns:CS3260_Simulator_Team6="clr-namespace:CS3260_Simulator_Team6"
         mc:Ignorable="d"
-        Title="UVUFac Elevator Simulator" Height="600" Width="800" ResizeMode="NoResize" Icon="resources/UVU-Institutional-Square-Mark-2016.svg.png">
+        Title="UVUFac Elevator Simulator" Height="800" Width="1000" ResizeMode="NoResize" Icon="resources/UVU-Institutional-Square-Mark-2016.svg.png">
+
     <Grid Background="#FF1E5C37">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="411*"/>
             <ColumnDefinition Width="383*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Width="400" HorizontalAlignment="Left" Margin="5,0,0,5">
+        <Grid Grid.Column="0" Width="500" HorizontalAlignment="Left" Margin="5,0,0,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="219"/>
+                <ColumnDefinition Width="65"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
@@ -27,69 +29,105 @@
 
             <!--<Button x:Name="AddPassangerButton" Content="Add Passenger" HorizontalAlignment="Left" Margin="362,218,0,0" VerticalAlignment="Top" Width="96" Click="AddPassangerButton_Click"/>-->
 
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Utah Valley University Elevators" Foreground="White" FontFamily="Verdana" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-            <Image Grid.Row="1" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
-            <Image Grid.Row="2" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
-            <Image Grid.Row="3" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
-            <Image Grid.Row="4" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Utah Valley University Elevators" Foreground="White" FontFamily="Verdana" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="19" Margin="56,3" Width="288"/>
+            <Image Grid.Row="1" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill" Height="160"/>
+            <Image Grid.Row="2" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill" Height="160"/>
+            <Image Grid.Row="3" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill" Height="160"/>
+            <Image Grid.Row="4" Grid.ColumnSpan="3" Source="resources/floor5.jpg" VerticalAlignment="Bottom" Stretch="UniformToFill" Height="160"/>
             <Image Grid.Row="1" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
             <Image Grid.Row="2" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
             <Image Grid.Row="3" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
             <Image Grid.Row="4" Grid.ColumnSpan="3" Source="resources/brick-wall.jpg" Margin="0,0,0,16" Stretch="UniformToFill"/>
-            <Image Grid.Row="1" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
-            <Image Grid.Row="1" Grid.Column="0" Source="resources/mascot_combo.png" Margin="20"/>
-            <Image Grid.Row="2" Grid.Column="0" Source="resources/uvu_small.png" Margin="20"/>
-            <Image Grid.Row="3" Grid.Column="0" Source="resources/seal.png" Margin="20"/>
-            <Image Grid.Row="4" Grid.Column="0" Source="resources/logo.png" Margin="20"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Fourth Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Third Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="Second Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="First Floor" Margin="5" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <Image Grid.Row="1" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Height="149" Margin="0,0,0,16" VerticalAlignment="Bottom" Width="117"/>
+            <Image Grid.Row="1" Grid.Column="0" Source="resources/mascot_combo.png" Margin="10,0,0,30" Height="50" Width="80" HorizontalAlignment="Left"/>
+            <Image Grid.Row="2" Grid.Column="0" Source="resources/uvu_small.png" Margin="10,0,0,30" Height="50" Width="70" HorizontalAlignment="Left"/>
+            <Image Grid.Row="3" Grid.Column="0" Source="resources/seal.png" Margin="10,0,0,30" Height="70" Width="70" HorizontalAlignment="Left"/>
+            <Image Grid.Row="4" Grid.Column="0" Source="resources/logo.png" Margin="10,0,0,30" Height="50" Width="69" HorizontalAlignment="Left"/>
+            <Image x:Name="imgFloorFourPerson_3" Grid.Row="1" Grid.Column="0" Source="resources/Person_3.png" Width="50" HorizontalAlignment="Right" Margin="0,0,37,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_1" Grid.Row="1" Grid.Column="1" Source="resources/Person_2.png" Width="50" HorizontalAlignment="Left" Margin="0,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_6" Grid.Row="1" Grid.Column="0" Source="resources/Person_1.png" Width="50" HorizontalAlignment="Left" Margin="30,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_2" Grid.Row="1" Grid.Column="0" Source="resources/Person_6.png" Width="50" HorizontalAlignment="Right" Margin="0,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_4" Grid.Row="1" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Right" Margin="0,0,70,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_8" Grid.Row="1" Grid.Column="0" Source="resources/Person_4.png" Width="50" HorizontalAlignment="Left" Margin="5,0,0,7" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_7" Grid.Row="1" Grid.Column="0" Source="resources/Person_8.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorFourPerson_5" Grid.Row="1" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
 
-            <Rectangle x:Name="fourthFloorDoorRight" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+            <Image x:Name="imgElevatorFourPerson_1" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_2" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_3" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_4" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_5" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="100,0,0,31" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_6" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="72,0,0,29" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_7" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,28" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_8" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="80,0,0,26" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Fourth Floor" Margin="5,5,5,0" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Third Floor" Margin="5,5,5,0" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Second Floor" Margin="5,5,5,0" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="First Floor" Margin="5,5,5,0" Height="20" VerticalAlignment="Top" Foreground="#FF194B14" FontWeight="Bold" FontSize="16"/>
+            <Rectangle Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Height="12" Margin="0,6,0,0" StrokeThickness="0.5" Width="32" >
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
+                        <GradientStop Color="#FF65685D" Offset="0"/>
+                        <GradientStop Color="#FFEAF4F7" Offset="1"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                        <GradientStop Color="#FFD7E6E6"/>
-                    </RadialGradientBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF2A2828" Offset="1"/>
+                    </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="fourthFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
+            <Polygon x:Name="floorFourDownIndicator" Grid.Row="1" Grid.Column="1" Points="0,5 10,5 5,13" Stroke="White" Fill="white" VerticalAlignment="Top" Height="13" Margin="0,3,0,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" />
+            <Rectangle x:Name="fourthFloorDoorRight" x:FieldModifier="public" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Width="47" Height="141" Margin="0,0,63,17" StrokeThickness="1" VerticalAlignment="Bottom">
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="fourthFloorDoorLeft" x:FieldModifier="public" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="47" Height="141" Margin="63,0,0,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="fourthFloorButtonPanel" Grid.Row="1" Grid.Column="2" Height="90" Width="46" Margin="0"  StrokeThickness="1" HorizontalAlignment="Left">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="fourthFloorButtonPanel" Grid.Row="1" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15"  StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                        <GradientStop Color="#FFB0B5B0" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Button x:Name="btnFourthFloorDown" Click="btnFourthFloorDown_Click" Grid.Row="1" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnFourthFloorDown" Click="btnFourthFloorDown_Click" Grid.Row="1" Grid.Column="2" Width="26" Height="25" Margin="10,0,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush ImageSource="resources/Arrow_Down.png" Stretch="Uniform">
                         <ImageBrush.RelativeTransform>
@@ -103,50 +141,96 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Image Grid.Row="2" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
-            <Rectangle x:Name="thirdFloorDoorRight" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+            <Button x:Name="btnAddPassengerFloorFour" Grid.Row="1" Grid.Column="0" Margin="154,14,197,143" Content="Add Passenger" FontSize="11" Grid.ColumnSpan="2" Click="btnAddPassengerFloorFour_Click"/>
+            <Button x:Name="btnAddPassengerFloorThree" Grid.Row="2" Grid.Column="0" Margin="154,14,197,143" Content="Add Passenger" FontSize="11" Grid.ColumnSpan="2" Click="btnAddPassengerFloorThree_Click" />
+            <Button x:Name="btnAddPassengerFloorTwo" Grid.Row="3" Grid.Column="0" Margin="154,14,197,143" Content="Add Passenger" FontSize="11" Grid.ColumnSpan="2" Click="btnAddPassengerFloorTwo_Click" />
+            <Button x:Name="btnAddPassengerFloorOne" Grid.Row="4" Grid.Column="0" Margin="154,14,197,143" Content="Add Passenger" FontSize="11" Grid.ColumnSpan="2" Click="btnAddPassengerFloorOne_Click" />
+            <!--<Slider x:Name="FloorFourPeopleSlider" Grid.Row="1" Grid.ColumnSpan="2" Maximum="8" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,10,184,0" Width="145" Height="27" HorizontalAlignment="Right" Foreground="Black" ValueChanged="FloorFourPeopleSlider_ValueChanged"/>
+            <Slider x:Name="FloorThreePeopleSlider" Grid.Row="2" Grid.ColumnSpan="2" Maximum="8" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,10,184,0" Width="145" Height="27" HorizontalAlignment="Right" Foreground="Black" ValueChanged="FloorThreePeopleSlider_ValueChanged"/>
+            <Slider x:Name="FloorTwoPeopleSlider" Grid.Row="3" Grid.ColumnSpan="2" Maximum="8" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,10,184,0" Width="145" Height="27" HorizontalAlignment="Right" Foreground="Black" ValueChanged="FloorTwoPeopleSlider_ValueChanged"/>
+            <Slider x:Name="FloorOnePeopleSlider" Grid.Row="4" Grid.ColumnSpan="2" Maximum="8" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,10,184,0" Width="145" Height="27" HorizontalAlignment="Right" Foreground="Black" ValueChanged="FloorOnePeopleSlider_ValueChanged"/>-->
+            <Image Grid.Row="2" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Height="149" Margin="0,0,0,16" VerticalAlignment="Bottom" Width="117"/>
+
+            <Image x:Name="imgFloorThreePerson_3" Grid.Row="2" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Right" Margin="0,0,37,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_1" Grid.Row="2" Grid.Column="1" Source="resources/Person_3.png" Width="50" HorizontalAlignment="Left" Margin="0,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_6" Grid.Row="2" Grid.Column="0" Source="resources/Person_2.png" Width="50" HorizontalAlignment="Left" Margin="90,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_2" Grid.Row="2" Grid.Column="0" Source="resources/Person_1.png" Width="50" HorizontalAlignment="Right" Margin="0,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_4" Grid.Row="2" Grid.Column="0" Source="resources/Person_8.png" Width="50" HorizontalAlignment="Right" Margin="0,0,60,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_8" Grid.Row="2" Grid.Column="0" Source="resources/Person_6.png" Width="50" HorizontalAlignment="Left" Margin="5,0,0,7" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_7" Grid.Row="2" Grid.Column="0" Source="resources/Person_4.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorThreePerson_5" Grid.Row="2" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Left" Margin="60,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+
+            <Image x:Name="imgElevatorThreePerson_1" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_2" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_3" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_4" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_5" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="100,0,0,31" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_6" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="72,0,0,29" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_7" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,28" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_8" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="80,0,0,26" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Rectangle Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Height="12" Margin="0,6,0,0" StrokeThickness="0.5" Width="32" >
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
+                        <GradientStop Color="#FF65685D" Offset="0"/>
+                        <GradientStop Color="#FFEAF4F7" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF2A2828" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Polygon x:Name="floorThreeUpIndicator" Grid.Row="2" Grid.Column="1" Points="5,0 10,8 0,8" Stroke="White" Fill="White" VerticalAlignment="Top" Height="8" Margin="97.5,8,0,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" HorizontalAlignment="Left" />
+            <Polygon x:Name="floorThreeDownIndicator" Grid.Row="2" Grid.Column="1" Points="0,5 10,5 5,13" Stroke="White" Fill="White" VerticalAlignment="Top" Height="13" Margin="0,3,96.5,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" HorizontalAlignment="Right" />
+            <Rectangle x:Name="thirdFloorDoorRight" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Width="47" Height="141" Margin="0,0,63,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="thirdFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Width="47" Height="141" Margin="63,0,0,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="thirdFloorButtonPanel" Grid.Row="2" Grid.Column="2" Height="90" Width="46" Margin="0"  StrokeThickness="1" HorizontalAlignment="Left">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                        <GradientStop Color="#FFB0B5B0" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="thirdFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="thirdFloorButtonPanel" Grid.Row="2" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15"  StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button x:Name="btnThirdFloorUp" Click="btnThirdFloorUp_Click" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnThirdFloorUp" Click="btnThirdFloorUp_Click" Grid.Row="2" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Top" Margin="10,60,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -160,7 +244,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnThirdFloorDown" Click="btnThirdFloorDown_Click" Grid.Row="2" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnThirdFloorDown" Click="btnThirdFloorDown_Click" Grid.Row="2" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Bottom" Margin="10,0,0,60" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -174,50 +258,88 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Image Grid.Row="3" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
-            <Rectangle x:Name="secondFloorDoorRight" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+            <Image Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" Source="resources/open-silver-elevator.jpg" Height="149" Margin="0,0,0,16" Width="117"/>
+
+            <Image x:Name="imgFloorTwoPerson_3" Grid.Row="3" Grid.Column="0" Source="resources/Person_8.png" Width="50" HorizontalAlignment="Right" Margin="0,0,37,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_1" Grid.Row="3" Grid.Column="1" Source="resources/Person_4.png" Width="50" HorizontalAlignment="Left" Margin="0,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_6" Grid.Row="3" Grid.Column="0" Source="resources/Person_3.png" Width="50" HorizontalAlignment="Left" Margin="80,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_2" Grid.Row="3" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Right" Margin="0,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_4" Grid.Row="3" Grid.Column="0" Source="resources/Person_6.png" Width="50" HorizontalAlignment="Right" Margin="0,0,70,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_8" Grid.Row="3" Grid.Column="0" Source="resources/Person_2.png" Width="50" HorizontalAlignment="Left" Margin="5,0,0,7" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_7" Grid.Row="3" Grid.Column="0" Source="resources/Person_1.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorTwoPerson_5" Grid.Row="3" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+
+            <Image x:Name="imgElevatorTwoPerson_1" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_2" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_3" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_4" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_5" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="100,0,0,31" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_6" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="72,0,0,29" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_7" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,28" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_8" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="80,0,0,26" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Rectangle Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Height="12" Margin="0,6,0,0" StrokeThickness="0.5" Width="32" >
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
+                        <GradientStop Color="#FF65685D" Offset="0"/>
+                        <GradientStop Color="#FFEAF4F7" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF2A2828" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Polygon x:Name="floorTwoUpIndicator" Grid.Row="3" Grid.Column="1" Points="5,0 10,8 0,8" Stroke="White" Fill="White" VerticalAlignment="Top" Height="8" Margin="97.5,8,0,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" HorizontalAlignment="Left" />
+            <Polygon x:Name="floorTwoDownIndicator" Grid.Row="3" Grid.Column="1" Points="0,5 10,5 5,13" Stroke="White" Fill="White" VerticalAlignment="Top" Height="13" Margin="0,3,96.5,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" HorizontalAlignment="Right" />
+            <Rectangle x:Name="secondFloorDoorRight" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" Width="47" Height="141" Margin="0,0,63,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="secondFloorDoorLeft" Grid.Row="3" HorizontalAlignment="Left" Grid.Column="1" Width="47" Height="141" Margin="63,0,0,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="secondFloorButtonPanel" Grid.Row="3" Grid.Column="2" Height="90" Width="46" Margin="0" StrokeThickness="1" HorizontalAlignment="Left">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                        <GradientStop Color="#FFB0B5B0" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="secondFloorDoorLeft" Grid.Row="3" HorizontalAlignment="Left" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="secondFloorButtonPanel" Grid.Row="3" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15" StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button x:Name="btnSecondFloorUp" Click="btnSecondFloorUp_Click" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnSecondFloorUp" Click="btnSecondFloorUp_Click" Grid.Row="3" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Top" Margin="10,60,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -231,7 +353,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnSecondFloorDown" Click="btnSecondFloorDown_Click" Grid.Row="3" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30,60,30,30" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnSecondFloorDown" Click="btnSecondFloorDown_Click" Grid.Row="3" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Bottom" Margin="10,0,0,60" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -245,50 +367,87 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
-            <Image Grid.Row="4" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Width="83" Height="116" Margin="5,5,5,15"/>
-            <Rectangle x:Name="firstFloorDoorRight" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" Width="35" Height="105" Margin="64,13,33,18" StrokeThickness="1">
+            <Image Grid.Row="4" Grid.Column="1" Source="resources/open-silver-elevator.jpg" Height="149" Margin="0,0,0,16" VerticalAlignment="Bottom" Width="117"/>
+
+            <Image x:Name="imgFloorOnePerson_3" Grid.Row="4" Grid.Column="0" Source="resources/Person_2.png" Width="50" HorizontalAlignment="Right" Margin="0,0,37,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_1" Grid.Row="4" Grid.Column="1" Source="resources/Person_1.png" Width="50" HorizontalAlignment="Left" Margin="0,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_6" Grid.Row="4" Grid.Column="0" Source="resources/Person_4.png" Width="50" HorizontalAlignment="Left" Margin="105,0,0,8" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_2" Grid.Row="4" Grid.Column="0" Source="resources/Person_8.png" Width="50" HorizontalAlignment="Right" Margin="0,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_4" Grid.Row="4" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Right" Margin="0,0,70,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_8" Grid.Row="4" Grid.Column="0" Source="resources/Person_3.png" Width="50" HorizontalAlignment="Left" Margin="0,0,0,7" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_7" Grid.Row="4" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgFloorOnePerson_5" Grid.Row="4" Grid.Column="0" Source="resources/Person_6.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
+
+            <Image x:Name="imgElevatorOnePerson_1" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_2" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_3" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_4" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_5" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="100,0,0,31" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_6" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="72,0,0,29" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_7" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,28" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_8" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="80,0,0,26" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Rectangle Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Height="12" Margin="0,6,0,0" StrokeThickness="0.5" Width="32" >
                 <Rectangle.Stroke>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
+                        <GradientStop Color="#FF65685D" Offset="0"/>
+                        <GradientStop Color="#FFEAF4F7" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF2A2828" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Polygon x:Name="floorOneUpIndicator" Grid.Row="4" Grid.Column="1" Points="5,0 10,8 0,8" Stroke="White" Fill="White" VerticalAlignment="Top" Height="8" Margin="0,8,0,0" RenderTransformOrigin="0.294,0.479" StrokeThickness="0.2" Width="10" />
+            <Rectangle x:Name="firstFloorDoorRight" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" Width="47" Height="141" Margin="0,0,63,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="firstFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" Width="47" Height="141" Margin="63,0,0,17" StrokeThickness="1" VerticalAlignment="Bottom">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
+                    </LinearGradientBrush>
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD9E8E8" Offset="1"/>
+                        <GradientStop Color="#FFA6A8A2" Offset="0.467"/>
+                        <GradientStop Color="#FF3D3B2C"/>
+                        <GradientStop Color="#FFD6E4E4" Offset="0.155"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="firstFloorButtonPanel" Grid.Row="4" Grid.Column="2" Height="90" Width="46" Margin="0" StrokeThickness="1" HorizontalAlignment="Left">
+                <Rectangle.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF9EA19A" Offset="1"/>
+                        <GradientStop Color="#FF798384"/>
                     </LinearGradientBrush>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
+                        <GradientStop Color="#FFB0B5B0" Offset="1"/>
                     </RadialGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="firstFloorDoorLeft" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" Width="35" Height="105" Margin="32,13,64,18" StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="firstFloorButtonPanel" Grid.Row="4" Grid.Column="2" Height="90" Width="45" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15" StrokeThickness="1">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button x:Name="btnFirstFloorUp" Click="btnFirstFloorUp_Click" Grid.Row="4" Grid.Column="2" Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button x:Name="btnFirstFloorUp" Click="btnFirstFloorUp_Click" Grid.Row="4" Grid.Column="2" Width="26" Height="25" Margin="10,0,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -302,6 +461,7 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
+
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -384,7 +544,7 @@
             <Slider Grid.Row="1" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="178,5,0,0" Width="74" Height="27"/>
             <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="161,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="49"/>
             <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="229,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="36"/>
-            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="127,90,0,0" VerticalAlignment="Top" Width="125" Click="StartButton_Click" Height="32" Grid.Row="2"/>
+            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="127,90,0,0" VerticalAlignment="Top" Width="125" Height="32" Grid.Row="2"/>
             <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="100,513,0,0" VerticalAlignment="Top" Width="75"/>
             <Label Content="Passenger for Simulation" HorizontalAlignment="Left" Margin="168,49,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="28" Grid.Row="1"/>
             <ComboBox x:Name="PassangerTypeComboBox" HorizontalAlignment="Left" Margin="284,88,0,0" VerticalAlignment="Top" Width="74" Height="25" Grid.Row="1">
