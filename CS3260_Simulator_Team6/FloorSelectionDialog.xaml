@@ -1,0 +1,17 @@
+﻿<Window x:Class="CS3260_Simulator_Team6.FloorSelectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CS3260_Simulator_Team6"
+        mc:Ignorable="d"
+        Title="Floor Selection" Height="149.365" Width="224.364" ResizeMode="NoResize" Icon="resources/logo.png" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FF217639">
+        <Label x:Name="label" Content="Where this new Passenger is going to?" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="10" Width="180" Height="23"/>
+        <ComboBox x:Name="comboBoxFloors" Margin="0,43,0,0" VerticalAlignment="Top" Width="60" Height="20" FontSize="10" SelectionChanged="comboBoxFloors_SelectionChanged" Loaded="comboBoxFloors_Loaded"/>
+        <Button x:Name="btnOkay" Content="Okay" Margin="0,81,17,0" VerticalAlignment="Top" Width="75" Height="22" FontSize="10" Click="btnOkay_Click" HorizontalAlignment="Right"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="43" Margin="10,68,0,0" VerticalAlignment="Top" Width="68" Source="resources/mascot_combo.png"/>
+
+    </Grid>
+</Window>
+

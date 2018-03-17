@@ -40,9 +40,13 @@ namespace CS3260_Simulator_Team6
         private List<Image> secondFloorPassengerImages;
         private List<Image> firstFloorPassengerImages;
         private int index;
-        Image passengerImage;
-        MainWindow window;
-
+        private Image passengerImage;
+        private static int passengerID;
+        private readonly int instanceID;
+        private MainWindow window;
+        private DateTime StartTime, StopTime;
+        Stopwatch stopWatch;
+        Stopwatch TotalWatch = new Stopwatch();
 
         #endregion
 
@@ -51,6 +55,10 @@ namespace CS3260_Simulator_Team6
 
         public Passenger(Building MyBuilding, Floor CurrentFloor, int TargetFloorIndex, Image passengerImage)
         {
+            this.instanceID = ++passengerID;
+            StartTime = DateTime.Now;
+            stopWatch = Stopwatch.StartNew();
+            TotalWatch.Start();
             window = (MainWindow)Application.Current.MainWindow;
             this.fourthFloorPassengerImages = new List<Image>();
             this.fourthFloorPassengerImages.Add(window.imgElevatorFourPerson_1);
@@ -89,7 +97,7 @@ namespace CS3260_Simulator_Team6
             this.firstFloorPassengerImages.Add(window.imgElevatorOnePerson_7);
             this.firstFloorPassengerImages.Add(window.imgElevatorOnePerson_8);
             this.myBuilding = MyBuilding;
-            
+
             this.currentFloor = CurrentFloor;
             this.currentFloorIndex = CurrentFloor.FloorIndex;
             this.passengerStatus = PassengerStatus.WaitingForAnElevator;
@@ -145,6 +153,8 @@ namespace CS3260_Simulator_Team6
             this.currentFloor.ElevatorHasArrivedOrIsNotFullAnymore -= this.Passenger_ElevatorHasArrivedOrIsNoteFullAnymore;
 
             //Move the picture on the UI
+            RemovePassengerFromFloor();
+            Thread.Sleep(this.passengerAnimationDelay);
             MovePassengersGraphicIn();
 
             //Update myElevator
@@ -202,9 +212,20 @@ namespace CS3260_Simulator_Team6
 
         private void LeaveTheBuilding()
         {
-
+            int startFloor = this.currentFloorIndex + 1;
+            int endFloor = this.targetFloorIndex + 1;
             //Move the passenger up to the exit
             MovePassengersGraphicOut();
+
+            StopTime = DateTime.Now;
+            stopWatch.Stop();
+            TotalWatch.Stop();
+
+            TimeSpan elapsed = StopTime.Subtract(StartTime);
+            string passengerTravelTime = elapsed.TotalSeconds.ToString("00.00");
+            App.Current.Dispatcher.Invoke((Action)delegate {
+                window.listBoxPassengerLog.Items.Add(String.Format("Passenger {0}: Travel time from floor {1} to floor {2} was {3} seconds", instanceID, startFloor, endFloor, passengerTravelTime));
+            });
 
             //No need to animate it
             myBuilding.ListOfAllPeopleWhoNeedAnimation.Remove(this);
@@ -212,8 +233,8 @@ namespace CS3260_Simulator_Team6
 
         private void MovePassengersGraphicOut()
         {
-            
-            if(currentFloorIndex == 3)
+
+            if (currentFloorIndex == 3)
             {
                 App.Current.Dispatcher.Invoke((Action)delegate {
                     thirdFloorPassengerImages[index].Opacity = 0;
@@ -222,7 +243,7 @@ namespace CS3260_Simulator_Team6
                     secondFloorPassengerImages[index].Source = null;
                     firstFloorPassengerImages[index].Opacity = 0;
                     firstFloorPassengerImages[index].Source = null;
-                    
+
                     var animationRemoveFloorFour = new DoubleAnimation
                     {
                         From = 100,
@@ -245,7 +266,7 @@ namespace CS3260_Simulator_Team6
                     secondFloorPassengerImages[index].Source = null;
                     firstFloorPassengerImages[index].Opacity = 0;
                     firstFloorPassengerImages[index].Source = null;
-                    
+
                     var animationRemoveFloorFour = new DoubleAnimation
                     {
                         From = 100,
@@ -268,7 +289,7 @@ namespace CS3260_Simulator_Team6
                     thirdFloorPassengerImages[index].Source = null;
                     firstFloorPassengerImages[index].Opacity = 0;
                     firstFloorPassengerImages[index].Source = null;
-                    
+
                     var animationRemoveFloorFour = new DoubleAnimation
                     {
                         From = 100,
@@ -291,7 +312,7 @@ namespace CS3260_Simulator_Team6
                     thirdFloorPassengerImages[index].Source = null;
                     secondFloorPassengerImages[index].Opacity = 0;
                     secondFloorPassengerImages[index].Source = null;
-                    
+
                     var animationRemoveFloorFour = new DoubleAnimation
                     {
                         From = 100,
@@ -302,12 +323,27 @@ namespace CS3260_Simulator_Team6
                     animationRemoveFloorFour.Completed += (s, a) => firstFloorPassengerImages[index].Opacity = 0;
                     firstFloorPassengerImages[index].BeginAnimation(UIElement.OpacityProperty, animationRemoveFloorFour);
                     firstFloorPassengerImages[index].Source = null;
-
                     Thread.Sleep(this.passengerAnimationDelay);
                 });
             }
         }
 
+        private void RemovePassengerFromFloor()
+        {
+            App.Current.Dispatcher.Invoke((Action)delegate {
+
+                var animationRemoveFloor = new DoubleAnimation
+                {
+                    From = 100,
+                    To = 0,
+                    Duration = TimeSpan.FromMilliseconds(50),
+                    FillBehavior = FillBehavior.Stop
+                };
+                animationRemoveFloor.Completed += (s, a) => passengerImage.Opacity = 0;
+                passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloor);
+                Thread.Sleep(this.passengerAnimationDelay);
+            });
+        }
         private void MovePassengersGraphicIn()
         {
             bool completed = false;
@@ -327,16 +363,6 @@ namespace CS3260_Simulator_Team6
                             secondFloorPassengerImages[index].Opacity = 100;
                             firstFloorPassengerImages[index].Source = passengerImage.Source;
                             firstFloorPassengerImages[index].Opacity = 100;
-                            var animationRemoveFloorFour = new DoubleAnimation
-                            {
-                                From = 100,
-                                To = 0,
-                                Duration = TimeSpan.FromMilliseconds(200),
-                                FillBehavior = FillBehavior.Stop
-                            };
-                            animationRemoveFloorFour.Completed += (s, a) => passengerImage.Opacity = 0;
-                            passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloorFour);
-                            Thread.Sleep(100);
                             var animationAddFloorFour = new DoubleAnimation
                             {
                                 From = 0,
@@ -347,7 +373,6 @@ namespace CS3260_Simulator_Team6
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
                             Thread.Sleep(this.passengerAnimationDelay);
-
                             completed = true;
                         }
                     });
@@ -371,16 +396,6 @@ namespace CS3260_Simulator_Team6
                             secondFloorPassengerImages[index].Opacity = 100;
                             firstFloorPassengerImages[index].Source = passengerImage.Source;
                             firstFloorPassengerImages[index].Opacity = 100;
-                            var animationRemoveFloorFour = new DoubleAnimation
-                            {
-                                From = 100,
-                                To = 0,
-                                Duration = TimeSpan.FromMilliseconds(200),
-                                FillBehavior = FillBehavior.Stop
-                            };
-                            animationRemoveFloorFour.Completed += (s, a) => passengerImage.Opacity = 0;
-                            passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloorFour);
-                            Thread.Sleep(100);
                             var animationAddFloorFour = new DoubleAnimation
                             {
                                 From = 0,
@@ -390,7 +405,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-
                             Thread.Sleep(this.passengerAnimationDelay);
                             completed = true;
                         }
@@ -415,16 +429,6 @@ namespace CS3260_Simulator_Team6
                             thirdFloorPassengerImages[index].Opacity = 100;
                             firstFloorPassengerImages[index].Source = passengerImage.Source;
                             firstFloorPassengerImages[index].Opacity = 100;
-                            var animationRemoveFloorFour = new DoubleAnimation
-                            {
-                                From = 100,
-                                To = 0,
-                                Duration = TimeSpan.FromMilliseconds(200),
-                                FillBehavior = FillBehavior.Stop
-                            };
-                            animationRemoveFloorFour.Completed += (s, a) => passengerImage.Opacity = 0;
-                            passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloorFour);
-                            Thread.Sleep(100);
                             var animationAddFloorFour = new DoubleAnimation
                             {
                                 From = 0,
@@ -434,7 +438,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-
                             Thread.Sleep(this.passengerAnimationDelay);
                             completed = true;
                         }
@@ -459,16 +462,6 @@ namespace CS3260_Simulator_Team6
                             thirdFloorPassengerImages[index].Opacity = 100;
                             secondFloorPassengerImages[index].Source = passengerImage.Source;
                             secondFloorPassengerImages[index].Opacity = 100;
-                            var animationRemoveFloorFour = new DoubleAnimation
-                            {
-                                From = 100,
-                                To = 0,
-                                Duration = TimeSpan.FromMilliseconds(200),
-                                FillBehavior = FillBehavior.Stop
-                            };
-                            animationRemoveFloorFour.Completed += (s, a) => passengerImage.Opacity = 0;
-                            passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloorFour);
-                            Thread.Sleep(100);
                             var animationAddFloorFour = new DoubleAnimation
                             {
                                 From = 0,
@@ -478,8 +471,7 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-
-                            Thread.Sleep(this.passengerAnimationDelay);
+                            Thread.Sleep(100);
                             completed = true;
                         }
                     });
@@ -487,8 +479,8 @@ namespace CS3260_Simulator_Team6
                         break;
                 }
             }
-            
-            
+
+
         }
 
         public Floor GetTargetFloor()

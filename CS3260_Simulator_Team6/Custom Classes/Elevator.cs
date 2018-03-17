@@ -21,10 +21,10 @@ namespace CS3260_Simulator_Team6
         private Direction elevatorDirection;
         private ElevatorStatus elevatorStatus;
         private int maximumPeopleInside;
-        private int pickFloor;
         private List<Passenger> listOfPeopleInside;
         private bool IsFull;
         private System.Timers.Timer elevatorTimer;
+        private int pickFloor;
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace CS3260_Simulator_Team6
             this.elevatorTimer.Elapsed += new ElapsedEventHandler(this.Elevator_ElevatorTimerElapsed);
 
             this.PassengerEnteredTheElevator += new EventHandler(this.Elevator_PassengerEnteredTheElevator);
-            
+
             //Add new elevator to floor's list
             currentFloor.AddRemoveElevatorToTheListOfElevatorsWaitingHere(this, true);
         }
@@ -123,15 +123,15 @@ namespace CS3260_Simulator_Team6
 
             if (floorsToTravel == 1)
             {
-                Thread.Sleep(7000);
+                Thread.Sleep(6000);
             }
             else if (floorsToTravel == 2)
             {
-                Thread.Sleep(14000);
+                Thread.Sleep(10000);
             }
             else if (floorsToTravel == 3)
             {
-                Thread.Sleep(21000);
+                Thread.Sleep(12000);
             }
             //Reset appropriate lamp on current floor
             switch (this.elevatorDirection)
@@ -149,7 +149,7 @@ namespace CS3260_Simulator_Team6
                 default:
                     break;
             }
-            
+
             //Open the door
             this.OpenTheDoor();
 
@@ -292,7 +292,7 @@ namespace CS3260_Simulator_Team6
                 }
 
                 pickFloor = NewPassenger.GetPickUpFloor();
-               
+
                 return true; //new passenger added successfully
             }
             else
@@ -320,13 +320,13 @@ namespace CS3260_Simulator_Team6
         private void CloseTheDoor()
         {
             doors.CloseDoors(currentFloor.FloorIndex);
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
         }
 
         private void OpenTheDoor()
         {
             doors.OpenDoors(currentFloor.FloorIndex, elevatorDirection);
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
         }
 
         public ElevatorStatus GetElevatorStatus()
@@ -385,6 +385,11 @@ namespace CS3260_Simulator_Team6
 
         public void Elevator_PassengerEnteredTheElevator(object sender, EventArgs e)
         {
+            if (pickFloor == GetCurrentFloor().FloorIndex)
+            {
+                OpenTheDoor();
+                Thread.Sleep(2000);
+            }
             //Restart elevator's timer
             ResetElevatorTimer();
         }

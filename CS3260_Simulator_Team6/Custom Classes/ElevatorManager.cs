@@ -8,16 +8,7 @@ using System.Timers;
 
 namespace CS3260_Simulator_Team6
 {
-        /// <summary>    
-        /// 1. Multithreading for elevators provided via ThreadPool class
-        /// 2. Behaviour, when elevator was called:
-        ///     - Use FindAllElevatorsWhichCanBeSent to pick elevators meeting any of following requirements:
-        ///         - elevator is in its way to Passenger's floor (e.g. called by someone else)
-        ///         - elevator is on different floor and its state is "Idle" 
-        ///     - If list of available elevators is empty, do nothing
-        /// 3. Manager has timer to periodcally (every 1000ms) check, if some floor doesn't need an elevator
-        /// (which is signaled by Floor's LampUp and LampDown properties).
-        /// </summary>
+
     public class ElevatorManager
     {
         #region FIELDS
@@ -93,21 +84,21 @@ namespace CS3260_Simulator_Team6
 
             //Find elevators in their way to Passenger's floor (e.g. called by someone else)
 
-                //Get list of floors to visit
-                List<Floor> ListOfFloorsToVisit = arrayOfAllElevators[0].GetListOfAllFloorsToVisit();
+            //Get list of floors to visit
+            List<Floor> ListOfFloorsToVisit = arrayOfAllElevators[0].GetListOfAllFloorsToVisit();
 
-                //Check list of floors to visit                
-                if (ListOfFloorsToVisit.Contains(PassengersFloor))
-                {
-                    listOfAllFreeElevators.Clear();
-                    return; //Some elevator is already in its way, no need to send new one
-                }
+            //Check list of floors to visit                
+            if (ListOfFloorsToVisit.Contains(PassengersFloor))
+            {
+                listOfAllFreeElevators.Clear();
+                return; //Some elevator is already in its way, no need to send new one
+            }
 
             //Find elevators, which are idling now (do not moving anywhere)
-                if (arrayOfAllElevators[0].GetElevatorStatus() == ElevatorStatus.Idle)
-                {
-                    listOfAllFreeElevators.Add(arrayOfAllElevators[0]);
-                }
+            if (arrayOfAllElevators[0].GetElevatorStatus() == ElevatorStatus.Idle)
+            {
+                listOfAllFreeElevators.Add(arrayOfAllElevators[0]);
+            }
         }
 
         private Elevator ChooseOptimalElevatorToSend(Floor FloorWhereTheCallCameFrom)

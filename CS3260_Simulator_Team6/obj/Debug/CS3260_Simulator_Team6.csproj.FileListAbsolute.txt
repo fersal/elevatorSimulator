@@ -31,3 +31,5 @@ C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260
 C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.Properties.Resources.resources
 C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.csproj.GenerateResource.Cache
 C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Jameson\Documents\GitHub\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.g.cs
+C:\Users\Jameson\Documents\GitHub\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.baml

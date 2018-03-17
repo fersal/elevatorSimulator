@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CS3260_Simulator_Team6"
         xmlns:CS3260_Simulator_Team6="clr-namespace:CS3260_Simulator_Team6"
         mc:Ignorable="d"
-        Title="UVUFac Elevator Simulator" Height="800" Width="1000" ResizeMode="NoResize" Icon="resources/UVU-Institutional-Square-Mark-2016.svg.png">
+        Title="UVUFac Elevator Simulator" Height="800" Width="1000" ResizeMode="NoResize" Icon="resources/UVU-Institutional-Square-Mark-2016.svg.png" WindowStartupLocation="CenterScreen">
 
     <Grid Background="#FF1E5C37">
         <Grid.ColumnDefinitions>
@@ -52,7 +52,7 @@
             <Image x:Name="imgFloorFourPerson_7" Grid.Row="1" Grid.Column="0" Source="resources/Person_8.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgFloorFourPerson_5" Grid.Row="1" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
 
-            <Image x:Name="imgElevatorFourPerson_1" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorFourPerson_1" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorFourPerson_2" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorFourPerson_3" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorFourPerson_4" Grid.Row="1" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
@@ -160,7 +160,7 @@
             <Image x:Name="imgFloorThreePerson_7" Grid.Row="2" Grid.Column="0" Source="resources/Person_4.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgFloorThreePerson_5" Grid.Row="2" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Left" Margin="60,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
 
-            <Image x:Name="imgElevatorThreePerson_1" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorThreePerson_1" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorThreePerson_2" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorThreePerson_3" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorThreePerson_4" Grid.Row="2" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
@@ -269,7 +269,7 @@
             <Image x:Name="imgFloorTwoPerson_7" Grid.Row="3" Grid.Column="0" Source="resources/Person_1.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgFloorTwoPerson_5" Grid.Row="3" Grid.Column="0" Source="resources/Person_7.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
 
-            <Image x:Name="imgElevatorTwoPerson_1" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorTwoPerson_1" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorTwoPerson_2" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorTwoPerson_3" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorTwoPerson_4" Grid.Row="3" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
@@ -378,7 +378,7 @@
             <Image x:Name="imgFloorOnePerson_7" Grid.Row="4" Grid.Column="0" Source="resources/Person_5.png" Width="50" HorizontalAlignment="Left" Margin="35,0,0,2" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgFloorOnePerson_5" Grid.Row="4" Grid.Column="0" Source="resources/Person_6.png" Width="50" HorizontalAlignment="Left" Margin="75,0,0,3" Height="107" VerticalAlignment="Bottom" Opacity="0"/>
 
-            <Image x:Name="imgElevatorOnePerson_1" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="118,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
+            <Image x:Name="imgElevatorOnePerson_1" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,38" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorOnePerson_2" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="93,0,0,36" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorOnePerson_3" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="75,0,0,34" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
             <Image x:Name="imgElevatorOnePerson_4" Grid.Row="4" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="105,0,0,32" Height="83" VerticalAlignment="Bottom" Opacity="0"/>
@@ -469,111 +469,15 @@
                 <RowDefinition Height="261*"/>
                 <RowDefinition Height="144*"/>
             </Grid.RowDefinitions>
-            <Label FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" Width="311" Height="25" VerticalAlignment="Top" Margin="31,24,41,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="12" Content="Elevator Request Pool" HorizontalContentAlignment="Center"/>
-            <ListBox x:Name="listBoxRequestPool" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top" Width="311" Margin="31,50,41,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
-            <Rectangle x:Name="elevatorButtonPanel" Grid.Row="1" Height="250" Width="125" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="31,5,0,0" StrokeThickness="2">
-                <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF9EA19A" Offset="0"/>
-                        <GradientStop Color="#FF798384" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD9E8E8"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Button x:Name="btnOpenDoor" Click="btnOpenDoor_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <ImageBrush Stretch="Uniform" ImageSource="resources/open-doors.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnCloseDoor" Click="btnCloseDoor_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,44,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <ImageBrush Stretch="Uniform" ImageSource="resources/close-doors.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnFourthFloor" Click="btnFourthFloor_Click" Content="4" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnThirdFloor" Click="btnThirdFloor_Click" Content="3" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,95,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnSecondFloor" Click="btnSecondFloor_Click" Content="2" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="btnFirstFloor" Click="btnFirstFloor_Click" Content="*1" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,145,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FFD7E6E6" Offset="0"/>
-                        <GradientStop Color="#FFABAEAD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Emergency" Click="Emergency_Click" Grid.Row="1" Width="38" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,199,0,0" BorderThickness="1" Foreground="Black" FontSize="24" BorderBrush="{x:Null}" FontFamily="Nirmala UI">
-                <Button.Background>
-                    <ImageBrush Stretch="Uniform" ImageSource="resources/Bell.png">
-                        <ImageBrush.RelativeTransform>
-                            <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.7" ScaleY="0.7"/>
-                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ImageBrush.RelativeTransform>
-                    </ImageBrush>
-                </Button.Background>
-            </Button>
-            <Slider Grid.Row="1" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="178,5,0,0" Width="74" Height="27"/>
-            <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="161,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="49"/>
-            <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="229,22,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="36"/>
-            <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="127,90,0,0" VerticalAlignment="Top" Width="125" Height="32" Grid.Row="2"/>
-            <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="100,513,0,0" VerticalAlignment="Top" Width="75"/>
-            <Label Content="Passenger for Simulation" HorizontalAlignment="Left" Margin="168,49,0,0" VerticalAlignment="Top" Background="{x:Null}" Height="28" Grid.Row="1"/>
-            <ComboBox x:Name="PassangerTypeComboBox" HorizontalAlignment="Left" Margin="284,88,0,0" VerticalAlignment="Top" Width="74" Height="25" Grid.Row="1">
-                <ComboBoxItem Content="Adult" IsSelected="True"/>
-                <ComboBoxItem Content="Child"/>
-            </ComboBox>
-            <Label Content="Passanger Type" HorizontalAlignment="Left" Margin="178,88,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
-            <Label Content="Destination Floor" HorizontalAlignment="Left" Margin="168,127,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
-            <ComboBox x:Name="DestinationFloorComboBox" HorizontalAlignment="Left" Margin="284,167,0,0" VerticalAlignment="Top" Width="45" Height="25" Grid.Row="1">
-                <ComboBoxItem Content="1" IsSelected="True"/>
-                <ComboBoxItem Content="2"/>
-                <ComboBoxItem Content="3"/>
-                <ComboBoxItem Content="4"/>
-                <ComboBoxItem Content="5"/>
-                <ComboBoxItem Content="6"/>
-                <ComboBoxItem Content="7"/>
-                <ComboBoxItem Content="8"/>
-            </ComboBox>
-            <Label Content="Entry Floor" HorizontalAlignment="Left" Margin="202,165,0,0" VerticalAlignment="Top" Height="28" Grid.Row="1"/>
-            <ComboBox x:Name="EntryFloorComboBox" HorizontalAlignment="Left" Margin="284,129,0,0" VerticalAlignment="Top" Width="44" Height="25" Grid.Row="1">
-                <ComboBoxItem Content="1"/>
-                <ComboBoxItem Content="2" IsSelected="True"/>
-                <ComboBoxItem Content="3"/>
-                <ComboBoxItem Content="4"/>
-                <ComboBoxItem Content="5"/>
-                <ComboBoxItem Content="6"/>
-                <ComboBoxItem Content="7"/>
-                <ComboBoxItem Content="8"/>
-            </ComboBox>
+            <Label FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" Width="407" Height="25" VerticalAlignment="Top" Margin="0,24,0,0" FontWeight="Bold" FontSize="12" Content="Elevator Request Pool" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="listBoxRequestPool" Height="170" VerticalAlignment="Top" Width="407" Margin="0,50,0,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
+            <Label FontFamily="Verdana" Grid.Row="1" Background="#FF212020" Foreground="#FF1E5C37" Width="459" Height="25" VerticalAlignment="Top" Margin="0,24,0,0" FontWeight="Bold" FontSize="12" Content="Passenger Log" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="listBoxPassengerLog" Grid.Row="1" Height="292" VerticalAlignment="Top" Width="459" Margin="0,50,0,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
+            <Slider Grid.Row="2" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="19,10,0,0" Width="74" Height="27"/>
+            <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="0,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="49"/>
+            <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="69,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="36"/>
+            <Button x:Name="StartButton" Content="Start" Margin="0,0,0,25" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2"/>
+
         </Grid>
     </Grid>
 </Window>

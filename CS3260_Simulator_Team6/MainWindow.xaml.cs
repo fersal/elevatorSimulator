@@ -18,35 +18,54 @@ using System.Windows.Shapes;
 
 namespace CS3260_Simulator_Team6
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		private const string ADULT = "Adult";
-		private const string CHILD = "Child";
-		private const string PLEASE_WAIT = "It could be up to 40 seconds to get to the 8th floor\n		PLEASE WAIT....";
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private const string ADULT = "Adult";
+        private const string CHILD = "Child";
+        private const string PLEASE_WAIT = "It could be up to 40 seconds to get to the 8th floor\n		PLEASE WAIT....";
         private int prevFloorFourSelectedImg = 0;
         private int fourthFloorPassengerCount = 0;
         private int prevFloorThreeSelectedImg = 0;
         private int thirdFloorPassengerCount = 0;
+        private int thirdFloorUpPassengerCount = 0;
+        private int thirdFloorDownPassengerCount = 0;
         private int prevFloorTwoSelectedImg = 0;
         private int secondFloorPassengerCount = 0;
+        private int secondFloorUpPassengerCount = 0;
+        private int secondFloorDownPassengerCount = 0;
         private int prevFloorOneSelectedImg = 0;
         private int firstFloorPassengerCount = 0;
-        private int currentFloor;
+        private const int MAX_PASSANGERS = 8;
+        private int totalPassengerCountID = 0;
+        private bool fourthFloorDownButtonClicked;
+        private bool thirdFloorDownButtonClicked;
+        private bool secondFloorDownButtonClicked;
+        private bool thirdFloorUpButtonClicked;
+        private bool secondFloorUpButtonClicked;
+        private bool firstFloorUpButtonClicked;
         public Building MyBuilding;
         private AddNewPassenger AddPassenger = null;
         private List<Image> fourthFloorPassengerImages = new List<Image>();
-        private List<Image> thirdFloorPassengerImages = new List<Image>();
-        private List<Image> secondFloorPassengerImages = new List<Image>();
+        private List<int> fourthFloorPassengerDestination = new List<int>();
+        private List<Image> thirdFloorUpPassengerImages = new List<Image>();
+        private List<int> thirdFloorUpPassengerDestination = new List<int>();
+        private List<Image> secondFloorUpPassengerImages = new List<Image>();
+        private List<int> secondFloorUpPassengerDestination = new List<int>();
+        private List<Image> thirdFloorDownPassengerImages = new List<Image>();
+        private List<int> thirdFloorDownPassengerDestination = new List<int>();
+        private List<Image> secondFloorDownPassengerImages = new List<Image>();
+        private List<int> secondFloorDownPassengerDestination = new List<int>();
         private List<Image> firstFloorPassengerImages = new List<Image>();
+        private List<int> firstFloorPassengerDestination = new List<int>();
 
         //      private Elevator elevator;
         //private long travelTime;
         //private Passenger passengerOne;
         private AControlsSystem command = null;
-        private RequestPool request = new RequestPool();
+        private RequestPool request = null;
         private IReciever click = null;
         private FloorFirstUpCommand firstUpCmd = null;
         private FloorFourDownCommand fourDownCmd = null;
@@ -54,19 +73,14 @@ namespace CS3260_Simulator_Team6
         private FloorThirdDownCommand thirdDownCmd = null;
         private FloorSecondUpCommand secondUpCmd = null;
         private FloorSecondDownCommand secondDownCmd = null;
-        private InternalCloseDoorCommand closeDoorCmd = null;
-        private InternalOpenDoorCommand opendDoorCmd = null;
-        private InternalFirstFloorCommand firstCmd = null;
-        private InternalSecondFloorCommand secondCmd = null;
-        private InternalThirdFloorCommand thirdCmd = null;
-        private InternalFourthFloorCommand fourthCmd = null;
-        private InternalEmergencyCommand emergencyCmd = null;
         private BrushConverter bc = new BrushConverter();
         private Doors doors = null;
+        FloorSelectionDialog dialog = null;
 
         public MainWindow()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
+            request = new RequestPool(listBoxRequestPool);
             click = new ButtonClick(request);
             firstUpCmd = new FloorFirstUpCommand(click);
             fourDownCmd = new FloorFourDownCommand(click);
@@ -75,13 +89,6 @@ namespace CS3260_Simulator_Team6
             thirdDownCmd = new FloorThirdDownCommand(click);
             secondUpCmd = new FloorSecondUpCommand(click);
             secondDownCmd = new FloorSecondDownCommand(click);
-            closeDoorCmd = new InternalCloseDoorCommand(click);
-            opendDoorCmd = new InternalOpenDoorCommand(click);
-            firstCmd = new InternalFirstFloorCommand(click);
-            secondCmd = new InternalSecondFloorCommand(click);
-            thirdCmd = new InternalThirdFloorCommand(click);
-            fourthCmd = new InternalFourthFloorCommand(click);
-            emergencyCmd = new InternalEmergencyCommand(click);
             doors = new Doors();
             MyBuilding = new Building(doors);
             AddPassenger = new AddNewPassenger();
@@ -91,26 +98,39 @@ namespace CS3260_Simulator_Team6
 
         public void Doors_DoorsHaveOpened(object sender, EventArgs e)
         {
-            //Unsubscribe from this event (not needed anymore)            
-            //this.doors.DoorsHaveOpened -= this.Doors_DoorsHaveOpened;
             int floor = doors.CurrentFloor;
+            bool clicked = false;
             string direction = doors.ElevatorDirection;
-            if(floor == 3)
+            if (floor == 3)
             {
                 command = fourDownCmd;
-                command.UnExecute();
-                btnFourthFloorDown.BorderBrush = null;
-                fourthFloorPassengerCount = 0;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnFourthFloorDown.BorderBrush = null;
+                    fourthFloorPassengerCount = 0;
+                }
             }
-            else if(floor == 2)
+            else if (floor == 2)
             {
                 command = thirdDownCmd;
-                command.UnExecute();
-                btnThirdFloorDown.BorderBrush = null;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnThirdFloorDown.BorderBrush = null;
+                    thirdFloorDownPassengerCount = 0;
+                }
 
                 command = thirdUpCmd;
-                command.UnExecute();
-                btnThirdFloorUp.BorderBrush = null;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnThirdFloorUp.BorderBrush = null;
+                    thirdFloorUpPassengerCount = 0;
+                }
 
                 thirdFloorPassengerCount = 0;
             }
@@ -118,220 +138,189 @@ namespace CS3260_Simulator_Team6
             {
 
                 command = secondDownCmd;
-                command.UnExecute();
-                btnSecondFloorDown.BorderBrush = null;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnSecondFloorDown.BorderBrush = null;
+                    secondFloorDownPassengerCount = 0;
+                }
 
                 command = secondUpCmd;
-                command.UnExecute();
-                btnSecondFloorUp.BorderBrush = null;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnSecondFloorUp.BorderBrush = null;
+                    secondFloorUpPassengerCount = 0;
+                }
 
                 secondFloorPassengerCount = 0;
             }
             else if (floor == 0)
             {
                 command = firstUpCmd;
-                command.UnExecute();
-                btnFirstFloorUp.BorderBrush = null;
-                firstFloorPassengerCount = 0;
+                clicked = command.CheckClick();
+                if (clicked)
+                {
+                    command.UnExecute();
+                    btnFirstFloorUp.BorderBrush = null;
+                    firstFloorPassengerCount = 0;
+                }
             }
         }
 
 
         private void btnFourthFloorDown_Click(object sender, RoutedEventArgs e)
         {
-            command = fourDownCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (fourthFloorPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnFourthFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 3;
-                for(int i = 0; i < fourthFloorPassengerCount; i++)
+                command = fourDownCmd;
+                fourthFloorDownButtonClicked = command.Execute();
+                if (!fourthFloorDownButtonClicked)
                 {
-                    AddPassenger.AddPassenger(0, fourthFloorPassengerImages[i]);
+                    btnFourthFloorDown.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 3;
+                    for (int i = 0; i < fourthFloorPassengerCount; i++)
+                    {
+                        AddPassenger.AddPassenger(fourthFloorPassengerDestination[i], fourthFloorPassengerImages[i]);
+                    }
+                    fourthFloorPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                fourthFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
-                StartButton.Focus();
             }
-            
+            else
+            {
+                MessageBox.Show("Please add passengers first.");
+            }
+            StartButton.Focus();
         }
 
         private void btnThirdFloorUp_Click(object sender, RoutedEventArgs e)
         {
-            command = thirdUpCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (thirdFloorUpPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnThirdFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 2;
-                for (int i = 0; i < thirdFloorPassengerCount; i++)
+                command = thirdUpCmd;
+                thirdFloorUpButtonClicked = command.Execute();
+                if (!thirdFloorUpButtonClicked)
                 {
-                    AddPassenger.AddPassenger(3, thirdFloorPassengerImages[i]);
+                    btnThirdFloorUp.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 2;
+                    for (int i = 0; i < thirdFloorUpPassengerCount; i++)
+                    {
+                        if (thirdFloorUpPassengerDestination[i] > 2)
+                            AddPassenger.AddPassenger(thirdFloorUpPassengerDestination[i], thirdFloorUpPassengerImages[i]);
+                    }
+                    thirdFloorUpPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                thirdFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go up first.");
             }
             StartButton.Focus();
         }
 
         private void btnThirdFloorDown_Click(object sender, RoutedEventArgs e)
         {
-            command = thirdDownCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (thirdFloorDownPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnThirdFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 2;
-                for (int i = 0; i < thirdFloorPassengerCount; i++)
+                command = thirdDownCmd;
+                thirdFloorDownButtonClicked = command.Execute();
+                if (!thirdFloorDownButtonClicked)
                 {
-                    AddPassenger.AddPassenger(0, thirdFloorPassengerImages[i]);
+                    btnThirdFloorDown.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 2;
+                    for (int i = 0; i < thirdFloorDownPassengerCount; i++)
+                    {
+                        if (thirdFloorDownPassengerDestination[i] < 2)
+                            AddPassenger.AddPassenger(thirdFloorDownPassengerDestination[i], thirdFloorDownPassengerImages[i]);
+                    }
+                    thirdFloorDownPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                thirdFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go down first.");
             }
             StartButton.Focus();
         }
 
         private void btnSecondFloorUp_Click(object sender, RoutedEventArgs e)
         {
-            command = secondUpCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (secondFloorUpPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnSecondFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 1;
-                for (int i = 0; i < secondFloorPassengerCount; i++)
+                command = secondUpCmd;
+                secondFloorUpButtonClicked = command.Execute();
+                if (!secondFloorUpButtonClicked)
                 {
-                    AddPassenger.AddPassenger(2, secondFloorPassengerImages[i]);
+                    btnSecondFloorUp.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 1;
+                    for (int i = 0; i < secondFloorUpPassengerCount; i++)
+                    {
+                        if (secondFloorUpPassengerDestination[i] > 1)
+                            AddPassenger.AddPassenger(secondFloorUpPassengerDestination[i], secondFloorUpPassengerImages[i]);
+                    }
+                    secondFloorUpPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                secondFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go up first.");
             }
             StartButton.Focus();
         }
 
         private void btnSecondFloorDown_Click(object sender, RoutedEventArgs e)
         {
-            command = secondDownCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (secondFloorDownPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnSecondFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 1;
-                for (int i = 0; i < secondFloorPassengerCount; i++)
+                command = secondDownCmd;
+                secondFloorDownButtonClicked = command.Execute();
+                if (!secondFloorDownButtonClicked)
                 {
-                    AddPassenger.AddPassenger(0,secondFloorPassengerImages[i]);
+                    btnSecondFloorDown.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 1;
+                    for (int i = 0; i < secondFloorDownPassengerCount; i++)
+                    {
+                        if (secondFloorDownPassengerDestination[i] < 1)
+                            AddPassenger.AddPassenger(secondFloorDownPassengerDestination[i], secondFloorDownPassengerImages[i]);
+                    }
+                    secondFloorDownPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                secondFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go down first.");
             }
             StartButton.Focus();
         }
 
         private void btnFirstFloorUp_Click(object sender, RoutedEventArgs e)
         {
-            command = firstUpCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            if (firstFloorPassengerCount != 0)
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnFirstFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                AddPassenger.FloorIndex = 0;
-                for (int i = 0; i < firstFloorPassengerCount; i++)
+                command = firstUpCmd;
+                firstFloorUpButtonClicked = command.Execute();
+                if (!firstFloorUpButtonClicked)
                 {
-                    AddPassenger.AddPassenger(3, firstFloorPassengerImages[i]);
+                    btnFirstFloorUp.BorderBrush = Brushes.LightSeaGreen;
+                    AddPassenger.FloorIndex = 0;
+                    for (int i = 0; i < firstFloorPassengerCount; i++)
+                    {
+                        AddPassenger.AddPassenger(firstFloorPassengerDestination[i], firstFloorPassengerImages[i]);
+                    }
+                    firstFloorPassengerImages.Clear();
+                    AddPassenger.LoadPassenger();
                 }
-                firstFloorPassengerImages.Clear();
-                AddPassenger.LoadPassenger();
             }
-            StartButton.Focus();
-        }
-
-        private void btnOpenDoor_Click(object sender, RoutedEventArgs e)
-        {
-            command = opendDoorCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
+            else
             {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnOpenDoor.BorderBrush = Brushes.LightSeaGreen;
-            }
-        StartButton.Focus();
-        }
-
-        private void btnCloseDoor_Click(object sender, RoutedEventArgs e)
-        {
-            command = closeDoorCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnCloseDoor.BorderBrush = Brushes.LightSeaGreen;
-            }
-            StartButton.Focus();
-        }
-
-        private void btnFourthFloor_Click(object sender, RoutedEventArgs e)
-        {
-            command = fourthCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnFourthFloor.BorderBrush = Brushes.LightSeaGreen;
-            }
-            StartButton.Focus();
-        }
-
-        private void btnThirdFloor_Click(object sender, RoutedEventArgs e)
-        {
-            command = thirdCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnThirdFloor.BorderBrush = Brushes.LightSeaGreen;
-            }
-            StartButton.Focus();
-        }
-
-        private void btnSecondFloor_Click(object sender, RoutedEventArgs e)
-        {
-            command = secondCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnSecondFloor.BorderBrush = Brushes.LightSeaGreen;
-            }
-            StartButton.Focus();
-        }
-
-        private void btnFirstFloor_Click(object sender, RoutedEventArgs e)
-        {
-            command = firstCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                btnFirstFloor.BorderBrush = Brushes.LightSeaGreen;
-            }
-            StartButton.Focus();
-        }
-
-        private void Emergency_Click(object sender, RoutedEventArgs e)
-        {
-            command = emergencyCmd;
-            bool clicked = command.Execute();
-            if (!clicked)
-            {
-                listBoxRequestPool.Items.Add(request.GetLastRequest());
-                Emergency.BorderBrush = Brushes.LightSeaGreen;
+                MessageBox.Show("Please add passengers first.");
             }
             StartButton.Focus();
         }
@@ -343,25 +332,25 @@ namespace CS3260_Simulator_Team6
             switch (peopleSelected)
             {
                 case 1:
-                        selectedImg = imgFloorFourPerson_1;
+                    selectedImg = imgFloorFourPerson_1;
                     break;
                 case 2:
-                        selectedImg = imgFloorFourPerson_2;
+                    selectedImg = imgFloorFourPerson_2;
                     break;
                 case 3:
-                        selectedImg = imgFloorFourPerson_3;
+                    selectedImg = imgFloorFourPerson_3;
                     break;
                 case 4:
-                        selectedImg = imgFloorFourPerson_4;
+                    selectedImg = imgFloorFourPerson_4;
                     break;
                 case 5:
-                        selectedImg = imgFloorFourPerson_5;
+                    selectedImg = imgFloorFourPerson_5;
                     break;
                 case 6:
-                        selectedImg = imgFloorFourPerson_6;
+                    selectedImg = imgFloorFourPerson_6;
                     break;
                 case 7:
-                        selectedImg = imgFloorFourPerson_7;
+                    selectedImg = imgFloorFourPerson_7;
                     break;
                 case 8:
                     selectedImg = imgFloorFourPerson_8;
@@ -390,25 +379,25 @@ namespace CS3260_Simulator_Team6
             switch (peopleSelected)
             {
                 case 1:
-                        selectedImg = imgFloorThreePerson_1;
+                    selectedImg = imgFloorThreePerson_1;
                     break;
                 case 2:
-                        selectedImg = imgFloorThreePerson_2;
+                    selectedImg = imgFloorThreePerson_2;
                     break;
                 case 3:
-                        selectedImg = imgFloorThreePerson_3;
+                    selectedImg = imgFloorThreePerson_3;
                     break;
                 case 4:
-                        selectedImg = imgFloorThreePerson_4;
+                    selectedImg = imgFloorThreePerson_4;
                     break;
                 case 5:
-                        selectedImg = imgFloorThreePerson_5;
+                    selectedImg = imgFloorThreePerson_5;
                     break;
                 case 6:
-                        selectedImg = imgFloorThreePerson_6;
+                    selectedImg = imgFloorThreePerson_6;
                     break;
                 case 7:
-                        selectedImg = imgFloorThreePerson_7;
+                    selectedImg = imgFloorThreePerson_7;
                     break;
                 case 8:
                     selectedImg = imgFloorThreePerson_8;
@@ -437,25 +426,25 @@ namespace CS3260_Simulator_Team6
             switch (peopleSelected)
             {
                 case 1:
-                        selectedImg = imgFloorTwoPerson_1;
+                    selectedImg = imgFloorTwoPerson_1;
                     break;
                 case 2:
-                        selectedImg = imgFloorTwoPerson_2;
+                    selectedImg = imgFloorTwoPerson_2;
                     break;
                 case 3:
-                        selectedImg = imgFloorTwoPerson_3;
+                    selectedImg = imgFloorTwoPerson_3;
                     break;
                 case 4:
-                        selectedImg = imgFloorTwoPerson_4;
+                    selectedImg = imgFloorTwoPerson_4;
                     break;
                 case 5:
-                        selectedImg = imgFloorTwoPerson_5;
+                    selectedImg = imgFloorTwoPerson_5;
                     break;
                 case 6:
-                        selectedImg = imgFloorTwoPerson_6;
+                    selectedImg = imgFloorTwoPerson_6;
                     break;
                 case 7:
-                        selectedImg = imgFloorTwoPerson_7;
+                    selectedImg = imgFloorTwoPerson_7;
                     break;
                 case 8:
                     selectedImg = imgFloorTwoPerson_8;
@@ -484,25 +473,25 @@ namespace CS3260_Simulator_Team6
             switch (peopleSelected)
             {
                 case 1:
-                        selectedImg = imgFloorOnePerson_1;
+                    selectedImg = imgFloorOnePerson_1;
                     break;
                 case 2:
-                        selectedImg = imgFloorOnePerson_2;
+                    selectedImg = imgFloorOnePerson_2;
                     break;
                 case 3:
-                        selectedImg = imgFloorOnePerson_3;
+                    selectedImg = imgFloorOnePerson_3;
                     break;
                 case 4:
-                        selectedImg = imgFloorOnePerson_4;
+                    selectedImg = imgFloorOnePerson_4;
                     break;
                 case 5:
-                        selectedImg = imgFloorOnePerson_5;
+                    selectedImg = imgFloorOnePerson_5;
                     break;
                 case 6:
-                        selectedImg = imgFloorOnePerson_6;
+                    selectedImg = imgFloorOnePerson_6;
                     break;
                 case 7:
-                        selectedImg = imgFloorOnePerson_7;
+                    selectedImg = imgFloorOnePerson_7;
                     break;
                 case 8:
                     selectedImg = imgFloorOnePerson_8;
@@ -526,26 +515,135 @@ namespace CS3260_Simulator_Team6
 
         private void btnAddPassengerFloorFour_Click(object sender, RoutedEventArgs e)
         {
+            int floorIndex = 4;
             fourthFloorPassengerCount++;
-            fourthFloorPassengerImages.Add(FloorFourAddPeople());
+            if (fourthFloorPassengerCount <= MAX_PASSANGERS)
+            {
+                fourthFloorPassengerImages.Add(FloorFourAddPeople());
+                FloorSelectionDialog dialog = new FloorSelectionDialog();
+                for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
+                {
+                    if (i != floorIndex)
+                    {
+                        dialog.ListOfFloorsInComboBox.Add(i);
+                    }
+                }
+                dialog.ShowDialog();
+                int selectedFloor = (dialog.GetSelectedItem() - 1);
+                fourthFloorPassengerDestination.Add(selectedFloor);
+                totalPassengerCountID++;
+            }
+            else
+            {
+                MessageBox.Show("The max amount of passengers have been added for this floor.");
+                fourthFloorPassengerCount--;
+            }
         }
 
         private void btnAddPassengerFloorThree_Click(object sender, RoutedEventArgs e)
         {
+            int floorIndex = 3;
             thirdFloorPassengerCount++;
-            thirdFloorPassengerImages.Add(FloorThreeAddPeople());
+            if (thirdFloorPassengerCount <= MAX_PASSANGERS)
+            {
+                Image selectedImage = FloorThreeAddPeople();
+                FloorSelectionDialog dialog = new FloorSelectionDialog();
+                for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
+                {
+                    if (i != floorIndex)
+                    {
+                        dialog.ListOfFloorsInComboBox.Add(i);
+                    }
+                }
+                dialog.ShowDialog();
+                int selectedFloor = (dialog.GetSelectedItem() - 1);
+                if (selectedFloor > 2)
+                {
+                    thirdFloorUpPassengerDestination.Add(selectedFloor);
+                    thirdFloorUpPassengerImages.Add(selectedImage);
+                    thirdFloorUpPassengerCount++;
+                }
+                else if (selectedFloor < 2)
+                {
+                    thirdFloorDownPassengerDestination.Add(selectedFloor);
+                    thirdFloorDownPassengerImages.Add(selectedImage);
+                    thirdFloorDownPassengerCount++;
+                }
+
+                totalPassengerCountID++;
+            }
+            else
+            {
+                MessageBox.Show("The max amount of passengers have been added for this floor.");
+                thirdFloorPassengerCount--;
+            }
+
         }
 
         private void btnAddPassengerFloorTwo_Click(object sender, RoutedEventArgs e)
         {
+            int floorIndex = 2;
             secondFloorPassengerCount++;
-            secondFloorPassengerImages.Add(FloorTwoAddPeople());
+            if (secondFloorPassengerCount <= MAX_PASSANGERS)
+            {
+                Image selectedImage = FloorTwoAddPeople();
+                FloorSelectionDialog dialog = new FloorSelectionDialog();
+                for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
+                {
+                    if (i != floorIndex)
+                    {
+                        dialog.ListOfFloorsInComboBox.Add(i);
+                    }
+                }
+                dialog.ShowDialog();
+                int selectedFloor = (dialog.GetSelectedItem() - 1);
+                if (selectedFloor > 1)
+                {
+                    secondFloorUpPassengerDestination.Add(selectedFloor);
+                    secondFloorUpPassengerImages.Add(selectedImage);
+                    secondFloorUpPassengerCount++;
+                }
+                else if (selectedFloor < 1)
+                {
+                    secondFloorDownPassengerDestination.Add(selectedFloor);
+                    secondFloorDownPassengerImages.Add(selectedImage);
+                    secondFloorDownPassengerCount++;
+                }
+
+                totalPassengerCountID++;
+            }
+            else
+            {
+                MessageBox.Show("The max amount of passengers have been added for this floor.");
+                secondFloorPassengerCount--;
+            }
         }
 
         private void btnAddPassengerFloorOne_Click(object sender, RoutedEventArgs e)
         {
+            int floorIndex = 1;
             firstFloorPassengerCount++;
-            firstFloorPassengerImages.Add(FloorOneAddPeople());
+            if (firstFloorPassengerCount <= MAX_PASSANGERS)
+            {
+                firstFloorPassengerImages.Add(FloorOneAddPeople());
+                FloorSelectionDialog dialog = new FloorSelectionDialog();
+                for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
+                {
+                    if (i != floorIndex)
+                    {
+                        dialog.ListOfFloorsInComboBox.Add(i);
+                    }
+                }
+                dialog.ShowDialog();
+                int selectedFloor = (dialog.GetSelectedItem() - 1);
+                firstFloorPassengerDestination.Add(selectedFloor);
+                totalPassengerCountID++;
+            }
+            else
+            {
+                MessageBox.Show("The max amount of passengers have been added for this floor.");
+                firstFloorPassengerCount--;
+            }
         }
     }
 
@@ -554,6 +652,7 @@ namespace CS3260_Simulator_Team6
         private int floorIndex;
         private Passenger NewPassenger;
         MainWindow window = (MainWindow)Application.Current.MainWindow;
+
 
         public int FloorIndex { get { return floorIndex; } set { floorIndex = value; } }
 
@@ -567,7 +666,7 @@ namespace CS3260_Simulator_Team6
 
         public void AddPassenger(int destination, Image personImage)
         {
-            if(MyFloor.GetCurrentAmmountOfPeopleInTheQueue() >= MyFloor.GetMaximumAmmountOfPeopleInTheQueue())
+            if (MyFloor.GetCurrentAmmountOfPeopleInTheQueue() >= MyFloor.GetMaximumAmmountOfPeopleInTheQueue())
             {
                 MessageBox.Show("It looks like the corridor is too crowdy now. Please, wait a while until elevators take few passengers away.", "Your passenger has to wait");
                 return;
@@ -575,6 +674,7 @@ namespace CS3260_Simulator_Team6
 
             NewPassenger = new Passenger(MyForm.MyBuilding, this.MyFloor, destination, personImage);
         }
+
 
         public void LoadPassenger()
         {
@@ -596,9 +696,9 @@ namespace CS3260_Simulator_Team6
     public interface IReciever
     {
         void SetAction(ACTION_LIST action);
-        bool GetResult();
-
+        bool CLick();
         void UnClick();
+        bool isClicked();
     }
     public abstract class AControlsSystem
     {
@@ -611,6 +711,8 @@ namespace CS3260_Simulator_Team6
         public abstract bool Execute();
 
         public abstract void UnExecute();
+
+        public abstract bool CheckClick();
     }
 
     public class FloorFourDownCommand : AControlsSystem
@@ -620,13 +722,19 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorFourDown);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
 
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorFourDown);
             reciever_.UnClick();
+        }
+
+        public override bool CheckClick()
+        {
+            reciever_.SetAction(ACTION_LIST.floorFourDown);
+            return reciever_.isClicked();
         }
     }
 
@@ -636,12 +744,18 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorThreeUp);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorThreeUp);
             reciever_.UnClick();
+        }
+
+        public override bool CheckClick()
+        {
+            reciever_.SetAction(ACTION_LIST.floorThreeUp);
+            return reciever_.isClicked();
         }
     }
 
@@ -651,12 +765,18 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorThreeDown);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorThreeDown);
             reciever_.UnClick();
+        }
+
+        public override bool CheckClick()
+        {
+            reciever_.SetAction(ACTION_LIST.floorThreeDown);
+            return reciever_.isClicked();
         }
     }
 
@@ -666,12 +786,18 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorTwoUp);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorTwoUp);
             reciever_.UnClick();
+        }
+
+        public override bool CheckClick()
+        {
+            reciever_.SetAction(ACTION_LIST.floorTwoUp);
+            return reciever_.isClicked();
         }
     }
 
@@ -681,12 +807,18 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorTwoDown);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorTwoDown);
             reciever_.UnClick();
+        }
+
+        public override bool CheckClick()
+        {
+            reciever_.SetAction(ACTION_LIST.floorTwoDown);
+            return reciever_.isClicked();
         }
     }
 
@@ -696,119 +828,22 @@ namespace CS3260_Simulator_Team6
         public override bool Execute()
         {
             reciever_.SetAction(ACTION_LIST.floorOneUp);
-            return reciever_.GetResult();
+            return reciever_.CLick();
         }
         public override void UnExecute()
         {
             reciever_.SetAction(ACTION_LIST.floorOneUp);
             reciever_.UnClick();
         }
-    }
 
-    public class InternalCloseDoorCommand : AControlsSystem
-    {
-        public InternalCloseDoorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
+        public override bool CheckClick()
         {
-            reciever_.SetAction(ACTION_LIST.intCloseDoor);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intCloseDoor);
-            reciever_.UnClick();
+            reciever_.SetAction(ACTION_LIST.floorOneUp);
+            return reciever_.isClicked();
         }
     }
 
-    public class InternalOpenDoorCommand : AControlsSystem
-    {
-        public InternalOpenDoorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intOpenDoor);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intOpenDoor);
-            reciever_.UnClick();
-        }
-    }
 
-    public class InternalFourthFloorCommand : AControlsSystem
-    {
-        public InternalFourthFloorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intFour);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intFour);
-            reciever_.UnClick();
-        }
-    }
-
-    public class InternalThirdFloorCommand : AControlsSystem
-    {
-        public InternalThirdFloorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intThree);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intThree);
-            reciever_.UnClick();
-        }
-    }
-
-    public class InternalSecondFloorCommand : AControlsSystem
-    {
-        public InternalSecondFloorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intTwo);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intTwo);
-            reciever_.UnClick();
-        }
-    }
-
-    public class InternalFirstFloorCommand : AControlsSystem
-    {
-        public InternalFirstFloorCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intOne);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intOne);
-            reciever_.UnClick();
-        }
-    }
-
-    public class InternalEmergencyCommand : AControlsSystem
-    {
-        public InternalEmergencyCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.intEmerg);
-            return reciever_.GetResult();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.intEmerg);
-            reciever_.UnClick();
-        }
-    }
 
     public class ButtonClick : IReciever
     {
@@ -826,9 +861,10 @@ namespace CS3260_Simulator_Team6
             intFloorFour_ = false; intFloorThree_ = false; intFloorTwo_ = false; intFloorOne_ = false;
             intEmerg_ = false;
             request_ = request;
+
         }
 
-        public bool GetResult()
+        public bool CLick()
         {
             bool result = false;
 
@@ -1011,7 +1047,7 @@ namespace CS3260_Simulator_Team6
 
         public void UnClick()
         {
-            if(currentAction == ACTION_LIST.floorFourDown)
+            if (currentAction == ACTION_LIST.floorFourDown)
             {
                 if (floorFourDown_)
                 {
@@ -1116,27 +1152,67 @@ namespace CS3260_Simulator_Team6
                 }
             }
         }
+
+        public bool isClicked()
+        {
+            bool result = false;
+            if (currentAction == ACTION_LIST.floorFourDown)
+            {
+                result = floorFourDown_;
+            }
+            else if (currentAction == ACTION_LIST.floorThreeUp)
+            {
+                result = floorThreeUp_;
+            }
+            else if (currentAction == ACTION_LIST.floorThreeDown)
+            {
+                result = floorThreeDown_;
+            }
+            else if (currentAction == ACTION_LIST.floorTwoUp)
+            {
+                result = floorTwoUp_;
+            }
+            else if (currentAction == ACTION_LIST.floorTwoDown)
+            {
+                result = floorTwoDown_;
+            }
+            else if (currentAction == ACTION_LIST.floorOneUp)
+            {
+                result = floorOneUp_;
+            }
+            return result;
+        }
     }
 
     public class RequestPool
     {
         private List<string> requestPool;
         private string currentRequest;
+        private ListBox lstBoxRequestPool;
 
-        public RequestPool()
+        public RequestPool(ListBox listBox)
         {
             requestPool = new List<string>();
             currentRequest = "";
+            this.lstBoxRequestPool = listBox;
         }
 
         public void AddRequest(string request)
         {
             requestPool.Add(request);
+            lstBoxRequestPool.Items.Add(request);
             currentRequest = request;
         }
 
         public void CompleteRequest(string request)
         {
+            for (int i = 0; i < lstBoxRequestPool.Items.Count; i++)
+            {
+                if (lstBoxRequestPool.Items[i].ToString().Contains(request))
+                {
+                    lstBoxRequestPool.Items.RemoveAt(i);
+                }
+            }
             requestPool.Remove(request);
         }
 

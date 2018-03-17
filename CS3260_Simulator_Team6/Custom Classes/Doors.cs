@@ -25,7 +25,7 @@ namespace CS3260_Simulator_Team6
         private bool doorsInOperation;
         private Storyboard closeDoorOperation;
         private Storyboard openDoorOperation;
-        private Dictionary<int,Rectangle> leftDoors;
+        private Dictionary<int, Rectangle> leftDoors;
         private Dictionary<int, Rectangle> rightDoors;
         private const int CLOSED_DOOR_WIDTH = 47;
         private const int OPEN_DOOR_WIDTH = 2;
@@ -43,7 +43,7 @@ namespace CS3260_Simulator_Team6
             window = (MainWindow)Application.Current.MainWindow;
             leftDoors = new Dictionary<int, Rectangle>();
             rightDoors = new Dictionary<int, Rectangle>();
-            this.leftDoors.Add(3,window.fourthFloorDoorLeft);
+            this.leftDoors.Add(3, window.fourthFloorDoorLeft);
             this.leftDoors.Add(2, window.thirdFloorDoorLeft);
             this.leftDoors.Add(1, window.secondFloorDoorLeft);
             this.leftDoors.Add(0, window.firstFloorDoorLeft);
@@ -139,7 +139,8 @@ namespace CS3260_Simulator_Team6
 
         public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; } }
 
-        public string ElevatorDirection {
+        public string ElevatorDirection
+        {
             get { return direction; }
             set { direction = value; }
         }

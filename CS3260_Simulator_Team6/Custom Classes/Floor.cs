@@ -26,6 +26,7 @@ namespace CS3260_Simulator_Team6
 
         private int maximumAmmountOfPeopleInTheQueue; // depends on graphic
 
+        //private List<Passenger> arrayOfPeopleWaitingForElevator;
         private Passenger[] arrayOfPeopleWaitingForElevator;
 
         private List<Elevator> listOfElevatorsWaitingHere;
@@ -38,11 +39,13 @@ namespace CS3260_Simulator_Team6
         {
             get { return floorIndex; }
             private set { }
-        }      
+        }
 
-        public bool LampUpLight {
+        public bool LampUpLight
+        {
             get { return LampUp; }
-            set {
+            set
+            {
                 App.Current.Dispatcher.Invoke((Action)delegate {
                     if (floorIndex == 2 && value == true)
                         window.floorThreeUpIndicator.Fill = Brushes.LightGreen;
@@ -60,15 +63,17 @@ namespace CS3260_Simulator_Team6
                 LampUp = value;
             }
         } //indicates, that at least one of passengers wants to up
-        public bool LampDownLight {
+        public bool LampDownLight
+        {
             get { return LampDown; }
-            set {
+            set
+            {
                 App.Current.Dispatcher.Invoke((Action)delegate {
                     if (floorIndex == 3 && value == true)
                         window.floorFourDownIndicator.Fill = Brushes.LightGreen;
                     else if (floorIndex == 3 && value == false)
                         window.floorFourDownIndicator.Fill = Brushes.White;
-                        
+
                     else if (floorIndex == 2 && value == true)
                         window.floorThreeDownIndicator.Fill = Brushes.LightGreen;
                     else if (floorIndex == 2 && value == false)
@@ -102,14 +107,14 @@ namespace CS3260_Simulator_Team6
         {
             for (int i = 0; i < maximumAmmountOfPeopleInTheQueue; i++)
             {
-                if(arrayOfPeopleWaitingForElevator[i] != null)
+                if (arrayOfPeopleWaitingForElevator[i] != null)
                 {
-                    if (arrayOfPeopleWaitingForElevator[i].GetTargetFloor() == passenger.GetTargetFloor())
+                    if (arrayOfPeopleWaitingForElevator[i].GetPickUpFloor().Equals(passenger.GetPickUpFloor()))
                     {
                         return i;
                     }
                 }
-                
+
             }
             return -1;
         }
