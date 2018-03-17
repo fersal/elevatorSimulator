@@ -1,0 +1,4 @@
+Passenger 1: Travel time from floor 4 to floor 1 was 29.05 seconds
+Passenger 2: Travel time from floor 1 to floor 3 was 41.11 seconds
+Passenger 4: Travel time from floor 1 to floor 3 was 49.14 seconds
+Passenger 3: Travel time from floor 2 to floor 3 was 60.02 seconds

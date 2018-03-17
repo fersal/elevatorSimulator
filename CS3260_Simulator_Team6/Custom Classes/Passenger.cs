@@ -45,16 +45,18 @@ namespace CS3260_Simulator_Team6
         private readonly int instanceID;
         private MainWindow window;
         private DateTime StartTime, StopTime;
-        Stopwatch stopWatch;
-        Stopwatch TotalWatch = new Stopwatch();
+        private Stopwatch stopWatch;
+        private Stopwatch TotalWatch = new Stopwatch();
+        private WriteToFile WriteLog;
 
         #endregion
 
 
         #region METHODS
 
-        public Passenger(Building MyBuilding, Floor CurrentFloor, int TargetFloorIndex, Image passengerImage)
+        public Passenger(Building MyBuilding, Floor CurrentFloor, int TargetFloorIndex, Image passengerImage, WriteToFile write)
         {
+            WriteLog = write;
             this.instanceID = ++passengerID;
             StartTime = DateTime.Now;
             stopWatch = Stopwatch.StartNew();
@@ -223,10 +225,12 @@ namespace CS3260_Simulator_Team6
 
             TimeSpan elapsed = StopTime.Subtract(StartTime);
             string passengerTravelTime = elapsed.TotalSeconds.ToString("00.00");
+            string output = String.Format("Passenger {0}: Travel time from floor {1} to floor {2} was {3} seconds", instanceID, startFloor, endFloor, passengerTravelTime);
             App.Current.Dispatcher.Invoke((Action)delegate {
-                window.listBoxPassengerLog.Items.Add(String.Format("Passenger {0}: Travel time from floor {1} to floor {2} was {3} seconds", instanceID, startFloor, endFloor, passengerTravelTime));
+                window.listBoxPassengerLog.Items.Add(output);
             });
-
+            WriteLog.AddToLog(output);
+            WriteLog.WriteLogFile();
             //No need to animate it
             myBuilding.ListOfAllPeopleWhoNeedAnimation.Remove(this);
         }

@@ -48,6 +48,7 @@ namespace CS3260_Simulator_Team6
         private bool firstFloorUpButtonClicked;
         public Building MyBuilding;
         private AddNewPassenger AddPassenger = null;
+        private WriteToFile WriteLog = null;
         private List<Image> fourthFloorPassengerImages = new List<Image>();
         private List<int> fourthFloorPassengerDestination = new List<int>();
         private List<Image> thirdFloorUpPassengerImages = new List<Image>();
@@ -91,8 +92,10 @@ namespace CS3260_Simulator_Team6
             secondDownCmd = new FloorSecondDownCommand(click);
             doors = new Doors();
             MyBuilding = new Building(doors);
-            AddPassenger = new AddNewPassenger();
+            WriteLog = new WriteToFile();
+            AddPassenger = new AddNewPassenger(WriteLog);
             this.doors.DoorsHaveOpened += new EventHandler(this.Doors_DoorsHaveOpened);
+            
 
         }
 
@@ -652,7 +655,12 @@ namespace CS3260_Simulator_Team6
         private int floorIndex;
         private Passenger NewPassenger;
         MainWindow window = (MainWindow)Application.Current.MainWindow;
+        WriteToFile WriteLog;
 
+        public AddNewPassenger(WriteToFile Write)
+        {
+            WriteLog = Write;
+        }
 
         public int FloorIndex { get { return floorIndex; } set { floorIndex = value; } }
 
@@ -672,7 +680,7 @@ namespace CS3260_Simulator_Team6
                 return;
             }
 
-            NewPassenger = new Passenger(MyForm.MyBuilding, this.MyFloor, destination, personImage);
+            NewPassenger = new Passenger(MyForm.MyBuilding, this.MyFloor, destination, personImage, WriteLog);
         }
 
 
