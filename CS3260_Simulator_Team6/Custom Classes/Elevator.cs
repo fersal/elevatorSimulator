@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Timers;
+using System.Windows.Media;
 
 namespace CS3260_Simulator_Team6
 {
     public class Elevator
     {
         #region FIELDS
-
         private readonly object locker = new object();
         private Building myBuilding;
         private Doors doors;
@@ -25,6 +22,7 @@ namespace CS3260_Simulator_Team6
         private bool IsFull;
         private System.Timers.Timer elevatorTimer;
         private int pickFloor;
+        private MediaPlayer ding;
 
         #endregion
 
@@ -33,6 +31,7 @@ namespace CS3260_Simulator_Team6
 
         public Elevator(Building Mybuilding, Floor StartingFloor, Doors doors)
         {
+            this.ding = new MediaPlayer();
             this.myBuilding = Mybuilding;
             this.doors = doors;
             this.pickUpFloor = StartingFloor;
@@ -133,6 +132,7 @@ namespace CS3260_Simulator_Team6
             {
                 Thread.Sleep(12000);
             }
+
             //Reset appropriate lamp on current floor
             switch (this.elevatorDirection)
             {
@@ -210,6 +210,20 @@ namespace CS3260_Simulator_Team6
 
                 //Update ElevatorDirection
                 UpdateElevatorDirection();
+                string direction = null;
+                //Reset appropriate lamp on current floor
+                switch (this.elevatorDirection)
+                {
+                    case Direction.Up:
+                        direction = "Up";
+                        break;
+                    case Direction.Down:
+                        direction = "Down";
+                        break;
+                    default:
+                        break;
+                }
+                doors.ElevatorDirection = direction;
             }
         }
 
@@ -325,7 +339,12 @@ namespace CS3260_Simulator_Team6
 
         private void OpenTheDoor()
         {
-            doors.OpenDoors(currentFloor.FloorIndex, elevatorDirection);
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                ding.Open(new Uri("Elevator_ding.mp3", UriKind.Relative));
+                ding.Play();
+            });
+            doors.OpenDoors(currentFloor.FloorIndex);
             Thread.Sleep(2000);
         }
 

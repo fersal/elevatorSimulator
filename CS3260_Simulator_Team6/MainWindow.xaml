@@ -127,7 +127,19 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Button x:Name="btnFourthFloorDown" Click="btnFourthFloorDown_Click" Grid.Row="1" Grid.Column="2" Width="26" Height="25" Margin="10,0,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
+            <Button x:Name="btnFourthFloorDown" Click="btnFourthFloorDown_Click" Grid.Row="1" Grid.Column="2" Width="26" Height="25" Margin="10,0,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="{x:Null}">
+                <Button.OpacityMask>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
                 <Button.Background>
                     <ImageBrush ImageSource="resources/Arrow_Down.png" Stretch="Uniform">
                         <ImageBrush.RelativeTransform>
@@ -231,6 +243,18 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Button x:Name="btnThirdFloorUp" Click="btnThirdFloorUp_Click" Grid.Row="2" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Top" Margin="10,60,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="resources/Arrow_Up.png" Stretch="Uniform">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -245,6 +269,18 @@
                 </Button.Background>
             </Button>
             <Button x:Name="btnThirdFloorDown" Click="btnThirdFloorDown_Click" Grid.Row="2" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Bottom" Margin="10,0,0,60" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
+                <Button.OpacityMask>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -341,7 +377,7 @@
             </Rectangle>
             <Button x:Name="btnSecondFloorUp" Click="btnSecondFloorUp_Click" Grid.Row="3" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Top" Margin="10,60,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
                 <Button.Background>
-                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
+                    <ImageBrush ImageSource="resources/Arrow_Up.png" Stretch="Uniform">
                         <ImageBrush.RelativeTransform>
                             <TransformGroup>
                                 <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
@@ -352,8 +388,32 @@
                         </ImageBrush.RelativeTransform>
                     </ImageBrush>
                 </Button.Background>
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="resources/Arrow_Up.png" Stretch="Uniform">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
             </Button>
             <Button x:Name="btnSecondFloorDown" Click="btnSecondFloorDown_Click" Grid.Row="3" Grid.Column="2" Width="26" Height="25" VerticalAlignment="Bottom" Margin="10,0,0,60" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
+                <Button.OpacityMask>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Down.png">
                         <ImageBrush.RelativeTransform>
@@ -448,6 +508,18 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Button x:Name="btnFirstFloorUp" Click="btnFirstFloorUp_Click" Grid.Row="4" Grid.Column="2" Width="26" Height="25" Margin="10,0,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left">
+                <Button.OpacityMask>
+                    <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
                 <Button.Background>
                     <ImageBrush Stretch="Uniform" ImageSource="resources/Arrow_Up.png">
                         <ImageBrush.RelativeTransform>
@@ -469,15 +541,41 @@
                 <RowDefinition Height="261*"/>
                 <RowDefinition Height="144*"/>
             </Grid.RowDefinitions>
-            <Label FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" Width="407" Height="25" VerticalAlignment="Top" Margin="0,24,0,0" FontWeight="Bold" FontSize="12" Content="Elevator Request Pool" HorizontalContentAlignment="Center"/>
-            <ListBox x:Name="listBoxRequestPool" Height="170" VerticalAlignment="Top" Width="407" Margin="0,50,0,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
-            <Label FontFamily="Verdana" Grid.Row="1" Background="#FF212020" Foreground="#FF1E5C37" Width="459" Height="25" VerticalAlignment="Top" Margin="0,24,0,0" FontWeight="Bold" FontSize="12" Content="Passenger Log" HorizontalContentAlignment="Center"/>
-            <ListBox x:Name="listBoxPassengerLog" Grid.Row="1" Height="292" VerticalAlignment="Top" Width="459" Margin="0,50,0,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
-            <Slider Grid.Row="2" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="19,10,0,0" Width="74" Height="27"/>
+            <Label FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" Width="407" Height="25" VerticalAlignment="Top" Margin="0,24,5,0" FontWeight="Bold" FontSize="12" Content="Elevator Request Pool" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="listBoxRequestPool" Height="170" VerticalAlignment="Top" Width="407" Margin="0,50,5,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
+            <Label FontFamily="Verdana" Grid.Row="1" Background="#FF212020" Foreground="#FF1E5C37" Width="459" Height="25" VerticalAlignment="Top" Margin="0,24,5,0" FontWeight="Bold" FontSize="12" Content="Passenger Log" HorizontalContentAlignment="Center"/>
+            <ListBox x:Name="listBoxPassengerLog" Grid.Row="1" Height="292" VerticalAlignment="Top" Width="459" Margin="0,50,5,0" FontFamily="Verdana" Background="#FF212020" Foreground="#FF1E5C37" BorderBrush="#FF164429"/>
+            <Slider x:Name="sliderManualAuto" Grid.Row="2" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="19,10,0,0" Width="74" Height="27" ValueChanged="sliderManualAuto_ValueChanged"/>
             <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="0,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="49"/>
             <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="69,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="36"/>
-            <Button x:Name="StartButton" Content="Start" Margin="0,0,0,25" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2"/>
-
+            <Button x:Name="StartButton" Content="Start" Margin="0,0,0,25" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2" Click="StartButton_Click"/>
+            <Button x:Name="btnOpenLogFile" Content="Open Log File" Margin="342,0,13,146" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2" Click="btnOpenLogFile_Click"/>
+            <Button x:Name="btnMute" Grid.Row="2" Width="47" Height="42" VerticalAlignment="Top" Margin="419,127,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Click="btnMute_Click">
+                <Button.OpacityMask>
+                    <ImageBrush ImageSource="resources/Mute.png" Stretch="Uniform">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.OpacityMask>
+                <Button.Background>
+                    <ImageBrush ImageSource="resources/Mute.png" Stretch="Uniform">
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Button.Background>
+            </Button>
         </Grid>
     </Grid>
 </Window>

@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Resources;
+using System.Diagnostics;
 
 namespace CS3260_Simulator_Team6
 {
@@ -23,12 +17,13 @@ namespace CS3260_Simulator_Team6
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string ADULT = "Adult";
-        private const string CHILD = "Child";
-        private const string PLEASE_WAIT = "It could be up to 40 seconds to get to the 8th floor\n		PLEASE WAIT....";
+        #region FIELDS
+        private const int MAX_AUTO_PASSENGERS = 30;
+        private bool playPause;
         private int prevFloorFourSelectedImg = 0;
         private int fourthFloorPassengerCount = 0;
         private int prevFloorThreeSelectedImg = 0;
+        private int fourthFloorDownPassengerCount = 0;
         private int thirdFloorPassengerCount = 0;
         private int thirdFloorUpPassengerCount = 0;
         private int thirdFloorDownPassengerCount = 0;
@@ -38,6 +33,7 @@ namespace CS3260_Simulator_Team6
         private int secondFloorDownPassengerCount = 0;
         private int prevFloorOneSelectedImg = 0;
         private int firstFloorPassengerCount = 0;
+        private int firstFloorUpPassengerCount = 0;
         private const int MAX_PASSANGERS = 8;
         private int totalPassengerCountID = 0;
         private bool fourthFloorDownButtonClicked;
@@ -46,25 +42,27 @@ namespace CS3260_Simulator_Team6
         private bool thirdFloorUpButtonClicked;
         private bool secondFloorUpButtonClicked;
         private bool firstFloorUpButtonClicked;
+        private bool AutoMode = false;
+        private readonly object locker = new object();
         public Building MyBuilding;
         private AddNewPassenger AddPassenger = null;
         private WriteToFile WriteLog = null;
         private List<Image> fourthFloorPassengerImages = new List<Image>();
+        private List<Image> fourthFloorSelectedPassengerImages = new List<Image>();
         private List<int> fourthFloorPassengerDestination = new List<int>();
+        private List<Image> thirdFloorPassengerImages = new List<Image>();
         private List<Image> thirdFloorUpPassengerImages = new List<Image>();
         private List<int> thirdFloorUpPassengerDestination = new List<int>();
         private List<Image> secondFloorUpPassengerImages = new List<Image>();
         private List<int> secondFloorUpPassengerDestination = new List<int>();
         private List<Image> thirdFloorDownPassengerImages = new List<Image>();
         private List<int> thirdFloorDownPassengerDestination = new List<int>();
+        private List<Image> secondFloorPassengerImages = new List<Image>();
         private List<Image> secondFloorDownPassengerImages = new List<Image>();
         private List<int> secondFloorDownPassengerDestination = new List<int>();
         private List<Image> firstFloorPassengerImages = new List<Image>();
+        private List<Image> firstFloorSelectedPassengerImages = new List<Image>();
         private List<int> firstFloorPassengerDestination = new List<int>();
-
-        //      private Elevator elevator;
-        //private long travelTime;
-        //private Passenger passengerOne;
         private AControlsSystem command = null;
         private RequestPool request = null;
         private IReciever click = null;
@@ -76,11 +74,19 @@ namespace CS3260_Simulator_Team6
         private FloorSecondDownCommand secondDownCmd = null;
         private BrushConverter bc = new BrushConverter();
         private Doors doors = null;
+        private MediaPlayer mplayer;
         FloorSelectionDialog dialog = null;
+        Uri resourceUriDown = new Uri("resources/Arrow_Down.png", UriKind.Relative);
+        Uri resourceUriDown_Clicked = new Uri("resources/Arrow_Down_Clicked.png", UriKind.Relative);
+        Uri resourceUriUp = new Uri("resources/Arrow_Up.png", UriKind.Relative);
+        Uri resourceUriUp_Clicked = new Uri("resources/Arrow_Up_Clicked.png", UriKind.Relative);
+        #endregion
 
+        #region MAINWINDOW INITIALIZER
         public MainWindow()
         {
             InitializeComponent();
+            this.mplayer = new MediaPlayer();
             request = new RequestPool(listBoxRequestPool);
             click = new ButtonClick(request);
             firstUpCmd = new FloorFirstUpCommand(click);
@@ -95,243 +101,85 @@ namespace CS3260_Simulator_Team6
             WriteLog = new WriteToFile();
             AddPassenger = new AddNewPassenger(WriteLog);
             this.doors.DoorsHaveOpened += new EventHandler(this.Doors_DoorsHaveOpened);
-            
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_1);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_2);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_3);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_4);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_5);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_6);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_7);
+            this.fourthFloorPassengerImages.Add(imgFloorFourPerson_8);
 
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_1);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_2);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_3);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_4);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_5);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_6);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_7);
+            this.thirdFloorPassengerImages.Add(imgFloorThreePerson_8);
+
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_1);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_2);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_3);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_4);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_5);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_6);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_7);
+            this.secondFloorPassengerImages.Add(imgFloorTwoPerson_8);
+
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_1);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_2);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_3);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_4);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_5);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_6);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_7);
+            this.firstFloorPassengerImages.Add(imgFloorOnePerson_8);
+            mplayer.Open(new Uri("Elevator_Music_1.mp3", UriKind.Relative));
+            mplayer.MediaEnded += new EventHandler(Media_Ended);
+            mplayer.Play();
         }
 
-        public void Doors_DoorsHaveOpened(object sender, EventArgs e)
+        #endregion
+
+        #region METHODS
+        
+
+        private int GetFloorPassengerCount(List<Image> passengers)
         {
-            int floor = doors.CurrentFloor;
-            bool clicked = false;
-            string direction = doors.ElevatorDirection;
-            if (floor == 3)
+            int result = 0;
+            App.Current.Dispatcher.Invoke((Action)delegate
             {
-                command = fourDownCmd;
-                clicked = command.CheckClick();
-                if (clicked)
+                for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
-                    command.UnExecute();
-                    btnFourthFloorDown.BorderBrush = null;
-                    fourthFloorPassengerCount = 0;
-                }
-            }
-            else if (floor == 2)
-            {
-                command = thirdDownCmd;
-                clicked = command.CheckClick();
-                if (clicked)
-                {
-                    command.UnExecute();
-                    btnThirdFloorDown.BorderBrush = null;
-                    thirdFloorDownPassengerCount = 0;
-                }
-
-                command = thirdUpCmd;
-                clicked = command.CheckClick();
-                if (clicked)
-                {
-                    command.UnExecute();
-                    btnThirdFloorUp.BorderBrush = null;
-                    thirdFloorUpPassengerCount = 0;
-                }
-
-                thirdFloorPassengerCount = 0;
-            }
-            else if (floor == 1)
-            {
-
-                command = secondDownCmd;
-                clicked = command.CheckClick();
-                if (clicked)
-                {
-                    command.UnExecute();
-                    btnSecondFloorDown.BorderBrush = null;
-                    secondFloorDownPassengerCount = 0;
-                }
-
-                command = secondUpCmd;
-                clicked = command.CheckClick();
-                if (clicked)
-                {
-                    command.UnExecute();
-                    btnSecondFloorUp.BorderBrush = null;
-                    secondFloorUpPassengerCount = 0;
-                }
-
-                secondFloorPassengerCount = 0;
-            }
-            else if (floor == 0)
-            {
-                command = firstUpCmd;
-                clicked = command.CheckClick();
-                if (clicked)
-                {
-                    command.UnExecute();
-                    btnFirstFloorUp.BorderBrush = null;
-                    firstFloorPassengerCount = 0;
-                }
-            }
-        }
-
-
-        private void btnFourthFloorDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (fourthFloorPassengerCount != 0)
-            {
-                command = fourDownCmd;
-                fourthFloorDownButtonClicked = command.Execute();
-                if (!fourthFloorDownButtonClicked)
-                {
-                    btnFourthFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 3;
-                    for (int i = 0; i < fourthFloorPassengerCount; i++)
+                    if (passengers[i].Opacity == 100)
                     {
-                        AddPassenger.AddPassenger(fourthFloorPassengerDestination[i], fourthFloorPassengerImages[i]);
+                        result++;
                     }
-                    fourthFloorPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers first.");
-            }
-            StartButton.Focus();
-        }
+            });
 
-        private void btnThirdFloorUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (thirdFloorUpPassengerCount != 0)
-            {
-                command = thirdUpCmd;
-                thirdFloorUpButtonClicked = command.Execute();
-                if (!thirdFloorUpButtonClicked)
-                {
-                    btnThirdFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 2;
-                    for (int i = 0; i < thirdFloorUpPassengerCount; i++)
-                    {
-                        if (thirdFloorUpPassengerDestination[i] > 2)
-                            AddPassenger.AddPassenger(thirdFloorUpPassengerDestination[i], thirdFloorUpPassengerImages[i]);
-                    }
-                    thirdFloorUpPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers to go up first.");
-            }
-            StartButton.Focus();
-        }
-
-        private void btnThirdFloorDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (thirdFloorDownPassengerCount != 0)
-            {
-                command = thirdDownCmd;
-                thirdFloorDownButtonClicked = command.Execute();
-                if (!thirdFloorDownButtonClicked)
-                {
-                    btnThirdFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 2;
-                    for (int i = 0; i < thirdFloorDownPassengerCount; i++)
-                    {
-                        if (thirdFloorDownPassengerDestination[i] < 2)
-                            AddPassenger.AddPassenger(thirdFloorDownPassengerDestination[i], thirdFloorDownPassengerImages[i]);
-                    }
-                    thirdFloorDownPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers to go down first.");
-            }
-            StartButton.Focus();
-        }
-
-        private void btnSecondFloorUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (secondFloorUpPassengerCount != 0)
-            {
-                command = secondUpCmd;
-                secondFloorUpButtonClicked = command.Execute();
-                if (!secondFloorUpButtonClicked)
-                {
-                    btnSecondFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 1;
-                    for (int i = 0; i < secondFloorUpPassengerCount; i++)
-                    {
-                        if (secondFloorUpPassengerDestination[i] > 1)
-                            AddPassenger.AddPassenger(secondFloorUpPassengerDestination[i], secondFloorUpPassengerImages[i]);
-                    }
-                    secondFloorUpPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers to go up first.");
-            }
-            StartButton.Focus();
-        }
-
-        private void btnSecondFloorDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (secondFloorDownPassengerCount != 0)
-            {
-                command = secondDownCmd;
-                secondFloorDownButtonClicked = command.Execute();
-                if (!secondFloorDownButtonClicked)
-                {
-                    btnSecondFloorDown.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 1;
-                    for (int i = 0; i < secondFloorDownPassengerCount; i++)
-                    {
-                        if (secondFloorDownPassengerDestination[i] < 1)
-                            AddPassenger.AddPassenger(secondFloorDownPassengerDestination[i], secondFloorDownPassengerImages[i]);
-                    }
-                    secondFloorDownPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers to go down first.");
-            }
-            StartButton.Focus();
-        }
-
-        private void btnFirstFloorUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (firstFloorPassengerCount != 0)
-            {
-                command = firstUpCmd;
-                firstFloorUpButtonClicked = command.Execute();
-                if (!firstFloorUpButtonClicked)
-                {
-                    btnFirstFloorUp.BorderBrush = Brushes.LightSeaGreen;
-                    AddPassenger.FloorIndex = 0;
-                    for (int i = 0; i < firstFloorPassengerCount; i++)
-                    {
-                        AddPassenger.AddPassenger(firstFloorPassengerDestination[i], firstFloorPassengerImages[i]);
-                    }
-                    firstFloorPassengerImages.Clear();
-                    AddPassenger.LoadPassenger();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please add passengers first.");
-            }
-            StartButton.Focus();
+            return result;
         }
 
         private Image FloorFourAddPeople()
         {
-            int peopleSelected = fourthFloorPassengerCount;
+            int peopleSelected = 0;
             Image selectedImg = null;
+
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                for (int i = 0; i < MAX_PASSANGERS; i++)
+                {
+                    if (fourthFloorPassengerImages[i].Opacity == 0)
+                    {
+                        peopleSelected = i + 1;
+                        break;
+                    }
+                }
+            });
+
             switch (peopleSelected)
             {
                 case 1:
@@ -361,24 +209,40 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                var animationAddFloorFour = new DoubleAnimation
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    From = 0,
-                    To = 100,
-                    Duration = TimeSpan.FromMilliseconds(100),
-                    FillBehavior = FillBehavior.Stop
-                };
-                animationAddFloorFour.Completed += (s, a) => selectedImg.Opacity = 100;
-                selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-                prevFloorFourSelectedImg = peopleSelected;
+                    var animationAddFloorFour = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 100,
+                        Duration = TimeSpan.FromMilliseconds(100),
+                        FillBehavior = FillBehavior.Stop
+                    };
+                    animationAddFloorFour.Completed += (s, a) => selectedImg.Opacity = 100;
+                    selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
+                    prevFloorFourSelectedImg = peopleSelected;
+                });
+
             }
             return selectedImg;
         }
 
         private Image FloorThreeAddPeople()
         {
-            int peopleSelected = thirdFloorPassengerCount;
+            int peopleSelected = 0;
             Image selectedImg = null;
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                for (int i = 0; i < MAX_PASSANGERS; i++)
+                {
+                    if (thirdFloorPassengerImages[i].Opacity == 0)
+                    {
+                        peopleSelected = i + 1;
+                        break;
+                    }
+                }
+            });
+
             switch (peopleSelected)
             {
                 case 1:
@@ -408,24 +272,39 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                var animationAddFloorThree = new DoubleAnimation
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    From = 0,
-                    To = 100,
-                    Duration = TimeSpan.FromMilliseconds(100),
-                    FillBehavior = FillBehavior.Stop
-                };
-                animationAddFloorThree.Completed += (s, a) => selectedImg.Opacity = 100;
-                selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorThree);
-                prevFloorThreeSelectedImg = peopleSelected;
+                    var animationAddFloorThree = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 100,
+                        Duration = TimeSpan.FromMilliseconds(100),
+                        FillBehavior = FillBehavior.Stop
+                    };
+                    animationAddFloorThree.Completed += (s, a) => selectedImg.Opacity = 100;
+                    selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorThree);
+                    prevFloorThreeSelectedImg = peopleSelected;
+                });
             }
             return selectedImg;
         }
 
         private Image FloorTwoAddPeople()
         {
-            int peopleSelected = secondFloorPassengerCount;
+            int peopleSelected = 0;
             Image selectedImg = null;
+
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                for (int i = 0; i < MAX_PASSANGERS; i++)
+                {
+                    if (secondFloorPassengerImages[i].Opacity == 0)
+                    {
+                        peopleSelected = i + 1;
+                        break;
+                    }
+                }
+            });
             switch (peopleSelected)
             {
                 case 1:
@@ -455,24 +334,38 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                var animationAddFloorTwo = new DoubleAnimation
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    From = 0,
-                    To = 100,
-                    Duration = TimeSpan.FromMilliseconds(100),
-                    FillBehavior = FillBehavior.Stop
-                };
-                animationAddFloorTwo.Completed += (s, a) => selectedImg.Opacity = 100;
-                selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorTwo);
-                prevFloorTwoSelectedImg = peopleSelected;
+                    var animationAddFloorTwo = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 100,
+                        Duration = TimeSpan.FromMilliseconds(100),
+                        FillBehavior = FillBehavior.Stop
+                    };
+                    animationAddFloorTwo.Completed += (s, a) => selectedImg.Opacity = 100;
+                    selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorTwo);
+                    prevFloorTwoSelectedImg = peopleSelected;
+                });
             }
             return selectedImg;
         }
 
         private Image FloorOneAddPeople()
         {
-            int peopleSelected = firstFloorPassengerCount;
+            int peopleSelected = 0;
             Image selectedImg = null;
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                for (int i = 0; i < MAX_PASSANGERS; i++)
+                {
+                    if (firstFloorPassengerImages[i].Opacity == 0)
+                    {
+                        peopleSelected = i + 1;
+                        break;
+                    }
+                }
+            });
             switch (peopleSelected)
             {
                 case 1:
@@ -502,27 +395,509 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                var animationAddFloorOne = new DoubleAnimation
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    From = 0,
-                    To = 100,
-                    Duration = TimeSpan.FromMilliseconds(100),
-                    FillBehavior = FillBehavior.Stop
-                };
-                animationAddFloorOne.Completed += (s, a) => selectedImg.Opacity = 100;
-                selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorOne);
-                prevFloorOneSelectedImg = peopleSelected;
+                    var animationAddFloorOne = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 100,
+                        Duration = TimeSpan.FromMilliseconds(100),
+                        FillBehavior = FillBehavior.Stop
+                    };
+                    animationAddFloorOne.Completed += (s, a) => selectedImg.Opacity = 100;
+                    selectedImg.BeginAnimation(UIElement.OpacityProperty, animationAddFloorOne);
+                    prevFloorOneSelectedImg = peopleSelected;
+                });
             }
             return selectedImg;
+        }
+
+        private void CreateAutoPassenger(int count, int floor, int destination, Image pic)
+        {
+            lock (locker)
+            {
+                AddPassenger.FloorIndex = floor;
+                AddPassenger.AddPassenger(destination, pic);
+                AddPassenger.LoadPassenger();
+            }
+        }
+
+        private void AddAutoPassenger()
+        {
+            Random rnd = new Random();
+            int destination = 0;
+            int floorIndex = 0;
+            for (int i = 0; i < MAX_AUTO_PASSENGERS; i++)
+            {
+                int currentFloor = rnd.Next(1, 5);
+                int waitTime = rnd.Next(0, 15000);
+                if (currentFloor == 4)
+                {
+                    fourthFloorPassengerCount = GetFloorPassengerCount(fourthFloorPassengerImages);
+                    if (fourthFloorPassengerCount <= MAX_PASSANGERS)
+                    {
+                        fourthFloorDownButtonClicked = true;
+                        floorIndex = 3;
+                        Image selectedImage = FloorFourAddPeople();
+                        do
+                            destination = rnd.Next(0, 4);
+                        while (destination == floorIndex);
+                        fourthFloorDownPassengerCount++;
+                        Thread fourthFloorThread = new Thread(() => CreateAutoPassenger(fourthFloorPassengerCount, currentFloor - 1, destination, selectedImage));
+                        fourthFloorThread.Start();
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+                else if (currentFloor == 3)
+                {
+                    thirdFloorPassengerCount = GetFloorPassengerCount(thirdFloorPassengerImages);
+                    if (thirdFloorPassengerCount <= MAX_PASSANGERS)
+                    {
+                        floorIndex = 2;
+                        Image selectedImage = FloorThreeAddPeople();
+                        do
+                            destination = rnd.Next(0, 4);
+                        while (destination == floorIndex);
+                        if (destination > floorIndex)
+                        {
+                            thirdFloorUpButtonClicked = true;
+                            thirdFloorUpPassengerCount++;
+                            Thread thirdFloorUpThread = new Thread(() => CreateAutoPassenger(thirdFloorUpPassengerCount, currentFloor - 1, destination, selectedImage));
+                            thirdFloorUpThread.Start();
+                        }
+                        else if (destination < floorIndex)
+                        {
+                            thirdFloorDownButtonClicked = true;
+                            thirdFloorDownPassengerCount++;
+                            Thread thirdFloorDownFloorThread = new Thread(() => CreateAutoPassenger(thirdFloorDownPassengerCount, currentFloor - 1, destination, selectedImage));
+                            thirdFloorDownFloorThread.Start();
+                        }
+                    }
+                    else
+                    {
+                        i--;
+                    }
+
+                }
+                else if (currentFloor == 2)
+                {
+                    secondFloorPassengerCount = GetFloorPassengerCount(secondFloorPassengerImages);
+                    if (secondFloorPassengerCount <= MAX_PASSANGERS)
+                    {
+                        floorIndex = 1;
+                        Image selectedImage = FloorTwoAddPeople();
+                        do
+                            destination = rnd.Next(0, 3);
+                        while (destination == floorIndex);
+                        if (destination > floorIndex)
+                        {
+                            secondFloorUpButtonClicked = true;
+                            secondFloorUpPassengerCount++;
+                            Thread secondFloorUpThread = new Thread(() => CreateAutoPassenger(secondFloorUpPassengerCount, currentFloor - 1, destination, selectedImage));
+                            secondFloorUpThread.Start();
+                        }
+                        else if (destination < floorIndex)
+                        {
+                            secondFloorDownButtonClicked = true;
+                            secondFloorDownPassengerCount++;
+                            Thread secondFloorDownFloorThread = new Thread(() => CreateAutoPassenger(secondFloorDownPassengerCount, currentFloor - 1, destination, selectedImage));
+                            secondFloorDownFloorThread.Start();
+                        }
+                    }
+                    else
+                    {
+                        i--;
+                    }
+
+                }
+                else if (currentFloor == 1)
+                {
+                    firstFloorPassengerCount = GetFloorPassengerCount(firstFloorPassengerImages);
+                    if (firstFloorPassengerCount <= MAX_PASSANGERS)
+                    {
+                        firstFloorUpButtonClicked = true;
+                        floorIndex = 0;
+                        Image selectedImage = FloorOneAddPeople();
+                        do
+                            destination = rnd.Next(0, 4);
+                        while (destination == floorIndex);
+                        firstFloorUpPassengerCount++;
+                        Thread firstFloorUpThread = new Thread(() => CreateAutoPassenger(firstFloorUpPassengerCount, currentFloor - 1, destination, selectedImage));
+                        firstFloorUpThread.Start();
+                    }
+                    else
+                    {
+                        i--;
+                    }
+
+                }
+                Thread.Sleep(waitTime);
+            }
+
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                listBoxRequestPool.Items.Remove("Auto processing 30 passengers.");
+                sliderManualAuto.IsEnabled = true;
+                StartButton.IsEnabled = true;
+            });
+        }
+        #endregion
+
+        #region EVENT HANDLERS
+        public void Doors_DoorsHaveOpened(object sender, EventArgs e)
+        {
+            int floor = doors.CurrentFloor;
+            string direction = doors.ElevatorDirection;
+            if (floor == 3)
+            {
+
+                if (fourthFloorDownButtonClicked)
+                {
+                    if (!AutoMode)
+                    {
+                        command = fourDownCmd;
+                        command.UnExecute();
+                        StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                        BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                        var brush = new ImageBrush();
+                        brush.ImageSource = temp;
+                        btnFourthFloorDown.Background = brush;
+                    }
+                    else
+                    {
+                        fourthFloorDownPassengerCount = 0;
+                    }
+                    fourthFloorPassengerCount = GetFloorPassengerCount(fourthFloorPassengerImages);
+                    fourthFloorDownButtonClicked = false;
+                }
+            }
+            else if (floor == 2)
+            {
+                if (direction == "Down")
+                {
+                    if (thirdFloorDownButtonClicked)
+                    {
+                        if (!AutoMode)
+                        {
+                            command = thirdDownCmd;
+                            command.UnExecute();
+                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                            var brush = new ImageBrush();
+                            brush.ImageSource = temp;
+                            btnThirdFloorDown.Background = brush;
+                        }
+                        else
+                        {
+                            thirdFloorDownPassengerCount = 0;
+                        }
+                        thirdFloorPassengerCount = GetFloorPassengerCount(thirdFloorPassengerImages);
+                        thirdFloorDownButtonClicked = false;
+                    }
+                }
+                else if (direction == "Up")
+                {
+                    if (thirdFloorUpButtonClicked)
+                    {
+                        if (!AutoMode)
+                        {
+                            command = thirdUpCmd;
+                            command.UnExecute();
+                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                            var brush = new ImageBrush();
+                            brush.ImageSource = temp;
+                            btnThirdFloorUp.Background = brush;
+                        }
+                        else
+                        {
+                            thirdFloorUpPassengerCount = 0;
+                        }
+                        thirdFloorPassengerCount = GetFloorPassengerCount(thirdFloorPassengerImages);
+                        thirdFloorUpButtonClicked = false;
+                    }
+                }
+            }
+            else if (floor == 1)
+            {
+
+                if (direction == "Down")
+                {
+                    if (secondFloorDownButtonClicked)
+                    {
+                        if (!AutoMode)
+                        {
+                            command = secondDownCmd;
+                            command.UnExecute();
+                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                            var brush = new ImageBrush();
+                            brush.ImageSource = temp;
+                            btnSecondFloorDown.Background = brush;
+                        }
+                        else
+                        {
+                            secondFloorDownPassengerCount = 0;
+                        }
+                        secondFloorPassengerCount = GetFloorPassengerCount(secondFloorPassengerImages);
+                        secondFloorDownButtonClicked = false;
+                    }
+                }
+                else if (direction == "Up")
+                {
+                    if (secondFloorUpButtonClicked)
+                    {
+                        if (!AutoMode)
+                        {
+                            command = secondUpCmd;
+                            command.UnExecute();
+                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                            var brush = new ImageBrush();
+                            brush.ImageSource = temp;
+                            btnSecondFloorUp.Background = brush;
+                        }
+                        else
+                        {
+                            secondFloorUpPassengerCount = 0;
+                        }
+                        secondFloorPassengerCount = GetFloorPassengerCount(secondFloorPassengerImages);
+                        secondFloorUpButtonClicked = false;
+                    }
+                }
+            }
+            else if (floor == 0)
+            {
+
+                if (firstFloorUpButtonClicked)
+                {
+                    if (!AutoMode)
+                    {
+                        command = firstUpCmd;
+                        command.UnExecute();
+                        StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                        BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                        var brush = new ImageBrush();
+                        brush.ImageSource = temp;
+                        btnFirstFloorUp.Background = brush;
+                    }
+                    else
+                    {
+                        firstFloorUpPassengerCount = 0;
+                    }
+                    firstFloorPassengerCount = GetFloorPassengerCount(firstFloorPassengerImages);
+                    firstFloorUpButtonClicked = false;
+                }
+            }
+        }
+
+        private void btnFourthFloorDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (fourthFloorDownPassengerCount != 0)
+            {
+                command = fourDownCmd;
+                fourthFloorDownButtonClicked = command.Execute();
+                if (!fourthFloorDownButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnFourthFloorDown.Background = brush;
+                    fourthFloorDownButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 3;
+                for (int i = 0; i < fourthFloorDownPassengerCount; i++)
+                {
+                    AddPassenger.AddPassenger(fourthFloorPassengerDestination[i], fourthFloorSelectedPassengerImages[i]);
+                }
+                fourthFloorSelectedPassengerImages.Clear();
+                fourthFloorPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                fourthFloorDownPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers first.");
+            }
+            sliderManualAuto.Focus();
+        }
+
+        private void btnThirdFloorUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (thirdFloorUpPassengerCount != 0)
+            {
+                command = thirdUpCmd;
+                thirdFloorUpButtonClicked = command.Execute();
+                if (!thirdFloorUpButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnThirdFloorUp.Background = brush;
+                    thirdFloorUpButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 2;
+                for (int i = 0; i < thirdFloorUpPassengerCount; i++)
+                {
+                    if (thirdFloorUpPassengerDestination[i] > 2)
+                        AddPassenger.AddPassenger(thirdFloorUpPassengerDestination[i], thirdFloorUpPassengerImages[i]);
+                }
+                thirdFloorUpPassengerImages.Clear();
+                thirdFloorUpPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                thirdFloorUpPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go up first.");
+            }
+            sliderManualAuto.Focus();
+        }
+
+        private void btnThirdFloorDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (thirdFloorDownPassengerCount != 0)
+            {
+                command = thirdDownCmd;
+                thirdFloorDownButtonClicked = command.Execute();
+                if (!thirdFloorDownButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnThirdFloorDown.Background = brush;
+                    thirdFloorDownButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 2;
+                for (int i = 0; i < thirdFloorDownPassengerCount; i++)
+                {
+                    if (thirdFloorDownPassengerDestination[i] < 2)
+                        AddPassenger.AddPassenger(thirdFloorDownPassengerDestination[i], thirdFloorDownPassengerImages[i]);
+                }
+                thirdFloorDownPassengerImages.Clear();
+                thirdFloorDownPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                thirdFloorDownPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go down first.");
+            }
+            sliderManualAuto.Focus();
+        }
+
+        private void btnSecondFloorUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (secondFloorUpPassengerCount != 0)
+            {
+                command = secondUpCmd;
+                secondFloorUpButtonClicked = command.Execute();
+                if (!secondFloorUpButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnSecondFloorUp.Background = brush;
+                    secondFloorUpButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 1;
+                for (int i = 0; i < secondFloorUpPassengerCount; i++)
+                {
+                    if (secondFloorUpPassengerDestination[i] > 1)
+                        AddPassenger.AddPassenger(secondFloorUpPassengerDestination[i], secondFloorUpPassengerImages[i]);
+                }
+                secondFloorUpPassengerImages.Clear();
+                secondFloorUpPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                secondFloorUpPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go up first.");
+            }
+            sliderManualAuto.Focus();
+        }
+
+        private void btnSecondFloorDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (secondFloorDownPassengerCount != 0)
+            {
+                command = secondDownCmd;
+                secondFloorDownButtonClicked = command.Execute();
+                if (!secondFloorDownButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnSecondFloorDown.Background = brush;
+                    secondFloorDownButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 1;
+                for (int i = 0; i < secondFloorDownPassengerCount; i++)
+                {
+                    if (secondFloorDownPassengerDestination[i] < 1)
+                        AddPassenger.AddPassenger(secondFloorDownPassengerDestination[i], secondFloorDownPassengerImages[i]);
+                }
+                secondFloorDownPassengerImages.Clear();
+                secondFloorDownPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                secondFloorDownPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers to go down first.");
+            }
+            sliderManualAuto.Focus();
+        }
+
+        private void btnFirstFloorUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (firstFloorUpPassengerCount != 0)
+            {
+                command = firstUpCmd;
+                firstFloorUpButtonClicked = command.Execute();
+                if (!firstFloorUpButtonClicked)
+                {
+                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                    var brush = new ImageBrush();
+                    brush.ImageSource = temp;
+                    btnFirstFloorUp.Background = brush;
+                    firstFloorUpButtonClicked = true;
+                }
+                AddPassenger.FloorIndex = 0;
+                for (int i = 0; i < firstFloorUpPassengerCount; i++)
+                {
+                    AddPassenger.AddPassenger(firstFloorPassengerDestination[i], firstFloorSelectedPassengerImages[i]);
+                }
+                firstFloorSelectedPassengerImages.Clear();
+                firstFloorPassengerDestination.Clear();
+                AddPassenger.LoadPassenger();
+                firstFloorUpPassengerCount = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please add passengers first.");
+            }
+            sliderManualAuto.Focus();
         }
 
         private void btnAddPassengerFloorFour_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 4;
-            fourthFloorPassengerCount++;
+            fourthFloorPassengerCount = GetFloorPassengerCount(fourthFloorPassengerImages);
             if (fourthFloorPassengerCount <= MAX_PASSANGERS)
             {
-                fourthFloorPassengerImages.Add(FloorFourAddPeople());
+                fourthFloorDownPassengerCount++;
+                fourthFloorSelectedPassengerImages.Add(FloorFourAddPeople());
                 FloorSelectionDialog dialog = new FloorSelectionDialog();
                 for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
                 {
@@ -534,19 +909,30 @@ namespace CS3260_Simulator_Team6
                 dialog.ShowDialog();
                 int selectedFloor = (dialog.GetSelectedItem() - 1);
                 fourthFloorPassengerDestination.Add(selectedFloor);
+                if (fourthFloorDownButtonClicked)
+                {
+                    AddPassenger.FloorIndex = 3;
+                    for (int i = 0; i < fourthFloorDownPassengerCount; i++)
+                    {
+                        AddPassenger.AddPassenger(fourthFloorPassengerDestination[i], fourthFloorSelectedPassengerImages[i]);
+                    }
+                    fourthFloorSelectedPassengerImages.Clear();
+                    fourthFloorPassengerDestination.Clear();
+                    fourthFloorDownPassengerCount = 0;
+                    AddPassenger.LoadPassenger();
+                }
                 totalPassengerCountID++;
             }
             else
             {
                 MessageBox.Show("The max amount of passengers have been added for this floor.");
-                fourthFloorPassengerCount--;
             }
         }
 
         private void btnAddPassengerFloorThree_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 3;
-            thirdFloorPassengerCount++;
+            thirdFloorPassengerCount = GetFloorPassengerCount(thirdFloorPassengerImages);
             if (thirdFloorPassengerCount <= MAX_PASSANGERS)
             {
                 Image selectedImage = FloorThreeAddPeople();
@@ -565,12 +951,38 @@ namespace CS3260_Simulator_Team6
                     thirdFloorUpPassengerDestination.Add(selectedFloor);
                     thirdFloorUpPassengerImages.Add(selectedImage);
                     thirdFloorUpPassengerCount++;
+                    if (thirdFloorUpButtonClicked)
+                    {
+                        AddPassenger.FloorIndex = 2;
+                        for (int i = 0; i < thirdFloorUpPassengerCount; i++)
+                        {
+                            if (thirdFloorUpPassengerDestination[i] > 2)
+                                AddPassenger.AddPassenger(thirdFloorUpPassengerDestination[i], thirdFloorUpPassengerImages[i]);
+                        }
+                        thirdFloorUpPassengerImages.Clear();
+                        thirdFloorUpPassengerDestination.Clear();
+                        thirdFloorUpPassengerCount = 0;
+                        AddPassenger.LoadPassenger();
+                    }
                 }
                 else if (selectedFloor < 2)
                 {
                     thirdFloorDownPassengerDestination.Add(selectedFloor);
                     thirdFloorDownPassengerImages.Add(selectedImage);
                     thirdFloorDownPassengerCount++;
+                    if (thirdFloorDownButtonClicked)
+                    {
+                        AddPassenger.FloorIndex = 2;
+                        for (int i = 0; i < thirdFloorDownPassengerCount; i++)
+                        {
+                            if (thirdFloorDownPassengerDestination[i] < 2)
+                                AddPassenger.AddPassenger(thirdFloorDownPassengerDestination[i], thirdFloorDownPassengerImages[i]);
+                        }
+                        thirdFloorDownPassengerImages.Clear();
+                        thirdFloorDownPassengerDestination.Clear();
+                        thirdFloorDownPassengerCount = 0;
+                        AddPassenger.LoadPassenger();
+                    }
                 }
 
                 totalPassengerCountID++;
@@ -578,7 +990,6 @@ namespace CS3260_Simulator_Team6
             else
             {
                 MessageBox.Show("The max amount of passengers have been added for this floor.");
-                thirdFloorPassengerCount--;
             }
 
         }
@@ -586,7 +997,7 @@ namespace CS3260_Simulator_Team6
         private void btnAddPassengerFloorTwo_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 2;
-            secondFloorPassengerCount++;
+            secondFloorPassengerCount = GetFloorPassengerCount(secondFloorPassengerImages);
             if (secondFloorPassengerCount <= MAX_PASSANGERS)
             {
                 Image selectedImage = FloorTwoAddPeople();
@@ -605,12 +1016,38 @@ namespace CS3260_Simulator_Team6
                     secondFloorUpPassengerDestination.Add(selectedFloor);
                     secondFloorUpPassengerImages.Add(selectedImage);
                     secondFloorUpPassengerCount++;
+                    if (secondFloorUpButtonClicked)
+                    {
+                        AddPassenger.FloorIndex = 1;
+                        for (int i = 0; i < secondFloorUpPassengerCount; i++)
+                        {
+                            if (secondFloorUpPassengerDestination[i] > 1)
+                                AddPassenger.AddPassenger(secondFloorUpPassengerDestination[i], secondFloorUpPassengerImages[i]);
+                        }
+                        secondFloorUpPassengerImages.Clear();
+                        secondFloorUpPassengerDestination.Clear();
+                        secondFloorUpPassengerCount = 0;
+                        AddPassenger.LoadPassenger();
+                    }
                 }
                 else if (selectedFloor < 1)
                 {
                     secondFloorDownPassengerDestination.Add(selectedFloor);
                     secondFloorDownPassengerImages.Add(selectedImage);
                     secondFloorDownPassengerCount++;
+                    if (secondFloorDownButtonClicked)
+                    {
+                        AddPassenger.FloorIndex = 1;
+                        for (int i = 0; i < secondFloorDownPassengerCount; i++)
+                        {
+                            if (secondFloorDownPassengerDestination[i] < 1)
+                                AddPassenger.AddPassenger(secondFloorDownPassengerDestination[i], secondFloorDownPassengerImages[i]);
+                        }
+                        secondFloorDownPassengerImages.Clear();
+                        secondFloorDownPassengerDestination.Clear();
+                        secondFloorDownPassengerCount = 0;
+                        AddPassenger.LoadPassenger();
+                    }
                 }
 
                 totalPassengerCountID++;
@@ -618,17 +1055,17 @@ namespace CS3260_Simulator_Team6
             else
             {
                 MessageBox.Show("The max amount of passengers have been added for this floor.");
-                secondFloorPassengerCount--;
             }
         }
 
         private void btnAddPassengerFloorOne_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 1;
-            firstFloorPassengerCount++;
+            firstFloorPassengerCount = GetFloorPassengerCount(firstFloorPassengerImages);
             if (firstFloorPassengerCount <= MAX_PASSANGERS)
             {
-                firstFloorPassengerImages.Add(FloorOneAddPeople());
+                firstFloorUpPassengerCount++;
+                firstFloorSelectedPassengerImages.Add(FloorOneAddPeople());
                 FloorSelectionDialog dialog = new FloorSelectionDialog();
                 for (int i = 1; i <= MyBuilding.ArrayOfAllFloors.Length; i++)
                 {
@@ -641,597 +1078,112 @@ namespace CS3260_Simulator_Team6
                 int selectedFloor = (dialog.GetSelectedItem() - 1);
                 firstFloorPassengerDestination.Add(selectedFloor);
                 totalPassengerCountID++;
+                if (firstFloorUpButtonClicked)
+                {
+                    AddPassenger.FloorIndex = 0;
+                    for (int i = 0; i < firstFloorUpPassengerCount; i++)
+                    {
+                        AddPassenger.AddPassenger(firstFloorPassengerDestination[i], firstFloorSelectedPassengerImages[i]);
+                    }
+                    firstFloorSelectedPassengerImages.Clear();
+                    firstFloorPassengerDestination.Clear();
+                    firstFloorUpPassengerCount = 0;
+                    AddPassenger.LoadPassenger();
+                }
             }
             else
             {
                 MessageBox.Show("The max amount of passengers have been added for this floor.");
-                firstFloorPassengerCount--;
             }
         }
-    }
 
-    public class AddNewPassenger
-    {
-        private int floorIndex;
-        private Passenger NewPassenger;
-        MainWindow window = (MainWindow)Application.Current.MainWindow;
-        WriteToFile WriteLog;
-
-        public AddNewPassenger(WriteToFile Write)
+        private void sliderManualAuto_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            WriteLog = Write;
+            if (sliderManualAuto.Value == 1)
+            {
+                btnAddPassengerFloorFour.IsEnabled = false;
+                btnAddPassengerFloorOne.IsEnabled = false;
+                btnAddPassengerFloorThree.IsEnabled = false;
+                btnAddPassengerFloorTwo.IsEnabled = false;
+                btnFirstFloorUp.IsEnabled = false;
+                btnSecondFloorDown.IsEnabled = false;
+                btnSecondFloorUp.IsEnabled = false;
+                btnThirdFloorDown.IsEnabled = false;
+                btnThirdFloorUp.IsEnabled = false;
+                btnFourthFloorDown.IsEnabled = false;
+                StartButton.IsEnabled = true;
+                AutoMode = true;
+            }
+            else
+            {
+                btnAddPassengerFloorFour.IsEnabled = true;
+                btnAddPassengerFloorOne.IsEnabled = true;
+                btnAddPassengerFloorThree.IsEnabled = true;
+                btnAddPassengerFloorTwo.IsEnabled = true;
+                btnFirstFloorUp.IsEnabled = true;
+                btnSecondFloorDown.IsEnabled = true;
+                btnSecondFloorUp.IsEnabled = true;
+                btnThirdFloorDown.IsEnabled = true;
+                btnThirdFloorUp.IsEnabled = true;
+                btnFourthFloorDown.IsEnabled = true;
+                StartButton.IsEnabled = false;
+                AutoMode = false;
+            }
         }
 
-        public int FloorIndex { get { return floorIndex; } set { floorIndex = value; } }
-
-        public MainWindow MyForm { get { return window; } private set { } }
-
-        public Floor MyFloor
+        private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            get { return (MyForm.MyBuilding.ArrayOfAllFloors[this.floorIndex]); }
-            private set { }
+            StartButton.IsEnabled = false;
+            sliderManualAuto.IsEnabled = false;
+            listBoxRequestPool.Items.Add("Auto processing 30 passengers.");
+            Thread myThread = new Thread(() => AddAutoPassenger());
+            myThread.Start();
         }
 
-        public void AddPassenger(int destination, Image personImage)
+        private void btnOpenLogFile_Click(object sender, RoutedEventArgs e)
         {
-            if (MyFloor.GetCurrentAmmountOfPeopleInTheQueue() >= MyFloor.GetMaximumAmmountOfPeopleInTheQueue())
-            {
-                MessageBox.Show("It looks like the corridor is too crowdy now. Please, wait a while until elevators take few passengers away.", "Your passenger has to wait");
-                return;
-            }
-
-            NewPassenger = new Passenger(MyForm.MyBuilding, this.MyFloor, destination, personImage, WriteLog);
+            Process.Start("notepad.exe", "passengerLog.txt");
         }
 
-
-        public void LoadPassenger()
+        private void Media_Ended(object sender, EventArgs e)
         {
-            this.MyFloor.OnNewPassengerAppeared(new PassengerEventArgs(NewPassenger));
+            Random rnd = new Random();
+            int track = rnd.Next(1, 4);
+            if (track == 1)
+            {
+                mplayer.Open(new Uri("Elevator_Music_1.mp3", UriKind.Relative));
+                mplayer.Play();
+            }
+            else if (track == 2)
+            {
+                mplayer.Open(new Uri("Elevator_Music_2.mp3", UriKind.Relative));
+                mplayer.Play();
+            }
+            else
+            {
+                mplayer.Open(new Uri("Elevator_Music_3.mp3", UriKind.Relative));
+                mplayer.Play();
+            }
         }
-    }
 
-    public enum ACTION_LIST
-    {
-        floorFourDown,
-        floorThreeUp, floorThreeDown,
-        floorTwoUp, floorTwoDown,
-        floorOneUp, intOpenDoor,
-        intCloseDoor, intFour,
-        intThree, intTwo,
-        intOne, intEmerg
-    }
-
-    public interface IReciever
-    {
-        void SetAction(ACTION_LIST action);
-        bool CLick();
-        void UnClick();
-        bool isClicked();
-    }
-    public abstract class AControlsSystem
-    {
-        protected IReciever reciever_ = null;
-        public AControlsSystem(IReciever reciever)
+        private void btnMute_Click(object sender, RoutedEventArgs e)
         {
-            this.reciever_ = reciever;
+            if(playPause == false)
+            {
+                mplayer.Pause();
+                playPause = true;
+            }
+            else
+            {
+                mplayer.Play();
+                playPause = false;
+            }
+            btnOpenLogFile.Focus();
+            
         }
 
-        public abstract bool Execute();
-
-        public abstract void UnExecute();
-
-        public abstract bool CheckClick();
-    }
-
-    public class FloorFourDownCommand : AControlsSystem
-    {
-        public FloorFourDownCommand(IReciever reciever) : base(reciever) { }
-
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorFourDown);
-            return reciever_.CLick();
-        }
-
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorFourDown);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorFourDown);
-            return reciever_.isClicked();
-        }
-    }
-
-    public class FloorThirdUpCommand : AControlsSystem
-    {
-        public FloorThirdUpCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeUp);
-            return reciever_.CLick();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeUp);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeUp);
-            return reciever_.isClicked();
-        }
-    }
-
-    public class FloorThirdDownCommand : AControlsSystem
-    {
-        public FloorThirdDownCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeDown);
-            return reciever_.CLick();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeDown);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorThreeDown);
-            return reciever_.isClicked();
-        }
-    }
-
-    public class FloorSecondUpCommand : AControlsSystem
-    {
-        public FloorSecondUpCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoUp);
-            return reciever_.CLick();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoUp);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoUp);
-            return reciever_.isClicked();
-        }
-    }
-
-    public class FloorSecondDownCommand : AControlsSystem
-    {
-        public FloorSecondDownCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoDown);
-            return reciever_.CLick();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoDown);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorTwoDown);
-            return reciever_.isClicked();
-        }
-    }
-
-    public class FloorFirstUpCommand : AControlsSystem
-    {
-        public FloorFirstUpCommand(IReciever reciever) : base(reciever) { }
-        public override bool Execute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorOneUp);
-            return reciever_.CLick();
-        }
-        public override void UnExecute()
-        {
-            reciever_.SetAction(ACTION_LIST.floorOneUp);
-            reciever_.UnClick();
-        }
-
-        public override bool CheckClick()
-        {
-            reciever_.SetAction(ACTION_LIST.floorOneUp);
-            return reciever_.isClicked();
-        }
-    }
+        #endregion
 
 
-
-    public class ButtonClick : IReciever
-    {
-        RequestPool request_;
-        bool floorOneUp_, floorTwoUp_, floorTwoDown_, floorThreeUp_,
-            floorThreeDown_, floorFourDown_, doorsClosed_, doorsOpen_,
-            intFloorFour_, intFloorThree_, intFloorTwo_, intFloorOne_,
-            intEmerg_;
-        ACTION_LIST currentAction;
-
-        public ButtonClick(RequestPool request)
-        {
-            floorOneUp_ = false; floorTwoUp_ = false; floorTwoDown_ = false; floorThreeUp_ = false;
-            floorThreeDown_ = false; floorFourDown_ = false; doorsClosed_ = true; doorsOpen_ = false;
-            intFloorFour_ = false; intFloorThree_ = false; intFloorTwo_ = false; intFloorOne_ = false;
-            intEmerg_ = false;
-            request_ = request;
-
-        }
-
-        public bool CLick()
-        {
-            bool result = false;
-
-            if (currentAction == ACTION_LIST.floorFourDown)
-            {
-                if (!floorFourDown_)
-                {
-                    floorFourDown_ = true;
-                    request_.AddRequest("Floor 4 Down Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorThreeUp)
-            {
-                if (!floorThreeUp_)
-                {
-                    floorThreeUp_ = true;
-                    request_.AddRequest("Floor 3 Up Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorThreeDown)
-            {
-                if (!floorThreeDown_)
-                {
-                    floorThreeDown_ = true;
-                    request_.AddRequest("Floor 3 Down Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorTwoUp)
-            {
-                if (!floorTwoUp_)
-                {
-                    floorTwoUp_ = true;
-                    request_.AddRequest("Floor 2 Up Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorTwoDown)
-            {
-                if (!floorTwoDown_)
-                {
-                    floorTwoDown_ = true;
-                    request_.AddRequest("Floor 2 Down Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorOneUp)
-            {
-                if (!floorOneUp_)
-                {
-                    floorOneUp_ = true;
-                    request_.AddRequest("Floor 1 Up Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intCloseDoor)
-            {
-                if (!doorsClosed_)
-                {
-                    request_.AddRequest("Close Elevator Doors Request");
-                    doorsClosed_ = true;
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intOpenDoor)
-            {
-                if (!doorsOpen_)
-                {
-                    request_.AddRequest("Open Elevator Doors Request");
-                    doorsOpen_ = true;
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intEmerg)
-            {
-                if (!intEmerg_)
-                {
-                    intEmerg_ = true;
-                    request_.AddRequest("Halt Elevator Emergency Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intFour)
-            {
-                if (!intFloorFour_)
-                {
-                    intFloorFour_ = true;
-                    request_.AddRequest("Travel to 4th floor Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intThree)
-            {
-                if (intFloorThree_)
-                {
-                    intFloorThree_ = true;
-                    request_.AddRequest("Travel to 3rd floor Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intTwo)
-            {
-                if (intFloorTwo_)
-                {
-                    intFloorTwo_ = true;
-                    request_.AddRequest("Travel to 2nd floor Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            else if (currentAction == ACTION_LIST.intOne)
-            {
-                if (intFloorOne_)
-                {
-                    intFloorOne_ = true;
-                    request_.AddRequest("Travel to 1st floor Request");
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-            return result;
-        }
-
-        public void SetAction(ACTION_LIST action)
-        {
-            currentAction = action;
-        }
-
-        public void UnClick()
-        {
-            if (currentAction == ACTION_LIST.floorFourDown)
-            {
-                if (floorFourDown_)
-                {
-                    floorFourDown_ = false;
-                    request_.CompleteRequest("Floor 4 Down Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorThreeUp)
-            {
-                if (floorThreeUp_)
-                {
-                    floorThreeUp_ = false;
-                    request_.CompleteRequest("Floor 3 Up Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorThreeDown)
-            {
-                if (floorThreeDown_)
-                {
-                    floorThreeDown_ = false;
-                    request_.CompleteRequest("Floor 3 Down Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorTwoUp)
-            {
-                if (floorTwoUp_)
-                {
-                    floorTwoUp_ = false;
-                    request_.CompleteRequest("Floor 2 Up Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorTwoDown)
-            {
-                if (floorTwoDown_)
-                {
-                    floorTwoDown_ = false;
-                    request_.CompleteRequest("Floor 2 Down Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.floorOneUp)
-            {
-                if (floorOneUp_)
-                {
-                    floorOneUp_ = false;
-                    request_.CompleteRequest("Floor 1 Up Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intCloseDoor)
-            {
-                if (doorsClosed_)
-                {
-                    doorsClosed_ = false;
-                    request_.CompleteRequest("Close Elevator Doors Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intOpenDoor)
-            {
-                if (doorsOpen_)
-                {
-                    doorsOpen_ = false;
-                    request_.CompleteRequest("Open Elevator Doors Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intEmerg)
-            {
-                if (intEmerg_)
-                {
-                    intEmerg_ = false;
-                    request_.CompleteRequest("Halt Elevator Emergency Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intFour)
-            {
-                if (intFloorFour_)
-                {
-                    intFloorFour_ = false;
-                    request_.CompleteRequest("Travel to 4th floor Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intThree)
-            {
-                if (intFloorThree_)
-                {
-                    intFloorThree_ = false;
-                    request_.CompleteRequest("Travel to 3rd floor Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intTwo)
-            {
-                if (intFloorTwo_)
-                {
-                    intFloorTwo_ = false;
-                    request_.CompleteRequest("Travel to 2nd floor Request");
-                }
-            }
-            else if (currentAction == ACTION_LIST.intOne)
-            {
-                if (intFloorOne_)
-                {
-                    intFloorOne_ = false;
-                    request_.CompleteRequest("Travel to 1st floor Request");
-                }
-            }
-        }
-
-        public bool isClicked()
-        {
-            bool result = false;
-            if (currentAction == ACTION_LIST.floorFourDown)
-            {
-                result = floorFourDown_;
-            }
-            else if (currentAction == ACTION_LIST.floorThreeUp)
-            {
-                result = floorThreeUp_;
-            }
-            else if (currentAction == ACTION_LIST.floorThreeDown)
-            {
-                result = floorThreeDown_;
-            }
-            else if (currentAction == ACTION_LIST.floorTwoUp)
-            {
-                result = floorTwoUp_;
-            }
-            else if (currentAction == ACTION_LIST.floorTwoDown)
-            {
-                result = floorTwoDown_;
-            }
-            else if (currentAction == ACTION_LIST.floorOneUp)
-            {
-                result = floorOneUp_;
-            }
-            return result;
-        }
-    }
-
-    public class RequestPool
-    {
-        private List<string> requestPool;
-        private string currentRequest;
-        private ListBox lstBoxRequestPool;
-
-        public RequestPool(ListBox listBox)
-        {
-            requestPool = new List<string>();
-            currentRequest = "";
-            this.lstBoxRequestPool = listBox;
-        }
-
-        public void AddRequest(string request)
-        {
-            requestPool.Add(request);
-            lstBoxRequestPool.Items.Add(request);
-            currentRequest = request;
-        }
-
-        public void CompleteRequest(string request)
-        {
-            for (int i = 0; i < lstBoxRequestPool.Items.Count; i++)
-            {
-                if (lstBoxRequestPool.Items[i].ToString().Contains(request))
-                {
-                    lstBoxRequestPool.Items.RemoveAt(i);
-                }
-            }
-            requestPool.Remove(request);
-        }
-
-        public string GetLastRequest()
-        {
-            return requestPool.Last();
-        }
-
-        public string GetCurrentRequest()
-        {
-            return currentRequest;
-        }
     }
 }

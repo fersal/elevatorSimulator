@@ -66,12 +66,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Custom Classes\AControlsSystem.cs" />
+    <Compile Include="Custom Classes\AddNewPassenger.cs" />
     <Compile Include="Custom Classes\Building.cs" />
+    <Compile Include="Custom Classes\ButtonClick.cs" />
     <Compile Include="Custom Classes\Doors.cs" />
     <Compile Include="Custom Classes\Elevator.cs" />
     <Compile Include="Custom Classes\ElevatorManager.cs" />
     <Compile Include="Custom Classes\Floor.cs" />
+    <Compile Include="Custom Classes\FloorFirstUpCommand.cs" />
+    <Compile Include="Custom Classes\FloorFourDownCommand.cs" />
+    <Compile Include="Custom Classes\FloorSecondDownCommand.cs" />
+    <Compile Include="Custom Classes\FloorSecondUpCommand.cs" />
+    <Compile Include="Custom Classes\FloorThirdDownCommand.cs" />
+    <Compile Include="Custom Classes\FloorThirdUpCommand.cs" />
+    <Compile Include="Custom Classes\IReciever.cs" />
     <Compile Include="Custom Classes\Passenger.cs" />
+    <Compile Include="Custom Classes\RequestPool.cs" />
     <Compile Include="Custom Classes\WriteToFile.cs" />
     <Compile Include="Custom Types\DirectionEnum.cs" />
     <Compile Include="Custom Types\ElevatorEventArgs.cs" />
@@ -159,6 +170,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\Person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\Arrow_Down_Clicked.png" />
+    <Resource Include="resources\Arrow_Up_Clicked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\Elevator_ding.mp3" />
+    <Content Include="resources\Elevator_Music_1.mp3" />
+    <Content Include="resources\Elevator_Music_2.mp3" />
+    <Content Include="resources\Elevator_Music_3.mp3" />
+    <Resource Include="resources\Mute.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

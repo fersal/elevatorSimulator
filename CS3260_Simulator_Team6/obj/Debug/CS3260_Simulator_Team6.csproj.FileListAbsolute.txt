@@ -33,3 +33,22 @@ C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260
 C:\Users\10057538\Documents\Visual Studio 2015\Projects\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Jameson\Documents\GitHub\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.g.cs
 C:\Users\Jameson\Documents\GitHub\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.baml
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\bin\Debug\CS3260_Simulator_Team6.exe.config
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.exe
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.pdb
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\bin\Debug\CS3260_Simulator_Team6.exe
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\bin\Debug\CS3260_Simulator_Team6.pdb
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.csprojResolveAssemblyReference.cache
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.g.cs
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\MainWindow.g.cs
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\PassengerDetailWindow.g.cs
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\App.g.cs
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6_MarkupCompile.cache
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6_MarkupCompile.lref
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\FloorSelectionDialog.baml
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\MainWindow.baml
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\PassengerDetailWindow.baml
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.g.resources
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.Properties.Resources.resources
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6.csproj.GenerateResource.Cache
+C:\Users\10057538\Downloads\CS3260_T6_JJ_TP5\elevatorSimulator\CS3260_Simulator_Team6\obj\Debug\CS3260_Simulator_Team6_Content.g.cs

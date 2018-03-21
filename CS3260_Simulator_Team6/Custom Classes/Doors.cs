@@ -1,19 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
@@ -31,13 +19,11 @@ namespace CS3260_Simulator_Team6
         private const int OPEN_DOOR_WIDTH = 2;
         private MainWindow window;
         private int currentFloor;
-        private Direction elevatorDirection;
         private string direction;
 
 
         public Doors()
         {
-            elevatorDirection = Direction.None;
             isDoorsOpen = false;
             doorsInOperation = false;
             window = (MainWindow)Application.Current.MainWindow;
@@ -78,22 +64,9 @@ namespace CS3260_Simulator_Team6
             });
         }
 
-        public void OpenDoors(int currentFloor, Direction elevatorDirection)
+        public void OpenDoors(int currentFloor)
         {
             doorsInOperation = true;
-            this.elevatorDirection = elevatorDirection;
-            if (elevatorDirection == Direction.Down)
-            {
-                ElevatorDirection = "Down";
-            }
-            else if (elevatorDirection == Direction.Up)
-            {
-                ElevatorDirection = "Up";
-            }
-            else
-            {
-                ElevatorDirection = "None";
-            }
             CurrentFloor = currentFloor;
             App.Current.Dispatcher.Invoke((Action)delegate {
                 DoubleAnimation openLeftDoorAnimation = new DoubleAnimation();
