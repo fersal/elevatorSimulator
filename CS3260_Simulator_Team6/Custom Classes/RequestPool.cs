@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -20,7 +21,10 @@ namespace CS3260_Simulator_Team6
         public void AddRequest(string request)
         {
             requestPool.Add(request);
-            lstBoxRequestPool.Items.Add(request);
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                lstBoxRequestPool.Items.Add(request);
+            });
             currentRequest = request;
         }
 
@@ -30,7 +34,10 @@ namespace CS3260_Simulator_Team6
             {
                 if (lstBoxRequestPool.Items[i].ToString().Contains(request))
                 {
-                    lstBoxRequestPool.Items.RemoveAt(i);
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        lstBoxRequestPool.Items.RemoveAt(i);
+                    });
                 }
             }
             requestPool.Remove(request);

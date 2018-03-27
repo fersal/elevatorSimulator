@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Media;
 
@@ -122,15 +123,15 @@ namespace CS3260_Simulator_Team6
 
             if (floorsToTravel == 1)
             {
-                Thread.Sleep(6000);
+                Thread.Sleep(3000);
             }
             else if (floorsToTravel == 2)
             {
-                Thread.Sleep(10000);
+                Thread.Sleep(6000);
             }
             else if (floorsToTravel == 3)
             {
-                Thread.Sleep(12000);
+                Thread.Sleep(9000);
             }
 
             //Reset appropriate lamp on current floor
@@ -150,6 +151,11 @@ namespace CS3260_Simulator_Team6
                     break;
             }
 
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                ding.Open(new Uri("Elevator_ding.mp3", UriKind.Relative));
+                ding.Play();
+            });
             //Open the door
             this.OpenTheDoor();
 
@@ -339,11 +345,6 @@ namespace CS3260_Simulator_Team6
 
         private void OpenTheDoor()
         {
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                ding.Open(new Uri("Elevator_ding.mp3", UriKind.Relative));
-                ding.Play();
-            });
             doors.OpenDoors(currentFloor.FloorIndex);
             Thread.Sleep(2000);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -101,12 +102,12 @@ namespace CS3260_Simulator_Team6
         }
 
         public event EventHandler DoorsHaveOpened;
-        public void OndoorsHaveOpened(EventArgs e)
+        public async void OndoorsHaveOpened(EventArgs e)
         {
             EventHandler doorsHaveOpened = DoorsHaveOpened;
             if (doorsHaveOpened != null)
             {
-                doorsHaveOpened(this, e);
+                await Task.Run(() => doorsHaveOpened(this, e));
             }
         }
 

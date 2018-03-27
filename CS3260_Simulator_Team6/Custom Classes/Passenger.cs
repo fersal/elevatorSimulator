@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -127,7 +128,7 @@ namespace CS3260_Simulator_Team6
                         //Update insideTheElevator
                         this.passengerStatus = PassengerStatus.GettingIntoTheElevator;
 
-                        ThreadPool.QueueUserWorkItem(delegate { GetInToTheElevator(elevator); });
+                        ThreadPool.QueueUserWorkItem(async delegate { await GetInToTheElevator(elevator); });
                         return;
                     }
                 }
@@ -137,7 +138,7 @@ namespace CS3260_Simulator_Team6
             myBuilding.ElevatorManager.PassengerNeedsAnElevator(currentFloor, this.PassengerDirection);
         }
 
-        private void GetInToTheElevator(Elevator ElevatorToGetIn)
+        private async Task GetInToTheElevator(Elevator ElevatorToGetIn)
         {
             //Rise an event
             ElevatorToGetIn.OnPassengerEnteredTheElevator(new PassengerEventArgs(this));
@@ -146,9 +147,9 @@ namespace CS3260_Simulator_Team6
             this.currentFloor.ElevatorHasArrivedOrIsNotFullAnymore -= this.Passenger_ElevatorHasArrivedOrIsNoteFullAnymore;
 
             //Move the picture on the UI
-            RemovePassengerFromFloor();
-            Thread.Sleep(this.passengerAnimationDelay);
-            MovePassengersGraphicIn();
+            await Task.Run(() => RemovePassengerFromFloor());
+
+            await Task.Run(() => MovePassengersGraphicIn());
 
             //Update myElevator
             this.myElevator = ElevatorToGetIn;
@@ -167,13 +168,13 @@ namespace CS3260_Simulator_Team6
             }
         }
 
-        private void GetOutOfTheElevator(Elevator ElevatorWhichArrived)
+        private async void GetOutOfTheElevator(Elevator ElevatorWhichArrived)
         {
             //Remove passenger from elevator
             ElevatorWhichArrived.RemovePassenger(this);
 
             //Leave the building
-            this.LeaveTheBuilding();
+            await LeaveTheBuilding();
         }
 
         private void UpdatePassengerDirection()
@@ -203,12 +204,12 @@ namespace CS3260_Simulator_Team6
             return false; //Elevator direction is NOT OK
         }
 
-        private void LeaveTheBuilding()
+        private async Task LeaveTheBuilding()
         {
             int startFloor = this.currentFloorIndex + 1;
             int endFloor = this.targetFloorIndex + 1;
             //Move the passenger up to the exit
-            MovePassengersGraphicOut();
+            await Task.Run(() => MovePassengersGraphicOut());
 
             StopTime = DateTime.Now;
             stopWatch.Stop();
@@ -220,8 +221,8 @@ namespace CS3260_Simulator_Team6
             App.Current.Dispatcher.Invoke((Action)delegate {
                 window.listBoxPassengerLog.Items.Add(output);
             });
-            WriteLog.AddToLog(output);
-            WriteLog.WriteLogFile();
+            await Task.Run(() => WriteLog.AddToLog(output));
+            await Task.Run(() => WriteLog.WriteLogFile());
             //No need to animate it
             myBuilding.ListOfAllPeopleWhoNeedAnimation.Remove(this);
         }
@@ -336,7 +337,6 @@ namespace CS3260_Simulator_Team6
                 };
                 animationRemoveFloor.Completed += (s, a) => passengerImage.Opacity = 0;
                 passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloor);
-                Thread.Sleep(this.passengerAnimationDelay);
             });
         }
         private void MovePassengersGraphicIn()
@@ -367,7 +367,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-                            Thread.Sleep(this.passengerAnimationDelay);
                             completed = true;
                         }
                     });
@@ -400,7 +399,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-                            Thread.Sleep(this.passengerAnimationDelay);
                             completed = true;
                         }
                     });
@@ -433,7 +431,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-                            Thread.Sleep(this.passengerAnimationDelay);
                             completed = true;
                         }
                     });
@@ -466,7 +463,6 @@ namespace CS3260_Simulator_Team6
                             };
                             animationAddFloorFour.Completed += (s, a) => person.Opacity = 100;
                             person.BeginAnimation(UIElement.OpacityProperty, animationAddFloorFour);
-                            Thread.Sleep(100);
                             completed = true;
                         }
                     });

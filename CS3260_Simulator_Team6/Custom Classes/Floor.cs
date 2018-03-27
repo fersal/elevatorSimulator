@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -61,7 +62,6 @@ namespace CS3260_Simulator_Team6
                         window.floorFourDownIndicator.Fill = Brushes.LightGreen;
                     else if (floorIndex == 3 && value == false)
                         window.floorFourDownIndicator.Fill = Brushes.White;
-
                     else if (floorIndex == 2 && value == true)
                         window.floorThreeDownIndicator.Fill = Brushes.LightGreen;
                     else if (floorIndex == 2 && value == false)

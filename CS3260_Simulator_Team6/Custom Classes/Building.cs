@@ -53,7 +53,7 @@ namespace CS3260_Simulator_Team6
             arrayOfAllElevators = new Elevator[3];
             Random random = new Random();
 
-            arrayOfAllElevators[0] = new Elevator(this, arrayOfAllFloors[random.Next(arrayOfAllFloors.Length)],doors);
+            arrayOfAllElevators[0] = new Elevator(this, arrayOfAllFloors[random.Next(arrayOfAllFloors.Length)], doors);
 
             //Initialize list of all people inside (to track who's inside and need to be animated)
             ListOfAllPeopleWhoNeedAnimation = new List<Passenger>();
