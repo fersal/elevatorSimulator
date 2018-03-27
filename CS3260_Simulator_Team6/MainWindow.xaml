@@ -548,7 +548,7 @@
             <Slider x:Name="sliderManualAuto" Grid.Row="2" Maximum="1" HorizontalAlignment="Left" VerticalAlignment="Top" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" Margin="19,10,0,0" Width="74" Height="27" ValueChanged="sliderManualAuto_ValueChanged"/>
             <Label x:Name="label" Content="Manual" HorizontalAlignment="Left" Margin="0,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="49"/>
             <Label x:Name="label2" Content="Auto" HorizontalAlignment="Left" Margin="69,28,0,0" Grid.Row="2" VerticalAlignment="Top" Height="28" Width="36"/>
-            <Button x:Name="StartButton" Content="Start" Margin="0,0,0,25" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2" Click="StartButton_Click"/>
+            <Button x:Name="StartButton" Content="Start Auto" Margin="0,0,0,25" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2" Click="StartButton_Click"/>
             <Button x:Name="btnOpenLogFile" Content="Open Log File" Margin="342,0,13,146" VerticalAlignment="Bottom" Width="125" Height="32" Grid.Row="2" Click="btnOpenLogFile_Click"/>
             <Button x:Name="btnMute" Grid.Row="2" Width="47" Height="42" VerticalAlignment="Top" Margin="419,127,0,0" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Click="btnMute_Click">
                 <Button.OpacityMask>
