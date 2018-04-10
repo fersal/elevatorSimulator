@@ -43,6 +43,17 @@ namespace CS3260_Simulator_Team6
 
         #region METHODS
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public Passenger(Building MyBuilding, Floor CurrentFloor, int TargetFloorIndex, Image passengerImage, WriteToFile write)
         {
             WriteLog = write;
@@ -111,6 +122,17 @@ namespace CS3260_Simulator_Team6
             this.currentFloor.ElevatorHasArrivedOrIsNotFullAnymore += new EventHandler(this.Passenger_ElevatorHasArrivedOrIsNoteFullAnymore);
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void FindAnElevatorOrCallForANewOne()
         {
             UpdatePassengerDirection();
@@ -138,6 +160,17 @@ namespace CS3260_Simulator_Team6
             myBuilding.ElevatorManager.PassengerNeedsAnElevator(currentFloor, this.PassengerDirection);
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async Task GetInToTheElevator(Elevator ElevatorToGetIn)
         {
             //Rise an event
@@ -155,6 +188,17 @@ namespace CS3260_Simulator_Team6
             this.myElevator = ElevatorToGetIn;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void ElevatorReachedNextFloor()
         {
             //For passengers, who are already inside an elevator:
@@ -168,6 +212,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void GetOutOfTheElevator(Elevator ElevatorWhichArrived)
         {
             //Remove passenger from elevator
@@ -189,6 +244,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private bool ElevatorsDirectionIsNoneOrOk(Elevator ElevatorOnMyFloor)
         {
             //Check if elevator has more floors to visit            
@@ -204,6 +270,17 @@ namespace CS3260_Simulator_Team6
             return false; //Elevator direction is NOT OK
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async Task LeaveTheBuilding()
         {
             int startFloor = this.currentFloorIndex + 1;
@@ -227,6 +304,17 @@ namespace CS3260_Simulator_Team6
             myBuilding.ListOfAllPeopleWhoNeedAnimation.Remove(this);
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void MovePassengersGraphicOut()
         {
 
@@ -324,6 +412,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void RemovePassengerFromFloor()
         {
             App.Current.Dispatcher.Invoke((Action)delegate {
@@ -339,6 +438,18 @@ namespace CS3260_Simulator_Team6
                 passengerImage.BeginAnimation(UIElement.OpacityProperty, animationRemoveFloor);
             });
         }
+
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void MovePassengersGraphicIn()
         {
             bool completed = false;
@@ -474,21 +585,65 @@ namespace CS3260_Simulator_Team6
 
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public Floor GetTargetFloor()
         {
             return this.targetFloor;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public bool GetPassengerVisibility()
         {
             return this.visible;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public int GetAnimationDelay()
         {
             return this.passengerAnimationDelay;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public int GetPickUpFloor()
         {
             return this.currentFloorIndex;
@@ -498,6 +653,17 @@ namespace CS3260_Simulator_Team6
 
         #region EVENT HANDLERS
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void Passenger_NewPassengerAppeared(object sender, EventArgs e)
         {
             //Unsubscribe from this event (not needed anymore)            
@@ -507,6 +673,17 @@ namespace CS3260_Simulator_Team6
             FindAnElevatorOrCallForANewOne();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void Passenger_ElevatorHasArrivedOrIsNoteFullAnymore(object sender, EventArgs e)
         {
             lock (locker) //Few elevators (on different threads) can rise this event at the same time
@@ -528,7 +705,7 @@ namespace CS3260_Simulator_Team6
                         passengerStatus = PassengerStatus.GettingIntoTheElevator;
 
                         //Get in to the elevator
-                        ThreadPool.QueueUserWorkItem(delegate { GetInToTheElevator(ElevatorWhichRisedAnEvent); });
+                        ThreadPool.QueueUserWorkItem(delegate {GetInToTheElevator(ElevatorWhichRisedAnEvent); });
                     }
                     else
                     {

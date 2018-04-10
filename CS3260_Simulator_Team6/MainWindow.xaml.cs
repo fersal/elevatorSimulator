@@ -146,7 +146,15 @@ namespace CS3260_Simulator_Team6
 
         #region METHODS
 
-
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="passengers">a positive integer value</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private int GetFloorPassengerCount(List<Image> passengers)
         {
             int result = 0;
@@ -164,6 +172,17 @@ namespace CS3260_Simulator_Team6
             return result;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private Image FloorFourAddPeople()
         {
             int peopleSelected = 0;
@@ -228,6 +247,17 @@ namespace CS3260_Simulator_Team6
             return selectedImg;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private Image FloorThreeAddPeople()
         {
             int peopleSelected = 0;
@@ -290,6 +320,17 @@ namespace CS3260_Simulator_Team6
             return selectedImg;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private Image FloorTwoAddPeople()
         {
             int peopleSelected = 0;
@@ -352,6 +393,17 @@ namespace CS3260_Simulator_Team6
             return selectedImg;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private Image FloorOneAddPeople()
         {
             int peopleSelected = 0;
@@ -413,6 +465,17 @@ namespace CS3260_Simulator_Team6
             return selectedImg;
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async Task CreateAutoPassenger(int count, int floor, int destination, Image pic)
         {
             AddPassenger.FloorIndex = floor;
@@ -420,6 +483,17 @@ namespace CS3260_Simulator_Team6
             await Task.Run(() => AddPassenger.LoadPassenger());
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async Task AddAutoPassengerAsync()
         {
             Random rnd = new Random();
@@ -571,6 +645,7 @@ namespace CS3260_Simulator_Team6
                 Thread.Sleep(waitTime);
             }
 
+            Thread.Sleep(60000);
             App.Current.Dispatcher.Invoke((Action)delegate
             {
                 listBoxRequestPool.Items.Remove("Auto processing 30 passengers please wait...");
@@ -581,6 +656,18 @@ namespace CS3260_Simulator_Team6
         #endregion
 
         #region EVENT HANDLERS
+
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void Doors_DoorsHaveOpened(object sender, EventArgs e)
         {
 
@@ -723,6 +810,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnFourthFloorDown_Click(object sender, RoutedEventArgs e)
         {
             if (fourthFloorDownPassengerCount != 0)
@@ -762,6 +860,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnThirdFloorUp_Click(object sender, RoutedEventArgs e)
         {
             if (thirdFloorUpPassengerCount != 0)
@@ -802,6 +911,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnThirdFloorDown_Click(object sender, RoutedEventArgs e)
         {
             if (thirdFloorDownPassengerCount != 0)
@@ -842,6 +962,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnSecondFloorUp_Click(object sender, RoutedEventArgs e)
         {
             if (secondFloorUpPassengerCount != 0)
@@ -882,6 +1013,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnSecondFloorDown_Click(object sender, RoutedEventArgs e)
         {
             if (secondFloorDownPassengerCount != 0)
@@ -922,6 +1064,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnFirstFloorUp_Click(object sender, RoutedEventArgs e)
         {
             if (firstFloorUpPassengerCount != 0)
@@ -961,6 +1114,17 @@ namespace CS3260_Simulator_Team6
             sliderManualAuto.Focus();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnAddPassengerFloorFour_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 4;
@@ -1000,6 +1164,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnAddPassengerFloorThree_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 3;
@@ -1065,6 +1240,17 @@ namespace CS3260_Simulator_Team6
 
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnAddPassengerFloorTwo_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 2;
@@ -1129,6 +1315,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void btnAddPassengerFloorOne_Click(object sender, RoutedEventArgs e)
         {
             int floorIndex = 1;
@@ -1168,6 +1365,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void sliderManualAuto_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (sliderManualAuto.Value == 1)
@@ -1202,6 +1410,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             StartButton.IsEnabled = false;
@@ -1210,11 +1429,33 @@ namespace CS3260_Simulator_Team6
             await Task.Run(() => AddAutoPassengerAsync());
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void btnOpenLogFile_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("notepad.exe", "passengerLog.txt");
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void Media_Ended(object sender, EventArgs e)
         {
             Random rnd = new Random();
@@ -1236,6 +1477,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void btnMute_Click(object sender, RoutedEventArgs e)
         {
             if (playPause == false)

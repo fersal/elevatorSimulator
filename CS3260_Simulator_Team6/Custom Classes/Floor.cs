@@ -143,7 +143,8 @@ namespace CS3260_Simulator_Team6
             {
                 int PassengerToRemoveIndex = FindPassengerIndex(PassengerToAddOrRemvove);
                 //int PassengerToRemoveIndex = Array.IndexOf(GetArrayOfPeopleWaitingForElevator(), PassengerToAddOrRemvove);
-                this.GetArrayOfPeopleWaitingForElevator()[PassengerToRemoveIndex] = null;
+                if(PassengerToRemoveIndex >= 0)
+                    this.GetArrayOfPeopleWaitingForElevator()[PassengerToRemoveIndex] = null;
             }
         }
 
