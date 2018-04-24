@@ -576,6 +576,8 @@
                     </ImageBrush>
                 </Button.Background>
             </Button>
+            <TextBox x:Name="txtBoxQtyPassengers" HorizontalAlignment="Left" Height="23" Margin="256,21,0,0" Grid.Row="2" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="46"/>
+            <Label x:Name="label1" Content="Qty of Passengers:" HorizontalAlignment="Left" Margin="143,19,0,0" Grid.Row="2" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>

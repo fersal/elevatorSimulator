@@ -8,11 +8,23 @@ namespace CS3260_Simulator_Team6
 {
     public class ButtonClick : IReciever
     {
+        #region FIELDS
+
         RequestPool request_;
         bool floorOneUp_, floorTwoUp_, floorTwoDown_, floorThreeUp_,
             floorThreeDown_, floorFourDown_;
         ACTION_LIST currentAction;
 
+        #endregion FIELDS
+
+        #region METHODS
+        /// <summary>
+        /// Purpose: ButtonClick Constructor
+        /// </summary>
+        /// <param name="request">RequestPool object</param>
+        /// Purpose: Construct ButtonClick class
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public ButtonClick(RequestPool request)
         {
             floorOneUp_ = false; floorTwoUp_ = false; floorTwoDown_ = false; floorThreeUp_ = false;
@@ -21,6 +33,12 @@ namespace CS3260_Simulator_Team6
 
         }
 
+        /// <summary>
+        /// Purpose: Click method toggle button clicks
+        /// </summary>
+        /// Purpose: Toggle button clicks and add request to request pool
+        /// Returns: bool if button is toggled
+        /// -----------------------------------------------------------------
         public bool CLick()
         {
             bool result = false;
@@ -106,11 +124,24 @@ namespace CS3260_Simulator_Team6
             return result;
         }
 
+        /// <summary>
+        /// Purpose: Set Action on which button was clicked
+        /// </summary>
+        /// <param name="action">Action list type</param>
+        /// Purpose: Sets action 
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public void SetAction(ACTION_LIST action)
         {
             currentAction = action;
         }
 
+        /// <summary>
+        /// Purpose: UnClick method toggle button clicks
+        /// </summary>
+        /// Purpose: Toggle button to unclick and complete the request in the request pool
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public void UnClick()
         {
             if (currentAction == ACTION_LIST.floorFourDown)
@@ -163,6 +194,12 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Returns true if button is clicked
+        /// </summary>
+        /// Purpose: Check if button is latched to clicked
+        /// Returns: bool if button is clicked
+        /// -----------------------------------------------------------------
         public bool isClicked()
         {
             bool result = false;
@@ -192,5 +229,6 @@ namespace CS3260_Simulator_Team6
             }
             return result;
         }
+        #endregion METHODS
     }
 }

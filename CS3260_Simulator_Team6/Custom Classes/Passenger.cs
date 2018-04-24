@@ -61,9 +61,9 @@ namespace CS3260_Simulator_Team6
             StartTime = DateTime.Now;
             stopWatch = Stopwatch.StartNew();
             TotalWatch.Start();
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                window = (MainWindow)Application.Current.MainWindow;
+                window = (MainWindow)System.Windows.Application.Current.MainWindow;
                 this.fourthFloorPassengerImages = new List<Image>();
                 this.fourthFloorPassengerImages.Add(window.imgElevatorFourPerson_1);
                 this.fourthFloorPassengerImages.Add(window.imgElevatorFourPerson_2);
@@ -295,7 +295,8 @@ namespace CS3260_Simulator_Team6
             TimeSpan elapsed = StopTime.Subtract(StartTime);
             string passengerTravelTime = elapsed.TotalSeconds.ToString("00.00");
             string output = String.Format("Passenger {0}: Travel time from floor {1} to floor {2} was {3} seconds", instanceID, startFloor, endFloor, passengerTravelTime);
-            App.Current.Dispatcher.Invoke((Action)delegate {
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
                 window.listBoxPassengerLog.Items.Add(output);
             });
             await Task.Run(() => WriteLog.AddToLog(output));
@@ -320,7 +321,8 @@ namespace CS3260_Simulator_Team6
 
             if (currentFloorIndex == 3)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate {
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                {
                     thirdFloorPassengerImages[index].Opacity = 0;
                     thirdFloorPassengerImages[index].Source = null;
                     secondFloorPassengerImages[index].Opacity = 0;
@@ -343,7 +345,8 @@ namespace CS3260_Simulator_Team6
             }
             else if (currentFloorIndex == 2)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate {
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                {
                     fourthFloorPassengerImages[index].Opacity = 0;
                     fourthFloorPassengerImages[index].Source = null;
                     secondFloorPassengerImages[index].Opacity = 0;
@@ -366,7 +369,8 @@ namespace CS3260_Simulator_Team6
             }
             else if (currentFloorIndex == 1)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate {
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                {
                     fourthFloorPassengerImages[index].Opacity = 0;
                     fourthFloorPassengerImages[index].Source = null;
                     thirdFloorPassengerImages[index].Opacity = 0;
@@ -389,7 +393,8 @@ namespace CS3260_Simulator_Team6
             }
             else if (currentFloorIndex == 0)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate {
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                {
                     fourthFloorPassengerImages[index].Opacity = 0;
                     fourthFloorPassengerImages[index].Source = null;
                     thirdFloorPassengerImages[index].Opacity = 0;
@@ -425,7 +430,8 @@ namespace CS3260_Simulator_Team6
         /// -----------------------------------------------------------------
         private void RemovePassengerFromFloor()
         {
-            App.Current.Dispatcher.Invoke((Action)delegate {
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
 
                 var animationRemoveFloor = new DoubleAnimation
                 {
@@ -457,7 +463,7 @@ namespace CS3260_Simulator_Team6
             {
                 foreach (var person in fourthFloorPassengerImages)
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         if (person.Source == null)
                         {
@@ -489,7 +495,7 @@ namespace CS3260_Simulator_Team6
             {
                 foreach (var person in thirdFloorPassengerImages)
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         if (person.Source == null)
                         {
@@ -521,7 +527,7 @@ namespace CS3260_Simulator_Team6
             {
                 foreach (var person in secondFloorPassengerImages)
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         if (person.Source == null)
                         {
@@ -553,7 +559,7 @@ namespace CS3260_Simulator_Team6
             {
                 foreach (var person in firstFloorPassengerImages)
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         if (person.Source == null)
                         {

@@ -21,7 +21,7 @@ namespace CS3260_Simulator_Team6
         public void AddRequest(string request)
         {
             requestPool.Add(request);
-            App.Current.Dispatcher.Invoke((Action)delegate
+            Application.Current.Dispatcher.Invoke((Action)delegate
             {
                 lstBoxRequestPool.Items.Add(request);
             });
@@ -34,7 +34,7 @@ namespace CS3260_Simulator_Team6
             {
                 if (lstBoxRequestPool.Items[i].ToString().Contains(request))
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         lstBoxRequestPool.Items.RemoveAt(i);
                     });

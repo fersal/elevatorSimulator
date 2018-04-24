@@ -1,4 +1,4 @@
-﻿<Application x:Class="CS3260_Simulator_Team6.App"
+﻿<Application x:Class="CS3260_Simulator_Team6.Application"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CS3260_Simulator_Team6"

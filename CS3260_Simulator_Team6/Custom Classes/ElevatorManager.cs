@@ -29,6 +29,17 @@ namespace CS3260_Simulator_Team6
 
         #region METHODS
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public ElevatorManager(Elevator[] ArrayOfAllElevators, Floor[] ArrayOfAllFloors)
         {
             //Initialize array with elevators
@@ -49,6 +60,17 @@ namespace CS3260_Simulator_Team6
             this.floorChecker.Start();
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void PassengerNeedsAnElevator(Floor PassengersFloor, Direction PassengersDirection)
         {
             lock (locker)//Can be invoked from ElevatorManager thread or its timer thread
@@ -75,6 +97,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void FindAllElevatorsWhichCanBeSent(Floor PassengersFloor, Direction PassengersDirection)
         {
             listOfAllFreeElevators.Clear();
@@ -98,6 +131,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private Elevator ChooseOptimalElevatorToSend(Floor FloorWhereTheCallCameFrom)
         {
             //Check if listOfAllFreeElevators is not empty
@@ -110,6 +154,17 @@ namespace CS3260_Simulator_Team6
             return listOfAllFreeElevators[0];
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         private void SendAnElevator(Elevator ElevatorToSend, Floor TargetFloor)
         {
             ElevatorToSend.AddNewFloorToTheList(TargetFloor);
@@ -122,7 +177,17 @@ namespace CS3260_Simulator_Team6
 
 
         #region EVENT HANDLERS
-
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void ElevatorManager_TimerElapsed(object sender, ElapsedEventArgs e)
         {
             //Check if some floor doesn't need an elevator
@@ -141,6 +206,17 @@ namespace CS3260_Simulator_Team6
             }
         }
 
+        /// <summary>
+        /// Purpose: Display the parameters passed to the method on the Console
+        /// </summary>
+        /// <param name="ival">a positive integer value</param>
+        /// <param name="dv">a floating point value in the range of -15.00 and +350.50</param>
+        /// <param name="sv">a string of length >= 1</param>
+        /// Purpose: Brief sentence describing the purpose of this method.
+        /// Parameters (pre-conditions/post-conditions): List the method's parameters names and
+        /// constrain’s and any returned values
+        /// Returns: What does the method return NOTE: NOT required if method returns void
+        /// -----------------------------------------------------------------
         public void ElevatorManager_ElevatorIsFull(object sender, EventArgs e)
         {
             //TO DO: Implement or remove!

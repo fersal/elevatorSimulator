@@ -10,6 +10,8 @@ namespace CS3260_Simulator_Team6
 {
     public class Doors
     {
+        #region FIELDS
+
         private bool isDoorsOpen;
         private bool doorsInOperation;
         private Storyboard closeDoorOperation;
@@ -22,12 +24,21 @@ namespace CS3260_Simulator_Team6
         private int currentFloor;
         private string direction;
 
+        #endregion FIELDS
 
+        #region METHODS
+
+        /// <summary>
+        /// Purpose: Doors Constructor
+        /// </summary>
+        /// Purpose: Construct Doors class
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public Doors()
         {
             isDoorsOpen = false;
             doorsInOperation = false;
-            window = (MainWindow)Application.Current.MainWindow;
+            window = (MainWindow)System.Windows.Application.Current.MainWindow;
             leftDoors = new Dictionary<int, Rectangle>();
             rightDoors = new Dictionary<int, Rectangle>();
             this.leftDoors.Add(3, window.fourthFloorDoorLeft);
@@ -40,11 +51,19 @@ namespace CS3260_Simulator_Team6
             this.rightDoors.Add(0, window.firstFloorDoorRight);
         }
 
+        /// <summary>
+        /// Purpose: Close the elevator doors
+        /// </summary>
+        /// <param name="currentFloor">Current floor index</param>
+        /// Purpose: Animate doors to close
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public void CloseDoors(int currentFloor)
         {
             doorsInOperation = true;
 
-            App.Current.Dispatcher.Invoke((Action)delegate {
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
                 DoubleAnimation closeLeftDoorAnimation = new DoubleAnimation();
                 closeLeftDoorAnimation.From = leftDoors[currentFloor].ActualWidth;
                 closeLeftDoorAnimation.To = CLOSED_DOOR_WIDTH;
@@ -65,11 +84,19 @@ namespace CS3260_Simulator_Team6
             });
         }
 
+        /// <summary>
+        /// Purpose: Open the elevator doors
+        /// </summary>
+        /// <param name="currentFloor">Current floor index</param>
+        /// Purpose: Animate doors to open
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public void OpenDoors(int currentFloor)
         {
             doorsInOperation = true;
             CurrentFloor = currentFloor;
-            App.Current.Dispatcher.Invoke((Action)delegate {
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
                 DoubleAnimation openLeftDoorAnimation = new DoubleAnimation();
                 openLeftDoorAnimation.From = leftDoors[currentFloor].ActualWidth;
                 openLeftDoorAnimation.To = OPEN_DOOR_WIDTH;
@@ -91,16 +118,39 @@ namespace CS3260_Simulator_Team6
             });
         }
 
-        public bool GetIsDoorsOpen()
+        /// <summary>
+        /// Purpose: get and set current floor doors are being animated on
+        /// </summary>
+        /// <param name="value">current floor index</param>
+        /// Purpose: get and set current floor doors are being animated on
+        /// Returns: current floor index
+        /// -----------------------------------------------------------------
+        public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; } }
+
+        /// <summary>
+        /// Purpose: get and set elevator direction
+        /// </summary>
+        /// <param name="value">set elevator direction</param>
+        /// Purpose: get and set elevator direction
+        /// Returns: string elevator direction
+        /// -----------------------------------------------------------------
+        public string ElevatorDirection
         {
-            return isDoorsOpen;
+            get { return direction; }
+            set { direction = value; }
         }
 
-        public bool GetIsDoorsInOperation()
-        {
-            return doorsInOperation;
-        }
+        #endregion METHODS
 
+        #region EVENT_HANDLERS
+
+        /// <summary>
+        /// Purpose: event handler initiated when doors have been opened
+        /// </summary>
+        /// <param name="e">EventArgs</param>
+        /// Purpose: event handler initiated when doors have been opened
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public event EventHandler DoorsHaveOpened;
         public async void OndoorsHaveOpened(EventArgs e)
         {
@@ -111,12 +161,6 @@ namespace CS3260_Simulator_Team6
             }
         }
 
-        public int CurrentFloor { get { return currentFloor; } set { currentFloor = value; } }
-
-        public string ElevatorDirection
-        {
-            get { return direction; }
-            set { direction = value; }
-        }
+        #endregion EVENT_HANDLERS
     }
 }

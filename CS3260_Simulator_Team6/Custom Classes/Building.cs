@@ -36,7 +36,13 @@ namespace CS3260_Simulator_Team6
 
 
         #region METHODS
-
+        /// <summary>
+        /// Purpose: Building Constructor
+        /// </summary>
+        /// <param name="doors">Doors object</param>
+        /// Purpose: Building constructor
+        /// Returns: None
+        /// -----------------------------------------------------------------
         public Building(Doors doors)
         {
             //Set exitLocation on 0 floor

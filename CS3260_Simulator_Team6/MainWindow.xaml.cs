@@ -20,6 +20,7 @@ namespace CS3260_Simulator_Team6
     {
         #region FIELDS
         private const int MAX_AUTO_PASSENGERS = 30;
+        private int qtyAutoPassengers = 30;
         private bool playPause;
         private int prevFloorFourSelectedImg = 0;
         private int fourthFloorPassengerCount = 0;
@@ -137,6 +138,7 @@ namespace CS3260_Simulator_Team6
             this.firstFloorPassengerImages.Add(imgFloorOnePerson_7);
             this.firstFloorPassengerImages.Add(imgFloorOnePerson_8);
             StartButton.IsEnabled = false;
+            txtBoxQtyPassengers.IsEnabled = false;
             mplayer.Open(new Uri("Elevator_Music_1.mp3", UriKind.Relative));
             mplayer.MediaEnded += new EventHandler(Media_Ended);
             mplayer.Play();
@@ -158,7 +160,7 @@ namespace CS3260_Simulator_Team6
         private int GetFloorPassengerCount(List<Image> passengers)
         {
             int result = 0;
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
@@ -188,7 +190,7 @@ namespace CS3260_Simulator_Team6
             int peopleSelected = 0;
             Image selectedImg = null;
 
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
             {
                 for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
@@ -229,7 +231,7 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     var animationAddFloorFour = new DoubleAnimation
                     {
@@ -262,7 +264,7 @@ namespace CS3260_Simulator_Team6
         {
             int peopleSelected = 0;
             Image selectedImg = null;
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
@@ -303,7 +305,7 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     var animationAddFloorThree = new DoubleAnimation
                     {
@@ -336,7 +338,7 @@ namespace CS3260_Simulator_Team6
             int peopleSelected = 0;
             Image selectedImg = null;
 
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
@@ -376,7 +378,7 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     var animationAddFloorTwo = new DoubleAnimation
                     {
@@ -408,7 +410,7 @@ namespace CS3260_Simulator_Team6
         {
             int peopleSelected = 0;
             Image selectedImg = null;
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 for (int i = 0; i < MAX_PASSANGERS; i++)
                 {
@@ -448,7 +450,7 @@ namespace CS3260_Simulator_Team6
             }
             if (selectedImg != null)
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     var animationAddFloorOne = new DoubleAnimation
                     {
@@ -499,7 +501,7 @@ namespace CS3260_Simulator_Team6
             Random rnd = new Random();
             int destination = 0;
             int floorIndex = 0;
-            for (int i = 0; i < MAX_AUTO_PASSENGERS; i++)
+            for (int i = 0; i < qtyAutoPassengers; i++)
             {
                 int currentFloor = rnd.Next(1, 5);
                 int waitTime = rnd.Next(0, 15000);
@@ -508,9 +510,9 @@ namespace CS3260_Simulator_Team6
                     fourthFloorPassengerCount = GetFloorPassengerCount(fourthFloorPassengerImages);
                     if (fourthFloorPassengerCount <= MAX_PASSANGERS)
                     {
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -541,9 +543,9 @@ namespace CS3260_Simulator_Team6
                         while (destination == floorIndex);
                         if (destination > floorIndex)
                         {
-                            App.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
-                                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                                StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                                 BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                                 var brush = new ImageBrush();
                                 brush.ImageSource = temp;
@@ -554,9 +556,9 @@ namespace CS3260_Simulator_Team6
                         }
                         else if (destination < floorIndex)
                         {
-                            App.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
-                                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                                StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                                 BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                                 var brush = new ImageBrush();
                                 brush.ImageSource = temp;
@@ -584,9 +586,9 @@ namespace CS3260_Simulator_Team6
                         while (destination == floorIndex);
                         if (destination > floorIndex)
                         {
-                            App.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
-                                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                                StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                                 BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                                 var brush = new ImageBrush();
                                 brush.ImageSource = temp;
@@ -597,9 +599,9 @@ namespace CS3260_Simulator_Team6
                         }
                         else if (destination < floorIndex)
                         {
-                            App.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
-                                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                                StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                                 BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                                 var brush = new ImageBrush();
                                 brush.ImageSource = temp;
@@ -620,9 +622,9 @@ namespace CS3260_Simulator_Team6
                     firstFloorPassengerCount = GetFloorPassengerCount(firstFloorPassengerImages);
                     if (firstFloorPassengerCount <= MAX_PASSANGERS)
                     {
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -645,13 +647,16 @@ namespace CS3260_Simulator_Team6
                 Thread.Sleep(waitTime);
             }
 
-            Thread.Sleep(60000);
-            App.Current.Dispatcher.Invoke((Action)delegate
+            Thread.Sleep(20000);
+            
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                listBoxRequestPool.Items.Remove("Auto processing 30 passengers please wait...");
+                listBoxRequestPool.Items.Remove(string.Format("Auto processing {0} passengers please wait...", qtyAutoPassengers));
                 sliderManualAuto.IsEnabled = true;
                 StartButton.IsEnabled = true;
+                txtBoxQtyPassengers.IsEnabled = true;
             });
+            MessageBox.Show(string.Format("Finishing processing {0} passengers.",qtyAutoPassengers),"Auto Complete");
         }
         #endregion
 
@@ -683,9 +688,9 @@ namespace CS3260_Simulator_Team6
                         command = fourDownCmd;
                         command.UnExecute();
                     }
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
-                        StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                        StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown);
                         BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                         var brush = new ImageBrush();
                         brush.ImageSource = temp;
@@ -706,9 +711,9 @@ namespace CS3260_Simulator_Team6
                             command = thirdDownCmd;
                             command.UnExecute();
                         }
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -727,9 +732,9 @@ namespace CS3260_Simulator_Team6
                             command = thirdUpCmd;
                             command.UnExecute();
                         }
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -752,9 +757,9 @@ namespace CS3260_Simulator_Team6
                             command = secondDownCmd;
                             command.UnExecute();
                         }
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -773,9 +778,9 @@ namespace CS3260_Simulator_Team6
                             command = secondUpCmd;
                             command.UnExecute();
                         }
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
-                            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                            StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp);
                             BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                             var brush = new ImageBrush();
                             brush.ImageSource = temp;
@@ -796,9 +801,9 @@ namespace CS3260_Simulator_Team6
                         command = firstUpCmd;
                         command.UnExecute();
                     }
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
-                        StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp);
+                        StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp);
                         BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                         var brush = new ImageBrush();
                         brush.ImageSource = temp;
@@ -829,7 +834,7 @@ namespace CS3260_Simulator_Team6
                 fourthFloorDownButtonClicked = command.Execute();
                 if (!fourthFloorDownButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -879,7 +884,7 @@ namespace CS3260_Simulator_Team6
                 thirdFloorUpButtonClicked = command.Execute();
                 if (!thirdFloorUpButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -930,7 +935,7 @@ namespace CS3260_Simulator_Team6
                 thirdFloorDownButtonClicked = command.Execute();
                 if (!thirdFloorDownButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -981,7 +986,7 @@ namespace CS3260_Simulator_Team6
                 secondFloorUpButtonClicked = command.Execute();
                 if (!secondFloorUpButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -1032,7 +1037,7 @@ namespace CS3260_Simulator_Team6
                 secondFloorDownButtonClicked = command.Execute();
                 if (!secondFloorDownButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriDown_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriDown_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -1083,7 +1088,7 @@ namespace CS3260_Simulator_Team6
                 firstFloorUpButtonClicked = command.Execute();
                 if (!firstFloorUpButtonClicked)
                 {
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUriUp_Clicked);
+                    StreamResourceInfo streamInfo = System.Windows.Application.GetResourceStream(resourceUriUp_Clicked);
                     BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
                     var brush = new ImageBrush();
                     brush.ImageSource = temp;
@@ -1391,6 +1396,7 @@ namespace CS3260_Simulator_Team6
                 btnThirdFloorUp.IsEnabled = false;
                 btnFourthFloorDown.IsEnabled = false;
                 StartButton.IsEnabled = true;
+                txtBoxQtyPassengers.IsEnabled = true;
                 AutoMode = true;
             }
             else
@@ -1406,6 +1412,7 @@ namespace CS3260_Simulator_Team6
                 btnThirdFloorUp.IsEnabled = true;
                 btnFourthFloorDown.IsEnabled = true;
                 StartButton.IsEnabled = false;
+                txtBoxQtyPassengers.IsEnabled = false;
                 AutoMode = false;
             }
         }
@@ -1423,10 +1430,18 @@ namespace CS3260_Simulator_Team6
         /// -----------------------------------------------------------------
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            StartButton.IsEnabled = false;
-            sliderManualAuto.IsEnabled = false;
-            listBoxRequestPool.Items.Add("Auto processing 30 passengers please wait...");
-            await Task.Run(() => AddAutoPassengerAsync());
+            bool isNumber = int.TryParse(txtBoxQtyPassengers.Text, out qtyAutoPassengers);
+            if (isNumber)
+            {
+                StartButton.IsEnabled = false;
+                sliderManualAuto.IsEnabled = false;
+                txtBoxQtyPassengers.IsEnabled = false;
+                listBoxRequestPool.Items.Add(string.Format("Auto processing {0} passengers please wait...", qtyAutoPassengers));
+                await Task.Run(() => AddAutoPassengerAsync());
+            }
+            else
+                MessageBox.Show("Please enter a number for Qty of Passengers.");
+            
         }
 
         /// <summary>

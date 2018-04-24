@@ -44,6 +44,7 @@ namespace CS3260_Simulator_Team6
         public Elevator(Building Mybuilding, Floor StartingFloor, Doors doors)
         {
             this.ding = new MediaPlayer();
+            ding.Volume = 0.8;
             this.myBuilding = Mybuilding;
             this.doors = doors;
             this.pickUpFloor = StartingFloor;
@@ -77,7 +78,22 @@ namespace CS3260_Simulator_Team6
         public void PrepareElevatorToGoToNextFloorOnTheList()
         {
             //Method can be invoked from ElevatorManager thread (SendAnElevator()) or elevator's timer thread (Elevator_ElevatorTimerElapsed())
-
+            //Reset appropriate lamp on current floor
+            switch (this.elevatorDirection)
+            {
+                case Direction.Up:
+                    currentFloor.LampUpLight = false;
+                    break;
+                case Direction.Down:
+                    currentFloor.LampDownLight = false;
+                    break;
+                case Direction.None:
+                    currentFloor.LampUpLight = false;
+                    currentFloor.LampDownLight = false;
+                    break;
+                default:
+                    break;
+            }
             //Update elevator's status
             SetElevatorStatus(ElevatorStatus.PreparingForJob);
 
@@ -199,7 +215,7 @@ namespace CS3260_Simulator_Team6
                     break;
             }
 
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 ding.Open(new Uri("Elevator_ding.mp3", UriKind.Relative));
                 ding.Play();
